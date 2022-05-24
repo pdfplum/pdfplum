@@ -1,0 +1,85 @@
+# Learn detailed information about the fields of an extension.yaml file in the ocs:
+# https://firebase.google.com/docs/extensions/alpha/ref-extension-yaml
+
+# Identifier for your extension
+name: google-doc-to-pdf
+
+# Follow semver versioning
+version: 0.1.0
+
+# Version of the Firebase Extensions specification
+specVersion: v1beta
+
+# Friendly display name for your extension (~3-5 words)
+displayName: Generate PDF from Google Document templates
+
+# Brief description of the task your extension performs (~1 sentence)
+description: >-
+  .
+
+license: Apache-2.0  # https://spdx.org/licenses/
+
+author:
+  authorName: Sassan Haradji
+  url: https://guthub.com/sassanh
+
+contributors:
+  - authorName: Sassan Haradji
+    email: sassan@zardalu.dev
+    url: https://github.com/sassanh
+
+# Public URL for the source code of your extension
+sourceUrl: https://github.com/sassanh/doc-to-pdf
+
+# Specify whether a paid-tier billing plan is required to use your extension.
+# Learn more in the docs: https://firebase.google.com/docs/extensions/alpha/ref-extension-yaml#billing-required-field
+billingRequired: false
+
+# In an `apis` field, list any Google APIs (like Cloud Translation, BigQuery, etc.)
+# required for your extension to operate.
+# Learn more in the docs: https://firebase.google.com/docs/extensions/alpha/ref-extension-yaml#apis-field
+
+# In a `roles` field, list any IAM access roles required for your extension to operate.
+# Learn more in the docs: https://firebase.google.com/docs/extensions/alpha/ref-extension-yaml#roles-field
+roles:
+  - role: datastore.user
+    reason: Allows this extension to access Cloud Firestore to read.
+
+# In the `resources` field, list each of your extension's functions, including the trigger for each function.
+# Learn more in the docs: https://firebase.google.com/docs/extensions/alpha/ref-extension-yaml#resources-field
+resources:
+  - name: executeIndexOperation
+    type: firebaseextensions.v1beta.function
+    description: >-
+      Firestore document-triggered function that creates, updates, or deletes data in Algolia.
+    properties:
+      # LOCATION is a user-configured parameter value specified by the user
+      # during installation.
+      location: ${LOCATION}
+      runtime: nodejs10
+      eventTrigger:
+        eventType: providers/cloud.firestore/eventTypes/document.write
+        resource: projects/${PROJECT_ID}/databases/(default)/documents/${COLLECTION_PATH}/{documentID}
+
+# In the `params` field, set up your extension's user-configured parameters.
+# Learn more in the docs: https://firebase.google.com/docs/extensions/alpha/ref-extension-yaml#params-field
+params:
+  - param: GOOGLE_CLOUD_API_KEY
+    label: Google Cloud API key
+    description: >
+      Enter the Google Cloud API key of the Google account owning the Google Document template.
+    default: ''
+    type: secret
+    example: store
+    validationRegex: "[A-Za-z0-9_]{21}--[A-Za-z0-9_]{8}"
+    validationErrorMessage: Please enter a valid API key
+    required: true
+    immutable: true
+
+  - param: DOCUMENT_ID
+    label: Google Document ID
+    description: >
+      What is the Google Document ID the extension should use as the template?
+    default: ''
+    required: true
+    immutable: true
