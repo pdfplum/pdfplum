@@ -1,36 +1,27 @@
 /**
  * Required inputs:
- * - credentials.json (external file)
- * - TEMPLATE_ID (The Google Drive id of the document that is going to be used
- *   as the tempalte)
- * - TEMPLATE_TYPE ("document", "sheet" or "slide")
- * - DATA (Values to replace template placeholders)
+ * - credentials.json (external file) Google API credentials
+ * - template_id (query parameter) The Google Drive file id of the document that
+ *   is going to be used as the tempalte
+ * - data.json (external file) (values to replace template placeholders)
  */
 // Inputs
-const TEMPLATE_ID = "1Cnl5wYnUvADWL3ZX9EG-guMWT1AQQfe1Ys-_NaiK0-A";
-const TEMPLATE_TYPE: "document" | "sheet" | "slide" = "document";
-const DATA = {firstname: "Sassan", color: "red"};
 
+import * as data from "./data.json";
 import {Readable} from "stream";
 import * as functions from "firebase-functions";
 import * as fs from "fs";
 import {google} from "googleapis";
-import * as Docxtemplater from "docxtemplater";
+import * as Docxtemplater_ from "docxtemplater";
+import {default as Docxtemplater__} from "docxtemplater";
 import * as PizZip from "pizzip";
+import {
+  GOOGLE_DOCS_EDITORS_MIME_TYPES,
+  MICROSFOT_OFFICE_MIME_TYPES,
+  TemplateType,
+} from "./mimeTypes";
 
-const GOOGLE_DOCS_EDITORS_MIME_TYPES = {
-  document: "application/vnd.google-apps.document",
-  sheet: "application/vnd.google-apps.spreadsheet",
-  slide: "application/vnd.google-apps.presentation",
-};
-
-const MICROSFOT_OFFICE_MIME_TYPES = {
-  document:
-  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-  sheet: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-  slide:
-  "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-};
+const Docxtemplater = Docxtemplater_ as unknown as typeof Docxtemplater__;
 
 process
     .on("unhandledRejection", (reason, p) => {
@@ -41,34 +32,77 @@ process
       process.exit(1);
     });
 
-export const helloWorld = functions.https.onRequest(async (_, response) => {
-  // functions.logger.info("Hello logs!", {structuredData: true});
-
-  const credentials = JSON.parse(
-      fs.readFileSync("./credentials.json").toString(),
-  );
-  const auth = new google.auth.GoogleAuth({
-    credentials, scopes: [
-      "https://www.googleapis.com/auth/documents",
-      "https://www.googleapis.com/auth/drive",
-      "https://www.googleapis.com/auth/drive.file",
-    ],
-  });
-  const authClient = await auth.getClient();
-
-  const drive = google.drive({version: "v3", auth: authClient});
-
+export const generatePdfFromTemplate =
+functions.https.onRequest(async (request, response) => {
   try {
-    const template = await drive.files.export({
-      fileId: TEMPLATE_ID,
-      mimeType: MICROSFOT_OFFICE_MIME_TYPES[TEMPLATE_TYPE],
-    }, {responseType: "arraybuffer"});
+    const templateId = request.query["template_id"];
+    functions.logger.info("Generating pdf from template", {templateId});
 
-    const zip = new PizZip(template.data as ArrayBuffer);
+    if (templateId == null || typeof templateId !== "string") {
+      throw new Error("'template_id' query parameter is required (only one)");
+    }
 
-    const document = new Docxtemplater(zip, {linebreaks: true});
+    const credentials = JSON.parse(
+        fs.readFileSync("./credentials.json").toString(),
+    );
+    const auth = new google.auth.GoogleAuth({
+      credentials, scopes: [
+        "https://www.googleapis.com/auth/documents",
+        "https://www.googleapis.com/auth/drive",
+        "https://www.googleapis.com/auth/drive.file",
+      ],
+    });
+    const authClient = await auth.getClient();
 
-    document.render(DATA);
+    const drive = google.drive({version: "v3", auth: authClient});
+
+    functions.logger.info("Google Drive API initialized successfully");
+
+    const templateMetaData = await drive.files.get({fileId: templateId});
+
+    functions.logger.info(
+        "Tempalte meta data loaded successfully",
+        templateMetaData,
+    );
+
+    if (!templateMetaData.data.mimeType) {
+      throw new Error("Template file doesn't have a mime type");
+    }
+
+    let template: ArrayBuffer;
+    let templateType: TemplateType;
+
+    if (Object.values(GOOGLE_DOCS_EDITORS_MIME_TYPES)
+        .includes(templateMetaData.data.mimeType)) {
+      templateType = (Object
+          .entries(GOOGLE_DOCS_EDITORS_MIME_TYPES) as [TemplateType, string][])
+          .find(([, value]) => value === templateMetaData.data.mimeType)![0];
+      template = (await drive.files.export({
+        fileId: templateId,
+        mimeType: MICROSFOT_OFFICE_MIME_TYPES[templateType],
+      }, {responseType: "arraybuffer"})).data as ArrayBuffer;
+    } else if (Object.values(MICROSFOT_OFFICE_MIME_TYPES)
+        .includes(templateMetaData.data.mimeType)) {
+      templateType = (Object
+          .entries(MICROSFOT_OFFICE_MIME_TYPES) as [TemplateType, string][])
+          .find(([, value]) => value === templateMetaData.data.mimeType)![0];
+      template = (await drive.files.get({
+        fileId: templateId,
+        alt: "media",
+      }, {responseType: "arraybuffer"})).data as ArrayBuffer;
+    } else {
+      throw new Error(`Unsupported template mime type, supported mime types: \
+${Object.values(GOOGLE_DOCS_EDITORS_MIME_TYPES).join(", ")}, \
+${Object.values(MICROSFOT_OFFICE_MIME_TYPES).join(", ")}`);
+    }
+
+    functions.logger.info("Tempalte loaded successfully");
+
+    const zip = new PizZip(template);
+
+    const document = new Docxtemplater(zip, {linebreaks: true},);
+
+    document.render(data);
 
     const base64 = (document.getZip() as PizZip)
         .generate({type: "base64"});
@@ -80,15 +114,18 @@ export const helloWorld = functions.https.onRequest(async (_, response) => {
 
     const createdDocument = await drive.files.create({
       requestBody: {
-        mimeType: GOOGLE_DOCS_EDITORS_MIME_TYPES[TEMPLATE_TYPE],
+        mimeType: GOOGLE_DOCS_EDITORS_MIME_TYPES[templateType],
         name: "This",
       },
       media: {
-        mimeType: MICROSFOT_OFFICE_MIME_TYPES[TEMPLATE_TYPE],
+        mimeType: MICROSFOT_OFFICE_MIME_TYPES[templateType],
         body: stream,
       },
       fields: "id",
     });
+
+    functions.logger.info("Google document created successfully");
+
     if (!createdDocument.data.id) {
       return;
     }
@@ -98,11 +135,19 @@ export const helloWorld = functions.https.onRequest(async (_, response) => {
       mimeType: "application/pdf",
     }, {responseType: "stream"});
 
+    functions.logger.info("Pdf generated successfully");
+
     response.setHeader("content-type", "application/pdf");
     pdf.data.pipe(response);
 
+    functions.logger.info("Pdf served successfully");
+
     await drive.files.delete({fileId: createdDocument.data.id});
+    functions.logger.info("Temporary document deleted successfully");
   } catch (error) {
-    console.log("Error during download", error);
+    functions.logger.error("Error", error);
+    if (error instanceof Error) {
+      response.send(`Error: ${error.message}`);
+    }
   }
 });
