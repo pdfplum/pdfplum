@@ -1,5 +1,9 @@
 {
-  "name": "functions",
+  "name": "firestore-export-pdf",
+  "version": "0.2.0",
+  "description": "Export PDF documents from Firestore",
+  "author": "Sassan Haradji (sassan@zardalu.dev)",
+  "repository": "https://github.com/sassanh/template-to-pdf",
   "scripts": {
     "lint": "eslint --ext .js,.ts .",
     "build": "tsc",

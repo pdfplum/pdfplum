@@ -2,7 +2,7 @@
 # https://firebase.google.com/docs/extensions/alpha/ref-extension-yaml
 
 # Identifier for your extension
-name: google-doc-to-pdf
+name: firestore-export-pdf
 
 # Follow semver versioning
 version: 0.1.0
@@ -11,11 +11,12 @@ version: 0.1.0
 specVersion: v1beta
 
 # Friendly display name for your extension (~3-5 words)
-displayName: Generate PDF from Google Document templates
+displayName: Generate PDF from Filestore
 
 # Brief description of the task your extension performs (~1 sentence)
-description: >-
-  .
+description: >- 
+  Generates PDF files from contents of Firestore documents and Google Doc templates and stores them in Firebase 
+  Storage buckets. 
 
 license: Apache-2.0  # https://spdx.org/licenses/
 
@@ -29,11 +30,12 @@ contributors:
     url: https://github.com/sassanh
 
 # Public URL for the source code of your extension
-sourceUrl: https://github.com/sassanh/doc-to-pdf
+sourceUrl: https://github.com/sassanh/template-to-pdf/tree/main
+releaseNotesUrl: https://github.com/sassanh/template-to-pdf/tree/main/CHANGELOG.md
 
 # Specify whether a paid-tier billing plan is required to use your extension.
 # Learn more in the docs: https://firebase.google.com/docs/extensions/alpha/ref-extension-yaml#billing-required-field
-billingRequired: false
+billingRequired: true
 
 # In an `apis` field, list any Google APIs (like Cloud Translation, BigQuery, etc.)
 # required for your extension to operate.

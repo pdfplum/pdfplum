@@ -17,7 +17,8 @@ import {default as Docxtemplater__} from "docxtemplater";
 import * as PizZip from "pizzip";
 import {
   GOOGLE_DOCS_EDITORS_MIME_TYPES,
-  MICROSFOT_OFFICE_MIME_TYPES,
+  MICROSOFT_OFFICE_MIME_TYPES,
+  MICROSOFT_OFFICE_TEMPLATE_MIME_TYPES,
   TemplateType,
 } from "./mimeTypes";
 
@@ -75,17 +76,29 @@ functions.https.onRequest(async (request, response) => {
     if (Object.values(GOOGLE_DOCS_EDITORS_MIME_TYPES)
         .includes(templateMetaData.data.mimeType)) {
       templateType = (Object
-          .entries(GOOGLE_DOCS_EDITORS_MIME_TYPES) as [TemplateType, string][])
-          .find(([, value]) => value === templateMetaData.data.mimeType)![0];
+          .entries(GOOGLE_DOCS_EDITORS_MIME_TYPES)
+          .find(([, value]) => value === templateMetaData.data.mimeType) as
+        [TemplateType, string])[0];
       template = (await drive.files.export({
         fileId: templateId,
-        mimeType: MICROSFOT_OFFICE_MIME_TYPES[templateType],
+        mimeType: MICROSOFT_OFFICE_MIME_TYPES[templateType],
       }, {responseType: "arraybuffer"})).data as ArrayBuffer;
-    } else if (Object.values(MICROSFOT_OFFICE_MIME_TYPES)
+    } else if (Object.values(MICROSOFT_OFFICE_MIME_TYPES)
         .includes(templateMetaData.data.mimeType)) {
       templateType = (Object
-          .entries(MICROSFOT_OFFICE_MIME_TYPES) as [TemplateType, string][])
-          .find(([, value]) => value === templateMetaData.data.mimeType)![0];
+          .entries(MICROSOFT_OFFICE_MIME_TYPES)
+          .find(([, value]) => value === templateMetaData.data.mimeType) as
+        [TemplateType, string])[0];
+      template = (await drive.files.get({
+        fileId: templateId,
+        alt: "media",
+      }, {responseType: "arraybuffer"})).data as ArrayBuffer;
+    } else if (Object.values(MICROSOFT_OFFICE_TEMPLATE_MIME_TYPES)
+        .includes(templateMetaData.data.mimeType)) {
+      templateType = (Object
+          .entries(MICROSOFT_OFFICE_TEMPLATE_MIME_TYPES)
+          .find(([, value]) => value === templateMetaData.data.mimeType) as
+        [TemplateType, string])[0];
       template = (await drive.files.get({
         fileId: templateId,
         alt: "media",
@@ -93,7 +106,8 @@ functions.https.onRequest(async (request, response) => {
     } else {
       throw new Error(`Unsupported template mime type, supported mime types: \
 ${Object.values(GOOGLE_DOCS_EDITORS_MIME_TYPES).join(", ")}, \
-${Object.values(MICROSFOT_OFFICE_MIME_TYPES).join(", ")}`);
+${Object.values(MICROSOFT_OFFICE_MIME_TYPES).join(", ")}, \
+${Object.values(MICROSOFT_OFFICE_TEMPLATE_MIME_TYPES).join(", ")}`);
     }
 
     functions.logger.info("Tempalte loaded successfully");
@@ -118,7 +132,7 @@ ${Object.values(MICROSFOT_OFFICE_MIME_TYPES).join(", ")}`);
         name: "This",
       },
       media: {
-        mimeType: MICROSFOT_OFFICE_MIME_TYPES[templateType],
+        mimeType: MICROSOFT_OFFICE_MIME_TYPES[templateType],
         body: stream,
       },
       fields: "id",
