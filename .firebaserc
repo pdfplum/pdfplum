@@ -1,5 +1,5 @@
 {
   "projects": {
-    "default": "template-to-pdf"
+    "default": "template-to-pdf--dev"
   }
 }

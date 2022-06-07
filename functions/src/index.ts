@@ -45,11 +45,8 @@ process
 
 export const executePdfGenerator =
 functions.https.onRequest(async (request, response) => {
-  console.log(process.env);
   try {
     functions.logger.info("Generating pdf from template", {TEMPLATE_ID});
-
-    console.log(GOOGLE_CLOUD_PRIVATE_KEY);
 
     const credentials = {
       private_key: GOOGLE_CLOUD_PRIVATE_KEY.replace(/\\n/g, "\n"),
