@@ -5,7 +5,7 @@
 name: firestore-export-pdf
 
 # Follow semver versioning
-version: 0.1.0
+version: 0.2.0
 
 # Version of the Firebase Extensions specification
 specVersion: v1beta
@@ -50,7 +50,7 @@ roles:
 # In the `resources` field, list each of your extension's functions, including the trigger for each function.
 # Learn more in the docs: https://firebase.google.com/docs/extensions/alpha/ref-extension-yaml#resources-field
 resources:
-  - name: executeIndexOperation
+  - name: executePdfGenerator
     type: firebaseextensions.v1beta.function
     description: >-
       Firestore document-triggered function that creates, updates, or deletes data in Algolia.
@@ -58,30 +58,41 @@ resources:
       # LOCATION is a user-configured parameter value specified by the user
       # during installation.
       location: ${LOCATION}
-      runtime: nodejs10
-      eventTrigger:
-        eventType: providers/cloud.firestore/eventTypes/document.write
-        resource: projects/${PROJECT_ID}/databases/(default)/documents/${COLLECTION_PATH}/{documentID}
+      runtime: nodejs16
+      httpsTrigger: {}
 
 # In the `params` field, set up your extension's user-configured parameters.
 # Learn more in the docs: https://firebase.google.com/docs/extensions/alpha/ref-extension-yaml#params-field
 params:
-  - param: GOOGLE_CLOUD_API_KEY
-    label: Google Cloud API key
-    description: >
-      Enter the Google Cloud API key of the Google account owning the Google Document template.
+  - param: GOOGLE_CLOUD_PRIVATE_KEY
+    label: Google Cloud Service Account private key
+    description: '' # TODO
     default: ''
     type: secret
-    example: store
-    validationRegex: "[A-Za-z0-9_]{21}--[A-Za-z0-9_]{8}"
-    validationErrorMessage: Please enter a valid API key
+    example: -----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n
+    # TODO: validationRegex: ''
+    validationErrorMessage: Please enter a valid Service Account private key
     required: true
     immutable: true
 
-  - param: DOCUMENT_ID
-    label: Google Document ID
-    description: >
-      What is the Google Document ID the extension should use as the template?
+  - param: GOOGLE_CLOUD_CLIENT_EMAIL
+    label: Google Cloud Client Email
+    description: '' # TODO
     default: ''
+    type: string
+    example: abc@example.com
+    # TODO: validationRegex: ''
+    required: true
+    immutable: true
+
+  - param: TEMPLATE_ID
+    label: Google Drive file id of the template
+    description: >
+      What is the Google Drive file id the extension should use as the template?
+    default: ''
+    type: string
+    example: 0bqffE2QcMf59emNKMzRyNFFDYTJmTHVrT0NGQ12345678900
+    validationRegex: "[A-Za-z0-9_-]*" # TODO: Improve this regular expression
+    validationErrorMessage: Please enter a valid Google Docs Editors document id or Google Drive file id
     required: true
     immutable: true

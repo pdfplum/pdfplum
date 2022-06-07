@@ -1,16 +1,26 @@
 /**
  * Required inputs:
- * - credentials.json (external file) Google API credentials
- * - template_id (query parameter) The Google Drive file id of the document that
- *   is going to be used as the tempalte
+ * - GOOGLE_API_KEY (extension parameter coming from environment variables)
+ *   Google API key
+ * - TEMPLATE_ID (extension parameter coming from environment variables) The
+ *   Google Drive file id of the document that is going to be used as the
+ *   template
  * - data.json (external file) (values to replace template placeholders)
  */
 // Inputs
 
-import * as data from "./data.json";
+const {
+  TEMPLATE_ID,
+  GOOGLE_CLOUD_PRIVATE_KEY,
+  GOOGLE_CLOUD_CLIENT_EMAIL,
+} = process.env as {
+  TEMPLATE_ID: string;
+  GOOGLE_CLOUD_PRIVATE_KEY: string;
+  GOOGLE_CLOUD_CLIENT_EMAIL: string;
+};
+
 import {Readable} from "stream";
 import * as functions from "firebase-functions";
-import * as fs from "fs";
 import {google} from "googleapis";
 import * as Docxtemplater_ from "docxtemplater";
 import {default as Docxtemplater__} from "docxtemplater";
@@ -33,36 +43,30 @@ process
       process.exit(1);
     });
 
-export const generatePdfFromTemplate =
+export const executePdfGenerator =
 functions.https.onRequest(async (request, response) => {
+  console.log(process.env);
   try {
-    const templateId = request.query["template_id"];
-    functions.logger.info("Generating pdf from template", {templateId});
+    functions.logger.info("Generating pdf from template", {TEMPLATE_ID});
 
-    if (templateId == null || typeof templateId !== "string") {
-      throw new Error("'template_id' query parameter is required (only one)");
-    }
+    console.log(GOOGLE_CLOUD_PRIVATE_KEY);
 
-    const credentials = JSON.parse(
-        fs.readFileSync("./credentials.json").toString(),
-    );
+    const credentials = {
+      private_key: GOOGLE_CLOUD_PRIVATE_KEY.replace(/\\n/g, "\n"),
+      client_email: GOOGLE_CLOUD_CLIENT_EMAIL,
+    };
     const auth = new google.auth.GoogleAuth({
       credentials, scopes: [
-        "https://www.googleapis.com/auth/documents",
         "https://www.googleapis.com/auth/drive",
-        "https://www.googleapis.com/auth/drive.file",
       ],
     });
-    const authClient = await auth.getClient();
-
-    const drive = google.drive({version: "v3", auth: authClient});
-
+    const drive = google.drive({version: "v3", auth});
     functions.logger.info("Google Drive API initialized successfully");
 
-    const templateMetaData = await drive.files.get({fileId: templateId});
+    const templateMetaData = await drive.files.get({fileId: TEMPLATE_ID});
 
     functions.logger.info(
-        "Tempalte meta data loaded successfully",
+        "Template meta data loaded successfully",
         templateMetaData,
     );
 
@@ -80,7 +84,7 @@ functions.https.onRequest(async (request, response) => {
           .find(([, value]) => value === templateMetaData.data.mimeType) as
         [TemplateType, string])[0];
       template = (await drive.files.export({
-        fileId: templateId,
+        fileId: TEMPLATE_ID,
         mimeType: MICROSOFT_OFFICE_MIME_TYPES[templateType],
       }, {responseType: "arraybuffer"})).data as ArrayBuffer;
     } else if (Object.values(MICROSOFT_OFFICE_MIME_TYPES)
@@ -90,7 +94,7 @@ functions.https.onRequest(async (request, response) => {
           .find(([, value]) => value === templateMetaData.data.mimeType) as
         [TemplateType, string])[0];
       template = (await drive.files.get({
-        fileId: templateId,
+        fileId: TEMPLATE_ID,
         alt: "media",
       }, {responseType: "arraybuffer"})).data as ArrayBuffer;
     } else if (Object.values(MICROSOFT_OFFICE_TEMPLATE_MIME_TYPES)
@@ -100,7 +104,7 @@ functions.https.onRequest(async (request, response) => {
           .find(([, value]) => value === templateMetaData.data.mimeType) as
         [TemplateType, string])[0];
       template = (await drive.files.get({
-        fileId: templateId,
+        fileId: TEMPLATE_ID,
         alt: "media",
       }, {responseType: "arraybuffer"})).data as ArrayBuffer;
     } else {
@@ -110,13 +114,13 @@ ${Object.values(MICROSOFT_OFFICE_MIME_TYPES).join(", ")}, \
 ${Object.values(MICROSOFT_OFFICE_TEMPLATE_MIME_TYPES).join(", ")}`);
     }
 
-    functions.logger.info("Tempalte loaded successfully");
+    functions.logger.info("Template loaded successfully");
 
     const zip = new PizZip(template);
 
     const document = new Docxtemplater(zip, {linebreaks: true},);
 
-    document.render(data);
+    document.render(request.query);
 
     const base64 = (document.getZip() as PizZip)
         .generate({type: "base64"});
