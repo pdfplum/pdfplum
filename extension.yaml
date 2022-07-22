@@ -64,29 +64,37 @@ resources:
 # In the `params` field, set up your extension's user-configured parameters.
 # Learn more in the docs: https://firebase.google.com/docs/extensions/alpha/ref-extension-yaml#params-field
 params:
-  - param: GOOGLE_CLOUD_PRIVATE_KEY
-    label: Google Cloud Service Account private key
-    description: '' # TODO
-    default: ''
-    type: secret
-    example: -----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n
-    # TODO: validationRegex: ''
-    validationErrorMessage: Please enter a valid Service Account private key
-    required: true
-    immutable: true
-
-  - param: GOOGLE_CLOUD_CLIENT_EMAIL
-    label: Google Cloud Client Email
+  - param: OUTPUT_STORAGE_BUCKET
+    label: Output Firebase Storage bucket name
     description: '' # TODO
     default: ''
     type: string
-    example: abc@example.com
+    example: bucket_name
+    # TODO: validationRegex: ''
+    required: true
+    immutable: true
+
+  - param: RETURN_PDF_IN_RESPONSE
+    label: Should the endpoint return the pdf?
+    description: Whether the generated pdf should be returned in the response of the endpoint or not (set it to "true" to enable it)
+    default: 'false'
+    type: boolean
+    example: 'true'
+    required: false
+    immutable: true
+
+  - param: TEMPLATE_STORAGE_BUCKET
+    label: Template Firebase Storage bucket name
+    description: '' # TODO
+    default: ''
+    type: string
+    example: bucket_name
     # TODO: validationRegex: ''
     required: true
     immutable: true
 
   - param: TEMPLATE_ID
-    label: Google Drive file id of the template
+    label: Template id
     description: >
       What is the Google Drive file id the extension should use as the template?
     default: ''

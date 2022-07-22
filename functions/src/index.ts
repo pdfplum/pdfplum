@@ -1,168 +1,143 @@
 /**
  * Required inputs:
- * - GOOGLE_API_KEY (extension parameter coming from environment variables)
- *   Google API key
+ * - STORAGE_BUCKET (extension parameter coming from environment variables) The
+ *   Firebase Storage bucket containing the template zip file
  * - TEMPLATE_ID (extension parameter coming from environment variables) The
- *   Google Drive file id of the document that is going to be used as the
- *   template
- * - data.json (external file) (values to replace template placeholders)
+ *   Firebase Storage zip file path (without '.zip' extension) of the document
+ *   that is going to be used as the template
  */
 // Inputs
 
 const {
+  OUTPUT_STORAGE_BUCKET,
+  RETURN_PDF_IN_RESPONSE,
   TEMPLATE_ID,
-  GOOGLE_CLOUD_PRIVATE_KEY,
-  GOOGLE_CLOUD_CLIENT_EMAIL,
+  TEMPLATE_STORAGE_BUCKET,
 } = process.env as {
+  OUTPUT_STORAGE_BUCKET?: string;
+  RETURN_PDF_IN_RESPONSE: string;
   TEMPLATE_ID: string;
-  GOOGLE_CLOUD_PRIVATE_KEY: string;
-  GOOGLE_CLOUD_CLIENT_EMAIL: string;
+  TEMPLATE_STORAGE_BUCKET: string;
 };
 
-import {Readable} from "stream";
 import * as functions from "firebase-functions";
-import {google} from "googleapis";
-import * as Docxtemplater_ from "docxtemplater";
-import {default as Docxtemplater__} from "docxtemplater";
-import * as PizZip from "pizzip";
+import { initializeApp } from "firebase/app";
 import {
-  GOOGLE_DOCS_EDITORS_MIME_TYPES,
-  MICROSOFT_OFFICE_MIME_TYPES,
-  MICROSOFT_OFFICE_TEMPLATE_MIME_TYPES,
-  TemplateType,
-} from "./mimeTypes";
+  connectStorageEmulator,
+  getStorage,
+  ref,
+  uploadBytes,
+} from "firebase/storage";
+import { downloadTemplate } from "./download_template";
+import { renderPdf } from "./render_pdf";
+import { serveTemplate } from "./serve_template";
 
-const Docxtemplater = Docxtemplater_ as unknown as typeof Docxtemplater__;
+process.on("unhandledRejection", (reason, p) => {
+  console.error(reason, "Unhandled Rejection at Promise", p);
+});
 
-process
-    .on("unhandledRejection", (reason, p) => {
-      console.error(reason, "Unhandled Rejection at Promise", p);
-    })
-    .on("uncaughtException", (err) => {
-      console.error(err, "Uncaught Exception thrown");
-      process.exit(1);
-    });
+export const executePdfGenerator = functions.https.onRequest(
+  async (request, response) => {
+    let context = "";
 
-export const executePdfGenerator =
-functions.https.onRequest(async (request, response) => {
-  try {
-    functions.logger.info("Generating pdf from template", {TEMPLATE_ID});
-
-    const credentials = {
-      private_key: GOOGLE_CLOUD_PRIVATE_KEY.replace(/\\n/g, "\n"),
-      client_email: GOOGLE_CLOUD_CLIENT_EMAIL,
-    };
-    const auth = new google.auth.GoogleAuth({
-      credentials, scopes: [
-        "https://www.googleapis.com/auth/drive",
-      ],
-    });
-    const drive = google.drive({version: "v3", auth});
-    functions.logger.info("Google Drive API initialized successfully");
-
-    const templateMetaData = await drive.files.get({fileId: TEMPLATE_ID});
-
-    functions.logger.info(
-        "Template meta data loaded successfully",
-        templateMetaData,
-    );
-
-    if (!templateMetaData.data.mimeType) {
-      throw new Error("Template file doesn't have a mime type");
+    // eslint-disable-next-line require-jsdoc
+    function handleError(error: Error) {
+      console.error(error);
+      response.setHeader("content-type", "application/json");
+      response.end(
+        JSON.stringify({
+          error: error.message,
+          context,
+        })
+      );
     }
 
-    let template: ArrayBuffer;
-    let templateType: TemplateType;
+    try {
+      process.on("uncaughtException", handleError);
 
-    if (Object.values(GOOGLE_DOCS_EDITORS_MIME_TYPES)
-        .includes(templateMetaData.data.mimeType)) {
-      templateType = (Object
-          .entries(GOOGLE_DOCS_EDITORS_MIME_TYPES)
-          .find(([, value]) => value === templateMetaData.data.mimeType) as
-        [TemplateType, string])[0];
-      template = (await drive.files.export({
-        fileId: TEMPLATE_ID,
-        mimeType: MICROSOFT_OFFICE_MIME_TYPES[templateType],
-      }, {responseType: "arraybuffer"})).data as ArrayBuffer;
-    } else if (Object.values(MICROSOFT_OFFICE_MIME_TYPES)
-        .includes(templateMetaData.data.mimeType)) {
-      templateType = (Object
-          .entries(MICROSOFT_OFFICE_MIME_TYPES)
-          .find(([, value]) => value === templateMetaData.data.mimeType) as
-        [TemplateType, string])[0];
-      template = (await drive.files.get({
-        fileId: TEMPLATE_ID,
-        alt: "media",
-      }, {responseType: "arraybuffer"})).data as ArrayBuffer;
-    } else if (Object.values(MICROSOFT_OFFICE_TEMPLATE_MIME_TYPES)
-        .includes(templateMetaData.data.mimeType)) {
-      templateType = (Object
-          .entries(MICROSOFT_OFFICE_TEMPLATE_MIME_TYPES)
-          .find(([, value]) => value === templateMetaData.data.mimeType) as
-        [TemplateType, string])[0];
-      template = (await drive.files.get({
-        fileId: TEMPLATE_ID,
-        alt: "media",
-      }, {responseType: "arraybuffer"})).data as ArrayBuffer;
-    } else {
-      throw new Error(`Unsupported template mime type, supported mime types: \
-${Object.values(GOOGLE_DOCS_EDITORS_MIME_TYPES).join(", ")}, \
-${Object.values(MICROSOFT_OFFICE_MIME_TYPES).join(", ")}, \
-${Object.values(MICROSOFT_OFFICE_TEMPLATE_MIME_TYPES).join(", ")}`);
-    }
+      functions.logger.info("Generating pdf from template", { TEMPLATE_ID });
 
-    functions.logger.info("Template loaded successfully");
+      const { _outputFileName, ...data } = request.query;
 
-    const zip = new PizZip(template);
+      if (typeof _outputFileName !== "string") {
+        throw new Error("'_outputFileName' should be set in get parameters.");
+      }
 
-    const document = new Docxtemplater(zip, {linebreaks: true},);
+      context = "initialize-firebase-storage";
+      functions.logger.info("Initializing Firebase Storage");
+      const firebaseConfig = {
+        storageBucket: TEMPLATE_STORAGE_BUCKET,
+      };
+      const app = initializeApp(firebaseConfig);
+      const storage = getStorage(app);
+      if (process.env.STORAGE_EMULATOR_PORT != null) {
+        connectStorageEmulator(
+          storage,
+          "localhost",
+          Number.parseInt(process.env.STORAGE_EMULATOR_PORT)
+        );
+      }
+      functions.logger.info("Firebase Storage initialized successfully");
+      context = "";
 
-    document.render(request.query);
+      context = "load-template";
+      functions.logger.info("Loading template file");
+      const templateFilesPath = await downloadTemplate({
+        storage,
+        templateId: TEMPLATE_ID,
+        data,
+      });
+      functions.logger.info("Template file loaded successfully");
+      context = "";
 
-    const base64 = (document.getZip() as PizZip)
-        .generate({type: "base64"});
+      context = "serve-template";
+      functions.logger.info("Serving template directory");
+      const portNumber = await serveTemplate(templateFilesPath);
+      functions.logger.info("Template directory served successfully");
+      context = "";
 
-    const buffer = Buffer.from(base64, "base64");
-    const stream = new Readable();
-    stream.push(buffer);
-    stream.push(null);
+      context = "generate-pdf";
+      functions.logger.info("Generating pdf file");
+      const pdf = await renderPdf({ portNumber });
+      functions.logger.info("Pdf file generated successfully");
+      context = "";
 
-    const createdDocument = await drive.files.create({
-      requestBody: {
-        mimeType: GOOGLE_DOCS_EDITORS_MIME_TYPES[templateType],
-        name: "This",
-      },
-      media: {
-        mimeType: MICROSOFT_OFFICE_MIME_TYPES[templateType],
-        body: stream,
-      },
-      fields: "id",
-    });
+      if (OUTPUT_STORAGE_BUCKET != null) {
+        context = "upload-pdf";
+        functions.logger.info("Uploading pdf file to Firebase Storage");
+        const firebaseConfig = {
+          storageBucket: OUTPUT_STORAGE_BUCKET,
+        };
+        const app = initializeApp(firebaseConfig);
+        const storage = getStorage(app);
+        const pdfRef = ref(storage, _outputFileName);
+        await uploadBytes(pdfRef, pdf);
+        functions.logger.info(
+          "Pdf file uploaded to Firebase Storage successfully"
+        );
+        context = "";
+      }
 
-    functions.logger.info("Google document created successfully");
-
-    if (!createdDocument.data.id) {
-      return;
-    }
-
-    const pdf = await drive.files.export({
-      fileId: createdDocument.data.id,
-      mimeType: "application/pdf",
-    }, {responseType: "stream"});
-
-    functions.logger.info("Pdf generated successfully");
-
-    response.setHeader("content-type", "application/pdf");
-    pdf.data.pipe(response);
-
-    functions.logger.info("Pdf served successfully");
-
-    await drive.files.delete({fileId: createdDocument.data.id});
-    functions.logger.info("Temporary document deleted successfully");
-  } catch (error) {
-    functions.logger.error("Error", error);
-    if (error instanceof Error) {
-      response.send(`Error: ${error.message}`);
+      if (RETURN_PDF_IN_RESPONSE.toLowerCase() === "true") {
+        response.setHeader(
+          "content-type",
+          `application/pdf; filename="${_outputFileName}"`
+        );
+        response.setHeader(
+          "content-disposition",
+          `inline; filename="${_outputFileName}"`
+        );
+        response.end(pdf);
+      } else {
+        response.setHeader("content-type", "application/json");
+        response.end(JSON.stringify({ done: "successful" }));
+      }
+      process.removeListener("uncaughtException", handleError);
+    } catch (error) {
+      functions.logger.error("Error", error);
+      if (error instanceof Error) {
+        handleError(error);
+      }
     }
   }
-});
+);

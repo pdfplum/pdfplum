@@ -67,3 +67,4 @@ node_modules/
 *.secret.local
 
 publish-package
+/tmp
