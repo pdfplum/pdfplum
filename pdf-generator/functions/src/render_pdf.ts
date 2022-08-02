@@ -1,12 +1,21 @@
-import * as puppeteer from "puppeteer";
+import chromium from "chrome-aws-lambda";
 
-// eslint-disable-next-line require-jsdoc
+/**
+ * Opens a Chromium page, opens the content served on `portNumber`, generates
+ * a pdf out of it and returns it
+ */
 export async function renderPdf({
   portNumber,
 }: {
   portNumber: number;
 }): Promise<Buffer> {
-  const browser = await puppeteer.launch({ args: ["--no-sandbox"] });
+  const browser = await chromium.puppeteer.launch({
+    args: chromium.args,
+    defaultViewport: chromium.defaultViewport,
+    executablePath: await chromium.executablePath,
+    headless: chromium.headless,
+    ignoreHTTPSErrors: true,
+  });
   const page = await browser.newPage();
   page.setDefaultTimeout(0);
   page.setDefaultNavigationTimeout(0);
@@ -19,7 +28,7 @@ export async function renderPdf({
   await page.content();
 
   const pdf = await page.pdf({
-    format: "A4",
+    format: "a4",
     printBackground: true,
     timeout: 0,
   });

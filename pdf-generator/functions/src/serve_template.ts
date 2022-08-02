@@ -2,7 +2,9 @@ import http from "http";
 
 import serveStatic from "serve-static";
 
-// eslint-disable-next-line require-jsdoc
+/**
+ * Serves a directory on a free port in localhost
+ */
 export async function serveTemplate(path: string): Promise<number> {
   const serve = serveStatic(path);
 

@@ -28,7 +28,7 @@ import {
   ref,
   uploadBytes,
 } from "firebase/storage";
-import { downloadTemplate } from "./download_template";
+import { loadTemplate } from "./load_template";
 import { renderPdf } from "./render_pdf";
 import { serveTemplate } from "./serve_template";
 
@@ -36,7 +36,7 @@ process.on("unhandledRejection", (reason, p) => {
   console.error(reason, "Unhandled Rejection at Promise", p);
 });
 
-export const executePdfGenerator = functions.https.onRequest(
+exports.executePdfGenerator = functions.handler.https.onRequest(
   async (request, response) => {
     let context = "";
 
@@ -82,7 +82,7 @@ export const executePdfGenerator = functions.https.onRequest(
 
       context = "load-template";
       functions.logger.info("Loading template file");
-      const templateFilesPath = await downloadTemplate({
+      const templateFilesPath = await loadTemplate({
         storage,
         templateId: TEMPLATE_ID,
         data,

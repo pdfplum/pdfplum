@@ -1,0 +1,40 @@
+<html>
+
+<head>
+  <title>Some title</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: YouthTouch;
+      src: url('YouthTouchDemoRegular-4VwY.woff2');
+    }
+
+    h1,
+    h2 {
+      font-family: YouthTouch;
+    }
+
+    h3 {
+      font-family: Roboto;
+      background-color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Hello {{name}}!</h1>
+  <h2>{{title}}</h2>
+  <h3>{{description}}</h3>
+  <ul>
+    {{#each articles}}
+    <li><a href="{{url}}">{{title}}</a></li>
+    {{/each}}
+  </ul>
+
+  <img src='/032334f7-a918-4cda-b0c2-94836d05da47_thumbnail.png' />
+
+</body>
+
+</html>

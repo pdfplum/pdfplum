@@ -1,6 +1,6 @@
 {
-  "name": "firestore-export-pdf",
-  "version": "0.2.0",
+  "name": "pdf-generator",
+  "version": "0.3.2",
   "description": "Export PDF documents from Firestore",
   "author": "Sassan Haradji (sassan@zardalu.dev)",
   "repository": "https://github.com/sassanh/template-to-pdf",
@@ -20,6 +20,7 @@
   },
   "main": "lib/index.js",
   "dependencies": {
+    "chrome-aws-lambda": "^10.1.0",
     "firebase": "^9.9.0",
     "firebase-admin": "^11.0.0",
     "firebase-functions": "^3.22.0",
@@ -27,7 +28,7 @@
     "googleapis": "^105.0.0",
     "handlebars": "^4.7.7",
     "jszip": "^3.10.0",
-    "puppeteer": "^15.5.0",
+    "node-fetch": "^3.2.10",
     "serve-static": "^1.15.0"
   },
   "devDependencies": {
@@ -40,6 +41,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "firebase-functions-test": "^0.2.0",
     "prettier": "^2.7.1",
+    "puppeteer": "^15.5.0",
     "typescript": "^4.5.4"
   },
   "private": true
