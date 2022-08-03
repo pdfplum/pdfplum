@@ -1,8 +1,8 @@
 {
   "name": "pdf-generator",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Export PDF documents from Firestore",
-  "author": "Sassan Haradji (sassan@zardalu.dev)",
+  "author": "Sassan Haradji (sassanh@gmail.com)",
   "repository": "https://github.com/sassanh/template-to-pdf",
   "scripts": {
     "lint": "eslint --ext .js,.ts .",

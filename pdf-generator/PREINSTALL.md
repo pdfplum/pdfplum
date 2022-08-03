@@ -9,7 +9,8 @@ For the sake of inspiration, there are a couple of pre-made templates and their 
 in the [template-samples/](/template-samples) directory. Each of them include the HTMLs and their 
 resources. The sample outputs can be found in each template's `generated` directory. To use any 
 of these in your extension config, just upload the `.zip` file to the Storage bucket 
-defined in the extension's `${TEMPLATE_STORAGE_BUCKET}` and include the name in ${TEMPLATE_ID}. 
+defined in the extension's `${TEMPLATE_STORAGE_BUCKET}` and include the name of the file without
+".zip" extension in `${TEMPLATE_ID}`. 
  
 
 ## Additional setup
@@ -18,13 +19,14 @@ Before installing this extension, you'll need to:
 - [Set up Firebase Storage in your Firebase project.](https://firebase.google.com/docs/storage)
 - Create a template using HTML in `index.html` and [Handlebars.js](https://handlebarsjs.com)
 - Upload zipped directory (`index.html` should be under the root of the zip)
- 
+- Make sure the function has read access to the file.
 
 The templates in this extension are based on handlebars.js and can be configured
 via the means provided in this framework. 
 
 The printing mechanism is served by [Puppeteer](https://pptr.dev/) based on Chrome's PDF rendering
-engine. 
+engine. A [custom version](https://github.com/alixaxel/chrome-aws-lambda) of Puppeteer designed for
+Cloud Functions is used.
 
 ## Why Puppeteer? 
 Based on testing done via different free PDF generation tools including Google Docs API, Pandoc, makepdf,

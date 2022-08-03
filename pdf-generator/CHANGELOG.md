@@ -1,3 +1,7 @@
+## Version 0.3.3
+
+- Update documents
+
 ## Version 0.3.2
 
 - Install puppeteer for local test
