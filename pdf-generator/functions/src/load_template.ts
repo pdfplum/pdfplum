@@ -12,7 +12,7 @@ const fetch = (url: any, init?: any) =>
   import("node-fetch").then(({ default: fetch }) => fetch(url, init));
 
 /**
- * loads tempalte zip file from Firebase Storage bucket, unzips it in a
+ * loads template zip file from Firebase Storage bucket, unzips it in a
  * temporary directory and returns the path of the temporary directory
  */
 export async function loadTemplate({

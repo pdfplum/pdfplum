@@ -1,10 +1,10 @@
 ## Version 0.4.0
 
-- Instead of providing template values directly in get parameters, now they should be provided as keys of `data` get parameter.
-- `_` prefix is eliminated for all get parameters.
-- Introducing `chromiumPdfOptions` to control the pdf generation. More info [here](https://www.puppeteersharp.com/api/PuppeteerSharp.PdfOptions.html).
 - Added a markdown template example so that everyone can easily copy it and put their own markdown in case they prefer markdown over html/css.
 - Added `adjustHeightToFit` to automatically set the page height to the height of content so that everything can fit in a single page. Useful for generating single page pdf files.
+- Introducing `chromiumPdfOptions` in get parameters to control the pdf generation. Options described [here](https://www.puppeteersharp.com/api/PuppeteerSharp.PdfOptions.html).
+- Instead of providing template values directly in get parameters, now they should be provided as keys of `data` get parameter.
+- `_` prefix is eliminated for all get parameters.
 - Added detailed installation and usage instructions in `README.md`.
 
 ## Version 0.3.3
@@ -32,7 +32,7 @@
 
 ## Version 0.2.0
 
-Accept Microsoft Office Tempalte files (dotx, potx and xltx) as input.
+Accept Microsoft Office Template files (dotx, potx and xltx) as input.
 
 ## Version 0.1.0
 
