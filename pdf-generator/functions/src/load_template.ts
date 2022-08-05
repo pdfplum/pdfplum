@@ -39,9 +39,10 @@ export async function loadTemplate({
       if (relativePath === "" || relativePath.endsWith("/")) {
         return;
       }
-      functions.logger.info("Processing file", { relativePath });
+      functions.logger.info("Processing file with handlebars", {
+        relativePath,
+      });
       if (/\.(txt|md|html)$/.test(relativePath)) {
-        console.log(await file.async("text"));
         content = Handlebars.compile(await file.async("text"))(data);
       } else {
         content = await file.async("nodebuffer");

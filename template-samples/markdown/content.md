@@ -10,7 +10,7 @@ def method(arg):
 ### TypeScript
 ```typescript
 const variable = 'world';
-console.log(`Hello \${variable}!`)
+console.log(`Hello ${variable}!`)
 ```
 ## Emoji 8-)
 > Classic markup: :wink: :crush: :cry: :tear: :laughing: :yum:

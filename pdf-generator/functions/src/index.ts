@@ -21,9 +21,8 @@ import {
 import { loadTemplate } from "./load_template";
 import { renderPdf } from "./render_pdf";
 import { serveTemplate } from "./serve_template";
-import { PDFOptions } from "puppeteer-core";
-import { ParsedQs } from "qs";
 import { ParamsDictionary, Request } from "express-serve-static-core";
+import { GetParameters, parseParameters } from "./parse_parameters";
 
 process.on("unhandledRejection", (reason, p) => {
   console.error(reason, "Unhandled Rejection at Promise", p);
@@ -31,19 +30,7 @@ process.on("unhandledRejection", (reason, p) => {
 
 exports.executePdfGenerator = functions.handler.https.onRequest(
   async (
-    request: Request<
-      ParamsDictionary,
-      any,
-      any,
-      {
-        adjustHeightToFit?: "true" | "false";
-        chromiumPdfOptions?: PDFOptions;
-        data?: ParsedQs;
-        headful?: "true" | "false";
-        outputFileName?: string;
-        templateId?: string;
-      }
-    >,
+    request: Request<ParamsDictionary, any, any, GetParameters>,
     response
   ) => {
     let context = "";
@@ -63,6 +50,8 @@ exports.executePdfGenerator = functions.handler.https.onRequest(
     try {
       process.on("uncaughtException", handleError);
 
+      context = "parse-parameters";
+      functions.logger.info("Parsing get parameters");
       const {
         adjustHeightToFit,
         chromiumPdfOptions,
@@ -70,37 +59,12 @@ exports.executePdfGenerator = functions.handler.https.onRequest(
         headful,
         outputFileName,
         templateId,
-      } = {
-        chromiumPdfOptions: {},
-        data: {},
-        templateId: TEMPLATE_ID,
-        ...request.query,
-        adjustHeightToFit: request.query.adjustHeightToFit === "true",
-        headful: request.query.headful === "true",
-      };
-
-      if (templateId != null && typeof templateId !== "string") {
-        throw new Error("'templateId' should be a string.");
-      }
-
-      if (typeof outputFileName !== "string") {
-        throw new Error("'outputFileName' should be set in get parameters.");
-      }
-
-      (
-        [
-          "printBackground",
-          "displayHeaderFooter",
-          "landscape",
-          "preferCSSPageSize",
-          "omitBackground",
-        ] as const
-      ).forEach((keyName) => {
-        if (chromiumPdfOptions[keyName] != null) {
-          chromiumPdfOptions[keyName] =
-            (chromiumPdfOptions[keyName] as unknown) === "true" ? true : false;
-        }
+      } = parseParameters({
+        query: request.query,
+        defaultTemplateId: TEMPLATE_ID,
       });
+      functions.logger.info("Get parameters parsed successfully");
+      context = "";
 
       functions.logger.info("Generating pdf from template", { templateId });
 

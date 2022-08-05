@@ -1,3 +1,7 @@
+## Version 0.4.1
+
+- Minor cleanup
+
 ## Version 0.4.0
 
 - Added a markdown template example so that everyone can easily copy it and put their own markdown in case they prefer markdown over html/css.

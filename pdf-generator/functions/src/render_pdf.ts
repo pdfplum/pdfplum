@@ -16,7 +16,6 @@ export async function renderPdf({
   headless: boolean;
   portNumber: number;
 }): Promise<Buffer> {
-  console.log(headless);
   const browser = await chromium.puppeteer.launch({
     defaultViewport: chromium.defaultViewport,
     executablePath: await chromium.executablePath,
@@ -51,8 +50,6 @@ export async function renderPdf({
     );
     extraOptions["pageRanges"] = "1";
   }
-
-  console.log(chromiumPdfOptions, extraOptions);
 
   const pdf = await page.pdf({
     timeout: 0,

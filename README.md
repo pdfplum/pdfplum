@@ -8,7 +8,7 @@ This is a Firebase extension to generate pdf files from a template bundle using 
 
 Use [this](https://console.firebase.google.com/project/test-fdaf6/extensions/install?ref=sassanh%2Fpdf-generator) install link to install the latest version of pdf-generator in your Firebase project.
 
-Or use [this](https://console.firebase.google.com/project/test-fdaf6/extensions/install?ref=sassanh%2Fpdf-generator@0.4.0) link to install a specific version.
+Or use [this](https://console.firebase.google.com/project/test-fdaf6/extensions/install?ref=sassanh%2Fpdf-generator@0.4.1) link to install a specific version.
 
 Check [Firebase Extension parameters](#firebase-extension-parameters) for details about the parameters set in the installation process.
 
