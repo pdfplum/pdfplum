@@ -1,0 +1,61 @@
+<html>
+
+<head>
+  <link rel="stylesheet" href="//unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/default.min.css">
+  <link rel="stylesheet" href="/bootstrap.min.css">
+  <script src="//unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
+  <script src="//twemoji.maxcdn.com/twemoji.min.js"></script>
+  <script src="//unpkg.com/markdown-it@13.0.1/dist/markdown-it.min.js"></script>
+  <script src="//unpkg.com/markdown-it-sub@1.0.0/dist/markdown-it-sub.min.js"></script>
+  <script src="//unpkg.com/markdown-it-sup@1.0.0/dist/markdown-it-sup.min.js"></script>
+  <script src="//unpkg.com/markdown-it-footnote@3.0.3/dist/markdown-it-footnote.min.js"></script>
+  <script src="//unpkg.com/markdown-it-deflist@2.1.0/dist/markdown-it-deflist.min.js"></script>
+  <script src="//unpkg.com/markdown-it-abbr@1.0.4/dist/markdown-it-abbr.min.js"></script>
+  <script src="//unpkg.com/markdown-it-emoji@2.0.2/dist/markdown-it-emoji.min.js"></script>
+  <script src="//unpkg.com/markdown-it-ins@3.0.1/dist/markdown-it-ins.min.js"></script>
+  <script src="//unpkg.com/markdown-it-mark@3.0.1/dist/markdown-it-mark.min.js"></script>
+  <style>
+    body {
+      padding: 1.5in;
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    const md = window.markdownit({
+      linkify: true,
+      highlight: function (str, lang) {
+        if (lang && hljs.getLanguage(lang)) {
+          try {
+            return '<pre class="hljs"><code>' +
+              hljs.highlight(str, {language: lang, ignoreIllegals: true}).value +
+              '</code></pre>';
+          } catch (__) { }
+        }
+
+        return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>';
+      }
+    })
+      .use(window.markdownitSub)
+      .use(window.markdownitSup)
+      .use(window.markdownitFootnote)
+      .use(window.markdownitDeflist)
+      .use(window.markdownitAbbr)
+      .use(window.markdownitEmoji)
+      .use(window.markdownitIns)
+      .use(window.markdownitMark);
+    md.renderer.rules.emoji = function (token, idx) {
+      return twemoji.parse(token[idx].content);
+    };
+    md.renderer.rules.table_open = function () {
+      return '<table class="table table-striped">\n';
+    };
+    (async function() {
+      const markdown = await (await fetch('/content.md')).text();
+      document.body.innerHTML = md.render(markdown);
+    })();
+  </script>
+</body>
+
+</html>
