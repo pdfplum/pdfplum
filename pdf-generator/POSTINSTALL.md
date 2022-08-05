@@ -9,3 +9,5 @@ parameters you've used in the template. You can serialize nested JS object inclu
 1. Your generated file will be stored in Firebase Storage under 
 `${param:OUTPUT_STORAGE_BUCKET}/${param:TEMPLATE_STORAGE_BUCKET}`. If you've configured the 
 `${param:RETURN_PDF_IN_RESPONSE}`, the result will also be returned to the HTTP response.
+
+Checkout [main page](..) for more details.

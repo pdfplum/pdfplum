@@ -5,6 +5,7 @@ import QueryString from "qs";
 import { ref, getDownloadURL, FirebaseStorage } from "firebase/storage";
 import jszip from "jszip";
 import Handlebars from "handlebars";
+import * as functions from "firebase-functions";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const fetch = (url: any, init?: any) =>
@@ -19,7 +20,7 @@ export async function loadTemplate({
   storage,
   templateId,
 }: {
-  data: QueryString.ParsedQs;
+  data: QueryString.ParsedQs | undefined;
   storage: FirebaseStorage;
   templateId: string;
 }): Promise<string> {
@@ -38,7 +39,9 @@ export async function loadTemplate({
       if (relativePath === "" || relativePath.endsWith("/")) {
         return;
       }
-      if (relativePath === "index.html") {
+      functions.logger.info("Processing file", { relativePath });
+      if (/\.(txt|md|html)$/.test(relativePath)) {
+        console.log(await file.async("text"));
         content = Handlebars.compile(await file.async("text"))(data);
       } else {
         content = await file.async("nodebuffer");

@@ -1,13 +1,3 @@
-/**
- * Required inputs:
- * - STORAGE_BUCKET (extension parameter coming from environment variables) The
- *   Firebase Storage bucket containing the template zip file
- * - TEMPLATE_ID (extension parameter coming from environment variables) The
- *   Firebase Storage zip file path (without '.zip' extension) of the document
- *   that is going to be used as the template
- */
-// Inputs
-
 const {
   OUTPUT_STORAGE_BUCKET,
   RETURN_PDF_IN_RESPONSE,
@@ -31,13 +21,31 @@ import {
 import { loadTemplate } from "./load_template";
 import { renderPdf } from "./render_pdf";
 import { serveTemplate } from "./serve_template";
+import { PDFOptions } from "puppeteer-core";
+import { ParsedQs } from "qs";
+import { ParamsDictionary, Request } from "express-serve-static-core";
 
 process.on("unhandledRejection", (reason, p) => {
   console.error(reason, "Unhandled Rejection at Promise", p);
 });
 
 exports.executePdfGenerator = functions.handler.https.onRequest(
-  async (request, response) => {
+  async (
+    request: Request<
+      ParamsDictionary,
+      any,
+      any,
+      {
+        adjustHeightToFit?: "true" | "false";
+        chromiumPdfOptions?: PDFOptions;
+        data?: ParsedQs;
+        headful?: "true" | "false";
+        outputFileName?: string;
+        templateId?: string;
+      }
+    >,
+    response
+  ) => {
     let context = "";
 
     // eslint-disable-next-line require-jsdoc
@@ -55,13 +63,46 @@ exports.executePdfGenerator = functions.handler.https.onRequest(
     try {
       process.on("uncaughtException", handleError);
 
-      functions.logger.info("Generating pdf from template", { TEMPLATE_ID });
+      const {
+        adjustHeightToFit,
+        chromiumPdfOptions,
+        data,
+        headful,
+        outputFileName,
+        templateId,
+      } = {
+        chromiumPdfOptions: {},
+        data: {},
+        templateId: TEMPLATE_ID,
+        ...request.query,
+        adjustHeightToFit: request.query.adjustHeightToFit === "true",
+        headful: request.query.headful === "true",
+      };
 
-      const { _outputFileName, ...data } = request.query;
-
-      if (typeof _outputFileName !== "string") {
-        throw new Error("'_outputFileName' should be set in get parameters.");
+      if (templateId != null && typeof templateId !== "string") {
+        throw new Error("'templateId' should be a string.");
       }
+
+      if (typeof outputFileName !== "string") {
+        throw new Error("'outputFileName' should be set in get parameters.");
+      }
+
+      (
+        [
+          "printBackground",
+          "displayHeaderFooter",
+          "landscape",
+          "preferCSSPageSize",
+          "omitBackground",
+        ] as const
+      ).forEach((keyName) => {
+        if (chromiumPdfOptions[keyName] != null) {
+          chromiumPdfOptions[keyName] =
+            (chromiumPdfOptions[keyName] as unknown) === "true" ? true : false;
+        }
+      });
+
+      functions.logger.info("Generating pdf from template", { templateId });
 
       context = "initialize-firebase-storage";
       functions.logger.info("Initializing Firebase Storage");
@@ -84,7 +125,7 @@ exports.executePdfGenerator = functions.handler.https.onRequest(
       functions.logger.info("Loading template file");
       const templateFilesPath = await loadTemplate({
         storage,
-        templateId: TEMPLATE_ID,
+        templateId,
         data,
       });
       functions.logger.info("Template file loaded successfully");
@@ -98,7 +139,12 @@ exports.executePdfGenerator = functions.handler.https.onRequest(
 
       context = "generate-pdf";
       functions.logger.info("Generating pdf file");
-      const pdf = await renderPdf({ portNumber });
+      const pdf = await renderPdf({
+        adjustHeightToFit,
+        chromiumPdfOptions,
+        headless: process.env.IS_LOCAL != "true" || !headful,
+        portNumber,
+      });
       functions.logger.info("Pdf file generated successfully");
       context = "";
 
@@ -110,7 +156,7 @@ exports.executePdfGenerator = functions.handler.https.onRequest(
         };
         const app = initializeApp(firebaseConfig);
         const storage = getStorage(app);
-        const pdfRef = ref(storage, _outputFileName);
+        const pdfRef = ref(storage, outputFileName);
         await uploadBytes(pdfRef, pdf);
         functions.logger.info(
           "Pdf file uploaded to Firebase Storage successfully"
@@ -121,11 +167,11 @@ exports.executePdfGenerator = functions.handler.https.onRequest(
       if (RETURN_PDF_IN_RESPONSE.toLowerCase() === "true") {
         response.setHeader(
           "content-type",
-          `application/pdf; filename="${_outputFileName}"`
+          `application/pdf; filename="${outputFileName}"`
         );
         response.setHeader(
           "content-disposition",
-          `inline; filename="${_outputFileName}"`
+          `inline; filename="${outputFileName}"`
         );
         response.end(pdf);
       } else {

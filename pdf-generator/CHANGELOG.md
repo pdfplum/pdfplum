@@ -1,3 +1,12 @@
+## Version 0.4.0
+
+- Instead of providing template values directly in get parameters, now they should be provided as keys of `data` get parameter.
+- `_` prefix is eliminated for all get parameters.
+- Introducing `chromiumPdfOptions` to control the pdf generation. More info [here](https://www.puppeteersharp.com/api/PuppeteerSharp.PdfOptions.html).
+- Added a markdown template example so that everyone can easily copy it and put their own markdown in case they prefer markdown over html/css.
+- Added `adjustHeightToFit` to automatically set the page height to the height of content so that everything can fit in a single page. Useful for generating single page pdf files.
+- Added detailed installation and usage instructions in `README.md`.
+
 ## Version 0.3.3
 
 - Update documents
