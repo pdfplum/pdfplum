@@ -18,6 +18,7 @@ const extensionParameters = {
 };
 
 import * as functions from "firebase-functions";
+import * as admin from "firebase-admin";
 import { initializeApp } from "firebase/app";
 import {
   connectStorageEmulator,
@@ -32,6 +33,8 @@ import { serveTemplate } from "./serve_template";
 import { ParamsDictionary, Request } from "express-serve-static-core";
 import { GetParameters, parseParameters } from "./parse_parameters";
 import { getEventarc } from "firebase-admin/eventarc";
+
+admin.initializeApp();
 
 const eventChannel = process.env.EVENTARC_CHANNEL
   ? getEventarc().channel(process.env.EVENTARC_CHANNEL, {
@@ -174,7 +177,6 @@ exports.executePdfGenerator = functions.handler.https.onRequest(
         response.setHeader("content-type", "application/json");
         response.end(JSON.stringify({ done: "successful", pdfInformation }));
       }
-      console.log(eventChannel);
       if (eventChannel) {
         await eventChannel.publish({
           type: "firebase.extensions.pdf-generator.v1.complete",

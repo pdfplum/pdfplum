@@ -1,3 +1,8 @@
+## Version 0.5.2
+
+- Add `admin.initializeApp()` before initializing event arc channel.
+- Remove `console.log`s
+
 ## Version 0.5.0
 
 - Add events for when the pdf generation finishes, one for when it finishes successfully and another for when an error occurs.
