@@ -10,10 +10,18 @@ const {
   TEMPLATE_STORAGE_BUCKET: string;
 };
 
+const extensionParameters = {
+  OUTPUT_STORAGE_BUCKET,
+  RETURN_PDF_IN_RESPONSE,
+  TEMPLATE_ID,
+  TEMPLATE_STORAGE_BUCKET,
+};
+
 import * as functions from "firebase-functions";
 import { initializeApp } from "firebase/app";
 import {
   connectStorageEmulator,
+  getDownloadURL,
   getStorage,
   ref,
   uploadBytes,
@@ -23,6 +31,13 @@ import { renderPdf } from "./render_pdf";
 import { serveTemplate } from "./serve_template";
 import { ParamsDictionary, Request } from "express-serve-static-core";
 import { GetParameters, parseParameters } from "./parse_parameters";
+import { getEventarc } from "firebase-admin/eventarc";
+
+const eventChannel = process.env.EVENTARC_CHANNEL
+  ? getEventarc().channel(process.env.EVENTARC_CHANNEL, {
+      allowedEventTypes: process.env.EXT_SELECTED_EVENTS,
+    })
+  : null;
 
 process.on("unhandledRejection", (reason, p) => {
   console.error(reason, "Unhandled Rejection at Promise", p);
@@ -112,6 +127,8 @@ exports.executePdfGenerator = functions.handler.https.onRequest(
       functions.logger.info("Pdf file generated successfully");
       context = "";
 
+      let publicUrl: string | undefined;
+
       if (OUTPUT_STORAGE_BUCKET != null) {
         context = "upload-pdf";
         functions.logger.info("Uploading pdf file to Firebase Storage");
@@ -125,8 +142,23 @@ exports.executePdfGenerator = functions.handler.https.onRequest(
         functions.logger.info(
           "Pdf file uploaded to Firebase Storage successfully"
         );
+        publicUrl = await getDownloadURL(pdfRef);
         context = "";
       }
+
+      const pdfInformation = {
+        timestamp: new Date().getTime(),
+        publicUrl,
+        fileSize: pdf.length,
+        parameters: {
+          adjustHeightToFit,
+          chromiumPdfOptions,
+          data,
+          fileName: outputFileName,
+          templateId,
+        },
+        extensionParameters,
+      };
 
       if (RETURN_PDF_IN_RESPONSE.toLowerCase() === "true") {
         response.setHeader(
@@ -140,14 +172,33 @@ exports.executePdfGenerator = functions.handler.https.onRequest(
         response.end(pdf);
       } else {
         response.setHeader("content-type", "application/json");
-        response.end(JSON.stringify({ done: "successful" }));
+        response.end(JSON.stringify({ done: "successful", pdfInformation }));
       }
-      process.removeListener("uncaughtException", handleError);
+      console.log(eventChannel);
+      if (eventChannel) {
+        await eventChannel.publish({
+          type: "firebase.extensions.pdf-generator.v1.complete",
+          subject: templateId,
+          data: pdfInformation,
+        });
+      }
     } catch (error) {
+      if (eventChannel) {
+        await eventChannel.publish({
+          type: "firebase.extensions.pdf-generator.v1.error",
+          subject: TEMPLATE_ID,
+          data: {
+            query: request.query,
+            extensionParameters,
+          },
+        });
+      }
       functions.logger.error("Error", error);
       if (error instanceof Error) {
         handleError(error);
       }
+    } finally {
+      process.removeListener("uncaughtException", handleError);
     }
   }
 );

@@ -1,15 +1,19 @@
+## Version 0.5.0
+
+- Add events for when the pdf generation finishes, one for when it finishes successfully and another for when an error occurs.
+
 ## Version 0.4.1
 
 - Minor cleanup
 
 ## Version 0.4.0
 
-- Added a markdown template example so that everyone can easily copy it and put their own markdown in case they prefer markdown over html/css.
-- Added `adjustHeightToFit` to automatically set the page height to the height of content so that everything can fit in a single page. Useful for generating single page pdf files.
-- Introducing `chromiumPdfOptions` in get parameters to control the pdf generation. Options described [here](https://www.puppeteersharp.com/api/PuppeteerSharp.PdfOptions.html).
+- Add a markdown template example so that everyone can easily copy it and put their own markdown in case they prefer markdown over html/css.
+- Add `adjustHeightToFit` to automatically set the page height to the height of content so that everything can fit in a single page. Useful for generating single page pdf files.
+- Introduce `chromiumPdfOptions` in get parameters to control the pdf generation. Options described [here](https://www.puppeteersharp.com/api/PuppeteerSharp.PdfOptions.html).
 - Instead of providing template values directly in get parameters, now they should be provided as keys of `data` get parameter.
 - `_` prefix is eliminated for all get parameters.
-- Added detailed installation and usage instructions in `README.md`.
+- Add detailed installation and usage instructions in `README.md`.
 
 ## Version 0.3.3
 
@@ -36,8 +40,8 @@
 
 ## Version 0.2.0
 
-Accept Microsoft Office Template files (dotx, potx and xltx) as input.
+- Accept Microsoft Office Template files (dotx, potx and xltx) as input.
 
 ## Version 0.1.0
 
-Initial release. Supports templating via Google Docs Editors documents and Microsoft Office documents and exports to PDF.
+- Initial release. Supports templating via Google Docs Editors documents and Microsoft Office documents and exports to PDF.
