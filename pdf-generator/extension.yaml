@@ -5,7 +5,7 @@
 name: pdf-generator
 
 # Follow semver versioning
-version: <VERSION>
+version: 0.6.1
 
 # Version of the Firebase Extensions specification
 specVersion: v1beta
@@ -71,6 +71,7 @@ params:
       What is the name of the bucket the output pdf should be stored in?
     type: string
     example: bucket_name
+    default: ${STORAGE_BUCKET}
     required: false
     immutable: false
 
@@ -81,10 +82,10 @@ params:
     type: select
     options:
       - label: Return pdf in response
-        value: 'true'
+        value: true
       - label: Return json report in response
-        value: 'false'
-    default: 'false'
+        value: false
+    default: false
     required: true
     immutable: false
 
@@ -94,17 +95,19 @@ params:
       What is the name of the bucket the template is stored in?
     type: string
     example: bucket_name
+    default: ${STORAGE_BUCKET}
     required: true
     immutable: false
 
   - param: TEMPLATE_ID
     label: Template id
     description: >
-      What is the name of the zip file containing the template files stored in the firebase storage bucket? (without ".zip" extension)
+      What is the name of the zip file containing the template files stored in the firebase storage bucket?
     type: string
     example: basic-example
     validationRegex: "[A-Za-z0-9_-]*"
-    validationErrorMessage: Please enter a valid filename (without ".zip" extension)
+    validationErrorMessage: Please enter a valid filename
+    default: template
     required: true
     immutable: false
 
@@ -187,7 +190,7 @@ params:
     description: >-
       The time in seconds the function has to finish its job.
     type: string
-    validationRegex: "[0-9]+"
+    validationRegex: "[0-4]?[0-9]{1,2}|5[0-3][0-9]|540"
     default: 60
     required: true
     immutable: false

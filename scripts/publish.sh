@@ -10,6 +10,13 @@ rm -rf $DESTINATION_PATH
 mkdir $DESTINATION_PATH
 
 VERSION=`head -n 1 $CHANGELOG_FILE | sed "s/^## Version //"`
+EXTENSION_VERSION=`grep "^version: \d\+\.\d\+\.\d\+\$" $EXTENSION_DOT_YAML_FILE | sed "s/^version: //"`
+
+if [[ "$VERSION" != "$EXTENSION_VERSION" ]]
+then
+  echo "Version in 'CHANGELOG.md' ($VERSION) does not match with the version in 'extensions.yaml' ($EXTENSION_VERSION)"
+  exit 1
+fi
 
 cd "$EXTENSION_PATH/functions"
 npm run build
@@ -27,11 +34,11 @@ do
   then
     sed -i 's/--dev//g' "$DESTINATION_PATH/$DESTINATION"
   fi
-  if [[ "$SOURCE" == "$PACKAGE_DOT_JSON_FILE" ]] || [[ "$SOURCE" == "$EXTENSION_DOT_YAML_FILE" ]]
+  if [[ "$SOURCE" == "$PACKAGE_DOT_JSON_FILE" ]]
   then
     sed -i "s/<VERSION>/$VERSION/g" "$DESTINATION_PATH/$DESTINATION"
   fi
 done
 
 cd $DESTINATION_PATH
-firebase ext:dev:publish sassanh/pdf-generator
+firebase ext:dev:publish $PUBLISHER_ID/pdf-generator

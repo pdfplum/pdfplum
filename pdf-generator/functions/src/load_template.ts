@@ -6,6 +6,7 @@ import { ref, getDownloadURL, FirebaseStorage } from "firebase/storage";
 import jszip from "jszip";
 import Handlebars from "handlebars";
 import * as functions from "firebase-functions";
+import { FirebaseError } from "firebase/app";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const fetch = (url: any, init?: any) =>
@@ -24,14 +25,37 @@ export async function loadTemplate({
   storage: FirebaseStorage;
   templateId: string;
 }): Promise<string> {
-  const templateRef = ref(storage, `${templateId}.zip`);
-  const templateUrl = await getDownloadURL(templateRef);
+  let templateUrl: string;
+  try {
+    const templateRef = ref(storage, `${templateId}`);
+    templateUrl = await getDownloadURL(templateRef);
+  } catch (exception) {
+    if (
+      exception instanceof FirebaseError &&
+      exception.code === "storage/object-not-found"
+    ) {
+      const templateRef = ref(storage, `${templateId}.zip`);
+      templateUrl = await getDownloadURL(templateRef);
+    } else {
+      throw exception;
+    }
+  }
   const response = await fetch(templateUrl);
   const templateBuffer = response.arrayBuffer();
 
-  const temporaryDirectoryPath = os.tmpdir();
+  const temporaryDirectoryPath = fs.mkdtempSync(
+    path.join(os.tmpdir(), "pdf-generator-")
+  );
 
   const zipFile = await jszip.loadAsync(templateBuffer);
+  if (
+    zipFile.files["index.html"] == null &&
+    zipFile.files[`${templateId}/index.html`] == null
+  ) {
+    throw new Error(
+      "There must be an 'index.html' file inside the zip file in its root folder."
+    );
+  }
   const promises = Object.entries(zipFile.files).map(
     async ([relativePath, file]: [string, jszip.JSZipObject]) => {
       let content: string | Buffer;

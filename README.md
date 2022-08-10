@@ -2,7 +2,7 @@
 
 This is a Firebase extension to generate pdf files from a template bundle using HTML/CSS and Handlebars. Check out some examples of the generated pdfs [here](template-samples).
 
----
+***
 
 ## Installation
 
@@ -12,7 +12,7 @@ Or use [this](https://console.firebase.google.com/project/test-fdaf6/extensions/
 
 Check [Firebase Extension parameters](#firebase-extension-parameters) for details about the parameters set in the installation process.
 
----
+***
 
 ## Usage
 
@@ -22,7 +22,7 @@ A zip file including an `index.html` file is the template bundle, it can include
 
 ### The endpoint
 
-Call this http endpoint: [https://${param:LOCATION}-${param:PROJECT_ID}.cloudfunctions.net/ext-${param:EXTENSION_ID}-executePdfGenerator]() with the parameters explained [below](#get-parameters) as get parameters.
+Call this http endpoint: [https://${param:LOCATION}-${param:PROJECT\_ID}.cloudfunctions.net/ext-${param:EXTENSION\_ID}-executePdfGenerator]() with the parameters explained [below](#get-parameters) as get parameters.
 
 ### What happens?
 
@@ -54,13 +54,14 @@ It overrides `${param:TEMPLATE_ID}`.
 
 ### Firebase Extension parameters
 
-#### `OUTPUT_STORAGE_BUCKET` 
+#### `OUTPUT_STORAGE_BUCKET`
 
 The name of the bucket the generated pdf will be saved in.
 
 #### `RETURN_PDF_IN_RESPONSE` (required)
 
 Whether to return the generated pdf in the response of the endpoint or not. If not set, a JSON response will be returned:
+
 ```json
 {
   "done": "successful"
@@ -73,7 +74,7 @@ The name of the bucket serving the template zip file.
 
 #### `TEMPLATE_ID` (required)
 
-The name of the zip file stored in `${param:TEMPLATE_STORAGE_BUCKET}`, without `.zip` extension at the end.
+The name of the zip file stored in `${param:TEMPLATE_STORAGE_BUCKET}`. If a file is not found with this name, it will try it with ".zip" extension.
 
 #### `LOCATION` (required)
 
