@@ -1,3 +1,7 @@
+## Version 0.7.0
+
+*   Merge `TEMPLATE_STORAGE_BUCKET` and `TEMPLATE_ID` into `TEMPLATE_PATH`.
+
 ## Version 0.6.1
 
 *   Apply markdown validation on markdown files using [remark](https://github.com/remarkjs/remark).

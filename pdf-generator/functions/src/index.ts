@@ -1,20 +1,14 @@
-const {
-  OUTPUT_STORAGE_BUCKET,
-  RETURN_PDF_IN_RESPONSE,
-  TEMPLATE_ID,
-  TEMPLATE_STORAGE_BUCKET,
-} = process.env as {
-  OUTPUT_STORAGE_BUCKET?: string;
-  RETURN_PDF_IN_RESPONSE: string;
-  TEMPLATE_ID: string;
-  TEMPLATE_STORAGE_BUCKET: string;
-};
+const { OUTPUT_STORAGE_BUCKET, RETURN_PDF_IN_RESPONSE, TEMPLATE_PATH } =
+  process.env as {
+    OUTPUT_STORAGE_BUCKET?: string;
+    RETURN_PDF_IN_RESPONSE: string;
+    TEMPLATE_PATH: string;
+  };
 
 const extensionParameters = {
   OUTPUT_STORAGE_BUCKET,
   RETURN_PDF_IN_RESPONSE,
-  TEMPLATE_ID,
-  TEMPLATE_STORAGE_BUCKET,
+  TEMPLATE_PATH,
 };
 
 import * as functions from "firebase-functions";
@@ -76,20 +70,26 @@ exports.executePdfGenerator = functions.handler.https.onRequest(
         data,
         headful,
         outputFileName,
+        templateBucket,
+        templatePrefix,
         templateId,
       } = parseParameters({
         query: request.query,
-        defaultTemplateId: TEMPLATE_ID,
+        defaultTemplatePath: TEMPLATE_PATH,
       });
       functions.logger.info("Get parameters parsed successfully");
       context = "";
 
-      functions.logger.info("Generating pdf from template", { templateId });
+      functions.logger.info("Generating pdf from template", {
+        templateBucket,
+        templatePrefix,
+        templateId,
+      });
 
       context = "initialize-firebase-storage";
       functions.logger.info("Initializing Firebase Storage");
       const firebaseConfig = {
-        storageBucket: TEMPLATE_STORAGE_BUCKET,
+        storageBucket: templateBucket,
       };
       const app = initializeApp(firebaseConfig);
       const storage = getStorage(app);
@@ -107,6 +107,7 @@ exports.executePdfGenerator = functions.handler.https.onRequest(
       functions.logger.info("Loading template file");
       const templateFilesPath = await loadTemplate({
         storage,
+        templatePrefix,
         templateId,
         data,
       });
@@ -158,6 +159,8 @@ exports.executePdfGenerator = functions.handler.https.onRequest(
           chromiumPdfOptions,
           data,
           fileName: outputFileName,
+          templateBucket,
+          templatePrefix,
           templateId,
         },
         extensionParameters,
@@ -188,7 +191,7 @@ exports.executePdfGenerator = functions.handler.https.onRequest(
       if (eventChannel) {
         await eventChannel.publish({
           type: "firebase.extensions.pdf-generator.v1.error",
-          subject: TEMPLATE_ID,
+          subject: TEMPLATE_PATH,
           data: {
             query: request.query,
             extensionParameters,

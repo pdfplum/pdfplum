@@ -8,7 +8,7 @@ export interface GetParameters {
   data?: ParsedQs;
   headful?: "true" | "false";
   outputFileName?: string;
-  templateId?: string;
+  templatePath?: string;
 }
 
 export interface ParsedParameters {
@@ -17,6 +17,8 @@ export interface ParsedParameters {
   data: ParsedQs;
   headful: boolean;
   outputFileName: string;
+  templateBucket: string;
+  templatePrefix: string;
   templateId: string;
 }
 
@@ -35,10 +37,10 @@ const BOOLEAN_PDF_OPTIONS = [
  */
 export function parseParameters({
   query,
-  defaultTemplateId,
+  defaultTemplatePath,
 }: {
   query: GetParameters;
-  defaultTemplateId: string;
+  defaultTemplatePath: string;
 }): ParsedParameters {
   if (typeof query.data === "string") {
     throw new Error("'data' should be an object, not a string.");
@@ -48,9 +50,15 @@ export function parseParameters({
     throw new Error("'data' should be an object, not an array.");
   }
 
-  if (query.templateId != null && typeof query.templateId !== "string") {
-    throw new Error("'templateId' should be a string.");
+  if (query.templatePath != null && typeof query.templatePath !== "string") {
+    throw new Error("'templatePath' should be a string.");
   }
+
+  const templatePath = query.templatePath ?? defaultTemplatePath;
+  const parts = templatePath.split("/");
+  const templateBucket = parts[0];
+  const templatePrefix = parts.slice(1, -2).join("/");
+  const templateId = parts[parts.length - 1];
 
   return {
     adjustHeightToFit: query.adjustHeightToFit?.toLowerCase() === "true",
@@ -68,6 +76,8 @@ export function parseParameters({
     headful: query.headful?.toLowerCase() === "true",
     outputFileName:
       query.outputFileName ?? `${uuidv4()}-${new Date().toISOString()}.pdf`,
-    templateId: query.templateId ?? defaultTemplateId,
+    templateBucket,
+    templatePrefix,
+    templateId,
   };
 }

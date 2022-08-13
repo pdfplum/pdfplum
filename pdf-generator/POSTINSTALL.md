@@ -6,9 +6,9 @@ Before you can use this extension, you'll need to update your security rules and
 
 Update your Firebase Storage security rules to allow reads from template path:
 
-    match /b/${param:TEMPLATE_STORAGE_BUCKET}/o {
+    match /b/${STORAGE_BUCKET}/o {
       // Allow access to the template path only, use "/{allPaths=**}" if you wish to let it access to all paths in this bucket
-      match /${param:TEMPLATE_ID} {
+      match /<TEMPLATE_ID> {
         allow read;
       }
     }

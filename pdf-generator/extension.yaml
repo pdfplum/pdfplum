@@ -5,7 +5,7 @@
 name: pdf-generator
 
 # Follow semver versioning
-version: 0.6.1
+version: 0.7.0
 
 # Version of the Firebase Extensions specification
 specVersion: v1beta
@@ -89,25 +89,15 @@ params:
     required: true
     immutable: false
 
-  - param: TEMPLATE_STORAGE_BUCKET
-    label: Template Firebase Storage bucket name
+  - param: TEMPLATE_PATH
+    label: Template path
     description: >
-      What is the name of the bucket the template is stored in?
+      What is the path of the zip file containing the template files stored in a Firebase Storage bucket?
     type: string
-    example: bucket_name
-    default: ${STORAGE_BUCKET}
-    required: true
-    immutable: false
-
-  - param: TEMPLATE_ID
-    label: Template id
-    description: >
-      What is the name of the zip file containing the template files stored in the firebase storage bucket?
-    type: string
-    example: basic-example
-    validationRegex: "[A-Za-z0-9_-]*"
-    validationErrorMessage: Please enter a valid filename
-    default: template
+    example: some-bucket.appspot.com/basic-example
+    validationRegex: "^([0-9a-z_.-]*)/[A-Za-z0-9_-]*$"
+    validationErrorMessage: Please enter a valid path
+    default: ${STORAGE_BUCKET}/template
     required: true
     immutable: false
 

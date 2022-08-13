@@ -8,9 +8,8 @@ Firebase Storage bucket and you can also setup the extension to return in the HT
 For inspiration, there are a couple of pre-made templates and their outputs prepared in the
 [template-samples/](/template-samples) directory. Each of them include the HTMLs and their
 resources. The sample outputs can be found in each template's `generated` directory. To use any
-of these in your extension config, just upload the `.zip` file to the Storage bucket
-defined in the extension's `${TEMPLATE_STORAGE_BUCKET}` and include the name of the file in
-`${TEMPLATE_ID}`.
+of these in your extension config, just upload the `.zip` file to a Storage bucket and include
+the complete path of the file in `${TEMPLATE_PATH}`.
 
 ## Additional setup
 

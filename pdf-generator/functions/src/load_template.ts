@@ -19,22 +19,24 @@ const fetch = (url: any, init?: any) =>
 export async function loadTemplate({
   data,
   storage,
+  templatePrefix,
   templateId,
 }: {
   data: QueryString.ParsedQs | undefined;
   storage: FirebaseStorage;
+  templatePrefix: string;
   templateId: string;
 }): Promise<string> {
   let templateUrl: string;
   try {
-    const templateRef = ref(storage, `${templateId}`);
+    const templateRef = ref(storage, `${templatePrefix}/${templateId}`);
     templateUrl = await getDownloadURL(templateRef);
   } catch (exception) {
     if (
       exception instanceof FirebaseError &&
       exception.code === "storage/object-not-found"
     ) {
-      const templateRef = ref(storage, `${templateId}.zip`);
+      const templateRef = ref(storage, `${templatePrefix}/${templateId}.zip`);
       templateUrl = await getDownloadURL(templateRef);
     } else {
       throw exception;
@@ -48,9 +50,10 @@ export async function loadTemplate({
   );
 
   const zipFile = await jszip.loadAsync(templateBuffer);
+  const templateFileName = templateId.replace(/\.[^.]+$/, "");
   if (
     zipFile.files["index.html"] == null &&
-    zipFile.files[`${templateId}/index.html`] == null
+    zipFile.files[`${templateFileName}/index.html`] == null
   ) {
     throw new Error(
       "There must be an 'index.html' file inside the zip file in its root folder."
@@ -59,7 +62,7 @@ export async function loadTemplate({
   const promises = Object.entries(zipFile.files).map(
     async ([relativePath, file]: [string, jszip.JSZipObject]) => {
       let content: string | Buffer;
-      relativePath = relativePath.replace(RegExp(`^${templateId}/`), "");
+      relativePath = relativePath.replace(RegExp(`^${templateFileName}/`), "");
       if (relativePath === "" || relativePath.endsWith("/")) {
         return;
       }
