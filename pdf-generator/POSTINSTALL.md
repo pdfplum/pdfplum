@@ -31,10 +31,10 @@ Check [here](https://firebase.google.com/docs/storage/security) for more informa
 
 You can start testing this extension right away.
 
-1.  Create a template based on this [guide](https://github.com/sassanh/template-to-pdf/blob/main/pdf-generator/PREINSTALL.md). Make note of the Handlebars.js parameters you've used in the template, as they should match the request you create in the next step.
-2.  Create an HTTP request to [https://${param:LOCATION}-${PROJECT_ID}.cloudfunctions.net/ext-${PROJECT_ID}-executePdfGenerator]().
-    Append the URL with query parameters that match the Handlebars.js parameters you've used in the template. You can serialize nested JS object including arrays, it is described [here](https://www.npmjs.com/package/qs).
-3.  Your generated file will be stored in Firebase Storage under `${param:OUTPUT_STORAGE_BUCKET}/<OUTPUT_FILENAME>` where `<OUTPUT_FILENAME>` is the one provided in get parameters or if empty, it will be a uuid.
-    If you've chosen to return a PDF in the response, the result will also be returned to the HTTP response.
+1. Create a template based on this [guide](https://github.com/sassanh/template-to-pdf/blob/main/pdf-generator/PREINSTALL.md). Make note of the Handlebars.js parameters you've used in the template, as they should match the request you create in the next step.
+2. Create an HTTP request to [https://${param:LOCATION}-${PROJECT_ID}.cloudfunctions.net/ext-${PROJECT_ID}-executePdfGenerator]().
+   Append the URL with query parameters that match the Handlebars.js parameters you've used in the template. You can serialize nested JS object including arrays, it is described [here](https://www.npmjs.com/package/qs).
+3. Your generated file will be stored in Firebase Storage under `${param:OUTPUT_STORAGE_BUCKET}/<OUTPUT_FILENAME>` where `<OUTPUT_FILENAME>` is the one provided in get parameters or if empty, it will be a uuid.
+   If you've chosen to return a PDF in the response, the result will also be returned to the HTTP response.
 
 Checkout [the repository](https://github.com/sassanh/template-to-pdf) for more details.
