@@ -7,7 +7,8 @@ Before you can use this extension, you'll need to update your security rules and
 Update your Firebase Storage security rules to allow reads from template path:
 
     match /b/${STORAGE_BUCKET}/o {
-      // Allow access to the template path only, use "/{allPaths=**}" if you wish to let it access to all paths in this bucket
+      // Allow access to the template path only
+      // use "/{allPaths=**}" to access to all paths in this bucket
       match /<TEMPLATE_ID> {
         allow read;
       }
@@ -16,7 +17,7 @@ Update your Firebase Storage security rules to allow reads from template path:
 If `OUTPUT_STORAGE_BUCKET` is set, you need to allow writes to where generated pdf files are going to be stored too:
 
     match /b/${param:OUTPUT_STORAGE_BUCKET}/o {
-      // Allow access to the path where generated pdf files will be stored
+      // Allow access to the generated pdf file path
       match /{outputs_path} {
         allow write;
       }
