@@ -133,7 +133,7 @@ exports.executePdfGenerator = functions.handler.https.onRequest(
 
       let publicUrl: string | undefined;
 
-      if (OUTPUT_STORAGE_BUCKET != null) {
+      if (OUTPUT_STORAGE_BUCKET != null && OUTPUT_STORAGE_BUCKET != "") {
         context = "upload-pdf";
         functions.logger.info("Uploading pdf file to Firebase Storage");
         const firebaseConfig = {

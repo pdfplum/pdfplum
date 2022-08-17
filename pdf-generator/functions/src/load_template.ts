@@ -36,8 +36,12 @@ export async function loadTemplate({
       exception instanceof FirebaseError &&
       exception.code === "storage/object-not-found"
     ) {
-      const templateRef = ref(storage, `${templatePrefix}/${templateId}.zip`);
-      templateUrl = await getDownloadURL(templateRef);
+      try {
+        const templateRef = ref(storage, `${templatePrefix}/${templateId}.zip`);
+        templateUrl = await getDownloadURL(templateRef);
+      } catch {
+        throw exception;
+      }
     } else {
       throw exception;
     }

@@ -1,3 +1,7 @@
+## Version 0.7.1
+
+*   Fix for when `OUTPUT_STORAGE_BUCKET` is not set and yet the extension tries to save the pdf to Firebase Storage.
+
 ## Version 0.7.0
 
 *   Merge `TEMPLATE_STORAGE_BUCKET` and `TEMPLATE_ID` into `TEMPLATE_PATH`.
