@@ -1,3 +1,10 @@
+## Version 0.7.2
+
+*   Improve documentation ([Darren Ackers](https://github.com/dackers86) - https://github.com/sassanh/template-to-pdf/pull/3)
+*   Change boolean extension parameters values to yes/no instead of true/false ([Darren Ackers](https://github.com/dackers86) - https://github.com/sassanh/template-to-pdf/pull/2)
+*   Update regular expression of `TEMPLATE_PATH` to allow zip extensions for template paths ([Darren Ackers](https://github.com/dackers86) - https://github.com/sassanh/template-to-pdf/pull/1)
+*   Set actual version number in package.json (instead of `<VERSION>` placeholder) and check if it matches with CHANGELOG.md version instead of setting it in publish script. This is to help local development where a placeholder version in package.json makes initial setup inconvenient.
+
 ## Version 0.7.1
 
 *   Fix for when `OUTPUT_STORAGE_BUCKET` is not set and yet the extension tries to save the pdf to Firebase Storage.

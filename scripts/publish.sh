@@ -11,10 +11,17 @@ mkdir $DESTINATION_PATH
 
 VERSION=`head -n 1 $CHANGELOG_FILE | sed "s/^## Version //"`
 EXTENSION_VERSION=`grep "^version: \d\+\.\d\+\.\d\+\$" $EXTENSION_DOT_YAML_FILE | sed "s/^version: //"`
+PACKAGE_VERSION=`grep "^\s*\"version\": \"\d\+\.\d\+\.\d\+\",\?\$" $PACKAGE_DOT_JSON_FILE | sed "s/^\s*\"version\": \"\([^\"]*\)\",\?/\1/"`
 
 if [[ "$VERSION" != "$EXTENSION_VERSION" ]]
 then
   echo "Version in 'CHANGELOG.md' ($VERSION) does not match with the version in 'extensions.yaml' ($EXTENSION_VERSION)"
+  exit 1
+fi
+
+if [[ "$VERSION" != "$PACKAGE_VERSION" ]]
+then
+  echo "Version in 'CHANGELOG.md' ($VERSION) does not match with the version in 'package.json' ($PACKAGE_VERSION)"
   exit 1
 fi
 
