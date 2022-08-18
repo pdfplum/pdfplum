@@ -82,10 +82,10 @@ params:
     type: select
     options:
       - label: Return pdf in response
-        value: true
+        value: yes
       - label: Return json report in response
-        value: false
-    default: false
+        value: no
+    default: no
     required: true
     immutable: false
 

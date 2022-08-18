@@ -166,7 +166,7 @@ exports.executePdfGenerator = functions.handler.https.onRequest(
         extensionParameters,
       };
 
-      if (RETURN_PDF_IN_RESPONSE.toLowerCase() === "true") {
+      if (RETURN_PDF_IN_RESPONSE.toLowerCase() === "yes") {
         response.setHeader(
           "content-type",
           `application/pdf; filename="${outputFileName}"`
