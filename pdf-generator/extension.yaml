@@ -5,7 +5,7 @@
 name: pdf-generator
 
 # Follow semver versioning
-version: 0.7.1
+version: 0.7.2
 
 # Version of the Firebase Extensions specification
 specVersion: v1beta
@@ -95,7 +95,7 @@ params:
       What is the path of the zip file containing the template files stored in a Firebase Storage bucket?
     type: string
     example: some-bucket.appspot.com/basic-example
-    validationRegex: "^([0-9a-z_.-]*)/[A-Za-z0-9_-]+(.zip)?$"
+    validationRegex: "^([0-9a-z_.-]*)(/[A-Za-z0-9_-]+)+(.zip)?$"
     validationErrorMessage: Please enter a valid path
     default: ${STORAGE_BUCKET}/template
     required: true

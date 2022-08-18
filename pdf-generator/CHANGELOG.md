@@ -4,6 +4,7 @@
 *   Change boolean extension parameters values to yes/no instead of true/false ([Darren Ackers](https://github.com/dackers86) - https://github.com/sassanh/template-to-pdf/pull/2)
 *   Update regular expression of `TEMPLATE_PATH` to allow zip extensions for template paths ([Darren Ackers](https://github.com/dackers86) - https://github.com/sassanh/template-to-pdf/pull/1)
 *   Set actual version number in package.json (instead of `<VERSION>` placeholder) and check if it matches with CHANGELOG.md version instead of setting it in publish script. This is to help local development where a placeholder version in package.json makes initial setup inconvenient.
+*   Update regular expression of `TEMPLATE_PATH` to allow nested paths.
 
 ## Version 0.7.1
 
