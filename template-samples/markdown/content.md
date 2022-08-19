@@ -1,18 +1,23 @@
 # Hello {{name}}!
----
+
 ## Sample code
+
 ### Python
+
 ```python
 def method(arg):
   print(arg)
 ```
----
+
 ### TypeScript
+
 ```typescript
 const variable = 'world';
 console.log(`Hello ${variable}!`)
 ```
+
 ## Emoji 8-)
+
 > Classic markup: :wink: :crush: :cry: :tear: :laughing: :yum:
 >
 > Shortcuts (emoticons): :-) :-( 8-) ;)
@@ -33,39 +38,34 @@ Right aligned columns
 | engine | engine to be used for processing templates. Handlebars is the default. |
 | ext    | extension to be used for dest files. |
 
-
 ### [Subscript](https://github.com/markdown-it/markdown-it-sub) / [Superscript](https://github.com/markdown-it/markdown-it-sup)
 
-- 19^th^
-- H~2~O
-
+*   19^th^
+*   H~2~O
 
 ### [\<ins>](https://github.com/markdown-it/markdown-it-ins)
 
-++Inserted text++
-
+\++Inserted text++
 
 ### [\<mark>](https://github.com/markdown-it/markdown-it-mark)
 
-==Marked text==
-
+\==Marked text==
 
 ### [Footnotes](https://github.com/markdown-it/markdown-it-footnote)
 
-Footnote 1 link[^first].
+Footnote 1 link\[^first].
 
-Footnote 2 link[^second].
+Footnote 2 link\[^second].
 
-Inline footnote^[Text of inline footnote] definition.
+Inline footnote^\[Text of inline footnote] definition.
 
-Duplicated footnote reference[^second].
+Duplicated footnote reference\[^second].
 
-[^first]: Footnote **can have markup**
+\[^first]: Footnote **can have markup**
 
     and multiple paragraphs.
 
-[^second]: Footnote text.
-
+\[^second]: Footnote text.
 
 ### [Definition lists](https://github.com/markdown-it/markdown-it-deflist)
 
@@ -82,11 +82,11 @@ Term 2 with *inline markup*
 
     Third paragraph of definition 2.
 
-_Compact style:_
+*Compact style:*
 
 Term 1
-  ~ Definition 1
+\~ Definition 1
 
 Term 2
-  ~ Definition 2a
-  ~ Definition 2b
+\~ Definition 2a
+\~ Definition 2b

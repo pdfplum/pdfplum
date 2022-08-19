@@ -5,7 +5,7 @@
 name: pdf-generator
 
 # Follow semver versioning
-version: 0.7.2
+version: 0.7.3
 
 # Version of the Firebase Extensions specification
 specVersion: v1beta
@@ -165,8 +165,6 @@ params:
       Choose how much memory to give to the function that resize images. (For animated GIF => GIF we recommend using a minimum of 2GB).
     type: select
     options:
-      - label: 512 MB
-        value: 512
       - label: 1 GB
         value: 1024
       - label: 2 GB
