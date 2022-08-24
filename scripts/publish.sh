@@ -9,7 +9,7 @@ PACKAGE_DOT_JSON_FILE=./pdf-generator/functions/package.json
 rm -rf $DESTINATION_PATH
 mkdir $DESTINATION_PATH
 
-VERSION=`head -n 1 $CHANGELOG_FILE | sed "s/^## Version //"`
+VERSION=`grep "## Version" "$CHANGELOG_FILE" | head -n 1 | sed "s/^## Version //"`
 EXTENSION_VERSION=`grep "^version: \d\+\.\d\+\.\d\+\$" $EXTENSION_DOT_YAML_FILE | sed "s/^version: //"`
 PACKAGE_VERSION=`grep "^\s*\"version\": \"\d\+\.\d\+\.\d\+\",\?\$" $PACKAGE_DOT_JSON_FILE | sed "s/^\s*\"version\": \"\([^\"]*\)\",\?/\1/"`
 

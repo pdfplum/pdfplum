@@ -1,3 +1,5 @@
+# Pre-installation
+
 Use this extension to generate PDF files using Handlebars, Puppeteer and HTML.
 This extension requires you to define the template using HTML and Handlebars,
 package the resources into a Zip file and upload it to a Google Cloud Storage

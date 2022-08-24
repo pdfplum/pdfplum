@@ -32,7 +32,7 @@ load a font or load a script or css file from CDNs, etc.
 ### The endpoint
 
 Call this http endpoint:
-[https://${param:LOCATION}-${param:PROJECT\_ID}.cloudfunctions.net/ext-${param:EXTENSION\_ID}-executePdfGenerator]()
+[https://${param:LOCATION}-${param:PROJECT_ID}.cloudfunctions.net/ext-${param:EXTENSION_ID}-executePdfGenerator]()
 with the parameters explained [below](#get-parameters) as get parameters.
 
 ### What happens?

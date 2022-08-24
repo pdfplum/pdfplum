@@ -63,6 +63,9 @@ export async function loadTemplate({
       "There must be an 'index.html' file inside the zip file in its root folder."
     );
   }
+  Handlebars.registerHelper("json", function (context) {
+    return JSON.stringify(context);
+  });
   const promises = Object.entries(zipFile.files).map(
     async ([relativePath, file]: [string, jszip.JSZipObject]) => {
       let content: string | Buffer;

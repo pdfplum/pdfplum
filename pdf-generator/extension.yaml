@@ -5,7 +5,7 @@
 name: pdf-generator
 
 # Follow semver versioning
-version: 0.7.3
+version: 0.7.5
 
 # Version of the Firebase Extensions specification
 specVersion: v1beta
@@ -14,10 +14,10 @@ specVersion: v1beta
 displayName: Generate PDF using Puppeteer and Handlebars.js
 
 # Brief description of the task your extension performs (~1 sentence)
-description: >- 
+description: >-
   Generates PDF files from HTML templates and HTTP calls using Puppeteer and Handlebars.js and stores them in Firebase Storage and/or returns them in response.
 
-license: Apache-2.0  # https://spdx.org/licenses/
+license: Apache-2.0 # https://spdx.org/licenses/
 
 author:
   authorName: Sassan Haradji
