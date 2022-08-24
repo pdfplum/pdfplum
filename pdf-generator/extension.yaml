@@ -1,11 +1,11 @@
-# Learn detailed information about the fields of an extension.yaml file in the ocs:
-# https://firebase.google.com/docs/extensions/alpha/ref-extension-yaml
+# Learn detailed information about the fields of an extension.yaml file in the
+# ocs: https://firebase.google.com/docs/extensions/alpha/ref-extension-yaml
 
 # Identifier for your extension
 name: pdf-generator
 
 # Follow semver versioning
-version: 0.7.5
+version: 0.7.6
 
 # Version of the Firebase Extensions specification
 specVersion: v1beta

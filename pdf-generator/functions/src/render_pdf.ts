@@ -10,11 +10,13 @@ export async function renderPdf({
   chromiumPdfOptions,
   headless,
   portNumber,
+  shouldWaitForIsReady,
 }: {
   adjustHeightToFit: boolean;
   chromiumPdfOptions: PDFOptions;
   headless: boolean;
   portNumber: number;
+  shouldWaitForIsReady: boolean;
 }): Promise<Buffer> {
   const browser = await chromium.puppeteer.launch({
     defaultViewport: chromium.defaultViewport,
@@ -30,6 +32,11 @@ export async function renderPdf({
     timeout: 0,
     ...(headless ? { waitUntil: "networkidle0" } : {}),
   });
+
+  if (shouldWaitForIsReady) {
+    const watchDog = page.waitForFunction("window.isReady === true");
+    await watchDog;
+  }
 
   await page.content();
 

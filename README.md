@@ -7,13 +7,8 @@ HTML/CSS and Handlebars. Check out some examples of the generated pdfs
 ## Installation
 
 Use
-[this](https://console.firebase.google.com/project/test-fdaf6/extensions/install?ref=sassanh%2Fpdf-generator)
-install link to install the latest version of pdf-generator in your Firebase
-project.
-
-Or use
-[this](https://console.firebase.google.com/project/test-fdaf6/extensions/install?ref=sassanh%2Fpdf-generator@<VERSION_HERE>)
-link to install a specific version.
+[this link](https://console.firebase.google.com/project/_/extensions/install?ref=sassanh-gpda/pdf-generator)
+to install the latest version of pdf-generator in your Firebase project.
 
 Check [Firebase Extension parameters](#firebase-extension-parameters) for
 details about the parameters set in the installation process.
@@ -74,6 +69,11 @@ case will always have only a single page.
 #### `templateId`
 
 It overrides `${param:TEMPLATE_ID}`.
+
+#### `shouldWaitForIsReady`
+
+Setting this parameter will cause the function to wait for `window.isReady` to
+be set to true before rendering the pdf.
 
 ### Firebase Extension parameters
 

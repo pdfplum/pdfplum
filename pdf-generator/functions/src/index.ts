@@ -73,6 +73,7 @@ exports.executePdfGenerator = functions.handler.https.onRequest(
         templateBucket,
         templatePrefix,
         templateId,
+        shouldWaitForIsReady,
       } = parseParameters({
         query: request.query,
         defaultTemplatePath: TEMPLATE_PATH,
@@ -127,6 +128,7 @@ exports.executePdfGenerator = functions.handler.https.onRequest(
         chromiumPdfOptions,
         headless: process.env.IS_LOCAL != "true" || !headful,
         portNumber,
+        shouldWaitForIsReady,
       });
       functions.logger.info("Pdf file generated successfully");
       context = "";

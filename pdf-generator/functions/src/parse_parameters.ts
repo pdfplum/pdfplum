@@ -9,6 +9,7 @@ export interface GetParameters {
   headful?: "true" | "false";
   outputFileName?: string;
   templatePath?: string;
+  shouldWaitForIsReady?: "true" | "false";
 }
 
 export interface ParsedParameters {
@@ -20,6 +21,7 @@ export interface ParsedParameters {
   templateBucket: string;
   templatePrefix: string;
   templateId: string;
+  shouldWaitForIsReady: boolean;
 }
 
 const BOOLEAN_PDF_OPTIONS = [
@@ -79,5 +81,6 @@ export function parseParameters({
     templateBucket,
     templatePrefix,
     templateId,
+    shouldWaitForIsReady: query.shouldWaitForIsReady?.toLowerCase() === "true",
   };
 }

@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 0.7.6
+
+- Add `shouldWaitForIsReady` in get parameters. Setting this parameter will
+  cause the function to wait for `window.isReady` to be set to true before
+  rendering the pdf.
+
 ## Version 0.7.5
 
 - Format documentation markdown files in the repository using Prettier.
