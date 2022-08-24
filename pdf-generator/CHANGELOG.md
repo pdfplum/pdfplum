@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 0.7.7
+
+- Bugfix: `json` handlebars helper was returning urlencoded version of the json
+  string. It is now marked as safe string and is returning something that can be
+  consumed in JavaScript.
+
 ## Version 0.7.6
 
 - Add `shouldWaitForIsReady` in get parameters. Setting this parameter will
@@ -12,8 +18,8 @@
 
 ## Version 0.7.4
 
-- Add `json` helper to handlebar so that data can be passed through js script in
-  tags in template files as JSON.
+- Add `json` helper to handlebars so that data can be passed through js script
+  in tags in template files as JSON.
   [reference](https://stackoverflow.com/a/10233247/1349278)
 
 ## Version 0.7.3

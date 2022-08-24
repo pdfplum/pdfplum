@@ -12,6 +12,11 @@ import { FirebaseError } from "firebase/app";
 const fetch = (url: any, init?: any) =>
   import("node-fetch").then(({ default: fetch }) => fetch(url, init));
 
+Handlebars.registerHelper("json", function (object) {
+  const result = JSON.stringify(object);
+  return new Handlebars.SafeString(result);
+});
+
 /**
  * loads template zip file from Firebase Storage bucket, unzips it in a
  * temporary directory and returns the path of the temporary directory
@@ -63,9 +68,6 @@ export async function loadTemplate({
       "There must be an 'index.html' file inside the zip file in its root folder."
     );
   }
-  Handlebars.registerHelper("json", function (context) {
-    return JSON.stringify(context);
-  });
   const promises = Object.entries(zipFile.files).map(
     async ([relativePath, file]: [string, jszip.JSZipObject]) => {
       let content: string | Buffer;
@@ -77,6 +79,7 @@ export async function loadTemplate({
         relativePath,
       });
       if (/\.(txt|md|html)$/.test(relativePath)) {
+        console.log(data);
         content = Handlebars.compile(await file.async("text"))(data);
       } else {
         content = await file.async("nodebuffer");
