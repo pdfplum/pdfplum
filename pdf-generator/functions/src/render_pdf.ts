@@ -52,9 +52,10 @@ export async function renderPdf({
     await page.addStyleTag({ content: "html, body {height: fit-content;}" });
 
     await page.content();
-    extraOptions["height"] = await page.evaluate(
+    extraOptions.height = (await page.evaluate(
       "document.documentElement.offsetHeight"
-    );
+    )) as number;
+
     extraOptions["pageRanges"] = "1";
   }
 
