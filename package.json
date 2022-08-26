@@ -6,6 +6,7 @@
   },
   "devDependencies": {
     "ts-jest": "^24.1.0",
+    "typescript": "^3.6.3",
     "jest": "^24.9.0",
     "lerna": "^3.4.3",
     "remark": "^14.0.2",
