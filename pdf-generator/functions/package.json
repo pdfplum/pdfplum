@@ -14,9 +14,8 @@
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
     "publish": "cd ../..; ./scripts/publish.sh",
-    "start:emulator": "cd ../../ && firebase emulators:start -P demo-project",
-    "exec:emulator": "cd ../../ && firebase emulators:exec \"../runTests.sh\" -P demo-project",
-    "test": "cd ../../.. && firebase emulators:exec jest -P demo-project"
+    "local:emulator": "cd ../../ && firebase emulators:start -P demo-test",
+    "test": "jest"
   },
   "engines": {
     "node": "16"

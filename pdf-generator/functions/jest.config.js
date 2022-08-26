@@ -4,24 +4,13 @@ module.exports = {
   name: packageJson.name,
   displayName: packageJson.name,
   rootDir: "./",
+  preset: "ts-jest",
   globals: {
     "ts-jest": {
-      tsConfig: "<rootDir>/tsconfig.json",
+      tsConfig: "<rootDir>/__tests__/tsconfig.json",
     },
   },
-  preset: "ts-jest",
-  testMatch: ["**/__tests__/**/*.test.ts"],
-  testEnvironment: "node",
-  testTimeout: 120000,
-  collectCoverage: true,
-  collectCoverageFrom: [
-    "**/*.{ts,tsx}",
-    "!**/node_modules/**",
-    "!**/test-data/**",
-  ],
   setupFiles: ["<rootDir>/__tests__/jest.setup.ts"],
-  moduleNameMapper: {
-    "firebase-admin/eventarc":
-      "<rootDir>/node_modules/firebase-admin/lib/eventarc/index.js",
-  },
+  testMatch: ["<rootDir>/__tests__/functions.test.ts"],
+  testEnvironment: "node",
 };
