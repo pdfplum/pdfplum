@@ -1,5 +1,4 @@
-import chromium from "chrome-aws-lambda";
-import { PDFOptions } from "puppeteer-core";
+import puppeteer, { PDFOptions } from "puppeteer";
 
 /**
  * Opens a Chromium page, opens the content served on `portNumber`, generates
@@ -18,11 +17,49 @@ export async function renderPdf({
   portNumber: number;
   shouldWaitForIsReady: boolean;
 }): Promise<Buffer> {
-  const browser = await chromium.puppeteer.launch({
-    defaultViewport: chromium.defaultViewport,
-    executablePath: await chromium.executablePath,
+  const chromiumArguments = [
+    "--allow-running-insecure-content",
+    "--autoplay-policy=user-gesture-required",
+    "--disable-component-update",
+    "--disable-domain-reliability",
+    "--disable-features=AudioServiceOutOfProcess,IsolateOrigins,site-per-process",
+    "--disable-print-preview",
+    "--disable-setuid-sandbox",
+    "--disable-site-isolation-trials",
+    "--disable-speech-api",
+    "--disable-web-security",
+    "--disk-cache-size=33554432",
+    "--enable-features=SharedArrayBuffer",
+    "--hide-scrollbars",
+    "--ignore-gpu-blocklist",
+    "--in-process-gpu",
+    "--mute-audio",
+    "--no-default-browser-check",
+    "--no-pings",
+    "--no-sandbox",
+    "--no-zygote",
+    "--use-gl=swiftshader",
+    "--window-size=1920,1080",
+  ];
+
+  if (headless === true) {
+    chromiumArguments.push("--single-process");
+  } else {
+    chromiumArguments.push("--start-maximized");
+  }
+
+  const browser = await puppeteer.launch({
+    defaultViewport: {
+      deviceScaleFactor: 1,
+      hasTouch: false,
+      height: 1080,
+      isLandscape: true,
+      isMobile: false,
+      width: 1920,
+    },
     ignoreHTTPSErrors: true,
     headless,
+    args: chromiumArguments,
   });
   const page = await browser.newPage();
   page.setDefaultTimeout(0);

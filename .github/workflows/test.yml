@@ -1,4 +1,4 @@
-name: Testing
+name: Test
 
 on:
   push:
@@ -9,21 +9,24 @@ on:
       - "**"
 
 jobs:
-  nodejs:
+  test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node: ["14", "16"]
-    name: node.js_${{ matrix.node }}_test
+    name: test_node.js_${{ matrix.node }}
+    defaults:
+      run:
+        working-directory: ./pdf-generator/functions
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup node
+      - uses: actions/checkout@v3
+      - name: Setup Node
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
-      - name: NPM install
-        run: npm install
-      - name: Install firebase CLI
+      - name: NPM Install
+        run: npm ci
+      - name: Install Firebase CLI
         uses: nick-invision/retry@v1
         with:
           timeout_minutes: 10

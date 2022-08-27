@@ -5,7 +5,11 @@ import serveStatic from "serve-static";
 /**
  * Serves a directory on a free port in localhost
  */
-export async function serveTemplate(path: string): Promise<number> {
+export async function serveTemplate({
+  path,
+}: {
+  path: string;
+}): Promise<number> {
   const serve = serveStatic(path);
 
   const server = http.createServer(function (req, res) {

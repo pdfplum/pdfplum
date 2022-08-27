@@ -1,4 +1,0 @@
-{
-  "packages": ["*", "pdf-generator/functions"],
-  "version": "0.0.0"
-}

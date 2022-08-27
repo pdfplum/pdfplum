@@ -1,13 +1,13 @@
-const path = require("path");
+import * as path from "path";
+import dotenv from "dotenv";
 
-export const pathToenvFile = path.resolve(
+export const pathToEnvFile = path.resolve(
   __dirname,
-  "../../../extensions/pdf-generator.env.local"
+  "../../../extensions/pdf-generator.env.test"
 );
 
 export const setupEnvironment = () => {
-  console.log(pathToenvFile);
-  require("dotenv").config({
-    path: pathToenvFile,
+  dotenv.config({
+    path: pathToEnvFile,
   });
 };
