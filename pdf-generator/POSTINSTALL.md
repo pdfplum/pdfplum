@@ -40,7 +40,7 @@ You can start testing this extension right away.
     . Make note of the Handlebars.js parameters you've used in the template, as
     they should match the request you create in the next step.
 
-1.  Create an HTTP request to [https://${param:LOCATION}-${PROJECT\_ID}.cloudfunctions.net/ext-${PROJECT\_ID}-executePdfGenerator]().
+1.  Create an HTTP request to [https://${param:LOCATION}-${PROJECT_ID}.cloudfunctions.net/ext-${PROJECT_ID}-executePdfGenerator]().
     Append the URL with query parameters that match the Handlebars.js
     parameters you've used in the template. You can serialize nested JS object
     including arrays, it is described [here](https://www.npmjs.com/package/qs).

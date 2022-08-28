@@ -1,0 +1,18 @@
+{
+  "version": "0.7.8",
+  "scripts": {
+    "format:code": "cd pdf-generator/functions; npm run format",
+    "format:config": "prettier --write \"**/*.{json,yml,yaml}\"",
+    "format:documents": "prettier --write \"**/*.md\"",
+    "format": "npm run format:code; npm run format:config; npm run format:documents",
+    "lint:code": "cd pdf-generator/functions; npm run lint",
+    "lint:config": "prettier --list-different \"**/*.{json,yml,yaml}\"",
+    "lint:documents": "prettier --list-different \"**/*.md\"",
+    "lint": "npm run lint:code; npm run lint:config; npm run lint:documents",
+    "test": "cd pdf-generator/functions; npm run test"
+  },
+  "devDependencies": {
+    "prettier": "^2.7.1"
+  },
+  "license": "Apache-2.0"
+}

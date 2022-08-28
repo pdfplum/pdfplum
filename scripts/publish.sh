@@ -5,6 +5,7 @@ EXTENSION_PATH=./pdf-generator
 CHANGELOG_FILE=pdf-generator/CHANGELOG.md
 EXTENSION_DOT_YAML_FILE=./pdf-generator/extension.yaml
 PACKAGE_DOT_JSON_FILE=./pdf-generator/functions/package.json
+ROOT_PACKAGE_DOT_JSON_FILE=./package.json
 
 rm -rf $DESTINATION_PATH
 mkdir $DESTINATION_PATH
@@ -12,6 +13,7 @@ mkdir $DESTINATION_PATH
 VERSION=`grep "## Version" "$CHANGELOG_FILE" | head -n 1 | sed "s/^## Version //"`
 EXTENSION_VERSION=`grep "^version: \d\+\.\d\+\.\d\+\$" $EXTENSION_DOT_YAML_FILE | sed "s/^version: //"`
 PACKAGE_VERSION=`grep "^\s*\"version\": \"\d\+\.\d\+\.\d\+\",\?\$" $PACKAGE_DOT_JSON_FILE | sed "s/^\s*\"version\": \"\([^\"]*\)\",\?/\1/"`
+ROOT_PACKAGE_VERSION=`grep "^\s*\"version\": \"\d\+\.\d\+\.\d\+\",\?\$" $ROOT_PACKAGE_DOT_JSON_FILE | sed "s/^\s*\"version\": \"\([^\"]*\)\",\?/\1/"`
 
 if [[ "$VERSION" != "$EXTENSION_VERSION" ]]
 then
@@ -21,7 +23,13 @@ fi
 
 if [[ "$VERSION" != "$PACKAGE_VERSION" ]]
 then
-  echo "Version in 'CHANGELOG.md' ($VERSION) does not match with the version in 'package.json' ($PACKAGE_VERSION)"
+  echo "Version in 'CHANGELOG.md' ($VERSION) does not match with the version in '/pdf_generator/functions/package.json' ($PACKAGE_VERSION)"
+  exit 1
+fi
+
+if [[ "$VERSION" != "$ROOT_PACKAGE_VERSION" ]]
+then
+  echo "Version in 'CHANGELOG.md' ($VERSION) does not match with the version in '/package.json' ($ROOT_PACKAGE_VERSION)"
   exit 1
 fi
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## Version 0.7.8
+
+- Setup testing infrastructure. (`jest`, setting up environment, etc) ([Darren
+  Ackers](https://github.com/sassanh/template-to-pdf/pull/4) -
+  [PR](https://github.com/sassanh/template-to-pdf/pull/4))
+- Configure GitHub actions for the repository.
+
 ## Version 0.7.7
 
 - Bugfix: `json` handlebars helper was returning urlencoded version of the json

@@ -12,8 +12,8 @@ def method(arg):
 ### TypeScript
 
 ```typescript
-const variable = 'world';
-console.log(`Hello ${variable}!`)
+const variable = "world";
+console.log(`Hello ${variable}!`);
 ```
 
 ## Emoji 8-)
@@ -24,24 +24,24 @@ console.log(`Hello ${variable}!`)
 
 ## Tables
 
-| Option | Description |
-| ------ | ----------- |
+| Option | Description                                                               |
+| ------ | ------------------------------------------------------------------------- |
 | data   | path to data files to supply the data that will be passed into templates. |
-| engine | engine to be used for processing templates. Handlebars is the default. |
-| ext    | extension to be used for dest files. |
+| engine | engine to be used for processing templates. Handlebars is the default.    |
+| ext    | extension to be used for dest files.                                      |
 
 Right aligned columns
 
-| Option | Description |
-| ------:| -----------:|
-| data   | path to data files to supply the data that will be passed into templates. |
-| engine | engine to be used for processing templates. Handlebars is the default. |
-| ext    | extension to be used for dest files. |
+| Option |                                                               Description |
+| -----: | ------------------------------------------------------------------------: |
+|   data | path to data files to supply the data that will be passed into templates. |
+| engine |    engine to be used for processing templates. Handlebars is the default. |
+|    ext |                                      extension to be used for dest files. |
 
 ### [Subscript](https://github.com/markdown-it/markdown-it-sub) / [Superscript](https://github.com/markdown-it/markdown-it-sup)
 
-*   19^th^
-*   H~2~O
+- 19^th^
+- H~2~O
 
 ### [\<ins>](https://github.com/markdown-it/markdown-it-ins)
 
@@ -71,18 +71,18 @@ Duplicated footnote reference\[^second].
 
 Term 1
 
-:   Definition 1
+: Definition 1
 with lazy continuation.
 
-Term 2 with *inline markup*
+Term 2 with _inline markup_
 
-:   Definition 2
+: Definition 2
 
         { some code, part of Definition 2 }
 
     Third paragraph of definition 2.
 
-*Compact style:*
+_Compact style:_
 
 Term 1
 \~ Definition 1

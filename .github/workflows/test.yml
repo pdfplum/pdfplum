@@ -1,0 +1,39 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - "**"
+  pull_request:
+    branches:
+      - "**"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ["14", "16"]
+    name: test_node.js_${{ matrix.node }}
+    defaults:
+      run:
+        working-directory: ./pdf-generator/functions
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - name: NPM Install
+        run: npm ci
+      - name: Install Firebase CLI
+        uses: nick-invision/retry@v1
+        with:
+          timeout_minutes: 10
+          retry_wait_seconds: 60
+          max_attempts: 3
+          command: npm i -g firebase-tools
+      - name: Use extension commands
+        run: firebase --open-sesame extdev
+      - name: Run tests with coverage
+        run: npm run test

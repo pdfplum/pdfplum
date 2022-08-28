@@ -1,5 +1,5 @@
 import { uuidv4 } from "@firebase/util";
-import { PDFOptions } from "puppeteer-core";
+import { PDFOptions } from "puppeteer";
 import { ParsedQs } from "qs";
 
 export interface GetParameters {

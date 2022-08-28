@@ -42,7 +42,7 @@ process.on("unhandledRejection", (reason, p) => {
 
 exports.executePdfGenerator = functions.handler.https.onRequest(
   async (
-    request: Request<ParamsDictionary, any, any, GetParameters>,
+    request: Request<ParamsDictionary, unknown, unknown, GetParameters>,
     response
   ) => {
     let context = "";
@@ -117,7 +117,7 @@ exports.executePdfGenerator = functions.handler.https.onRequest(
 
       context = "serve-template";
       functions.logger.info("Serving template directory");
-      const portNumber = await serveTemplate(templateFilesPath);
+      const portNumber = await serveTemplate({ path: templateFilesPath });
       functions.logger.info("Template directory served successfully");
       context = "";
 
