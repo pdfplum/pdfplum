@@ -37,7 +37,7 @@ cd "$EXTENSION_PATH/functions"
 npm run build
 cd -
 
-for i in "$EXTENSION_PATH/functions/package.json:functions/package.json" "$EXTENSION_PATH/functions/lib:functions/lib" "$EXTENSION_PATH/extension.yaml:extension.yaml" "$EXTENSION_PATH/CHANGELOG.md:CHANGELOG.md" "firebase.json"
+for i in "$EXTENSION_PATH/functions/package.json:functions/package.json" "$EXTENSION_PATH/functions/lib:functions/lib" "$EXTENSION_PATH/extension.yaml:extension.yaml" "$EXTENSION_PATH/POSTINSTALL.md:POSTINSTALL.md" "$EXTENSION_PATH/PREINSTALL.md:PREINSTALL.md" "$EXTENSION_PATH/CHANGELOG.md:CHANGELOG.md" "firebase.json"
 do
   IFS=":" read -ra ENTRY <<< "$i"
   SOURCE=${ENTRY[0]}

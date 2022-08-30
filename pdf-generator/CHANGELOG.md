@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 0.7.9
+
+- Move usage section from `README.md` to `PREINSTALL.md`.
+- Add sample curl request to `POSTINSTALL.md`.
+- Add demo section in `PREINSTALL.md`.
+
 ## Version 0.7.8
 
 - Setup testing infrastructure. (`jest`, setting up environment, etc) ([Darren
