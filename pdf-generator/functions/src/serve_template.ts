@@ -10,10 +10,14 @@ export async function serveTemplate({
 }: {
   path: string;
 }): Promise<number> {
-  const serve = serveStatic(path);
+  const serve = serveStatic(path, { dotfiles: "allow", fallthrough: false });
 
-  const server = http.createServer(function (req, res) {
-    serve(req, res, () => undefined);
+  const server = http.createServer(function (request, response) {
+    serve(request, response, () => {
+      response.statusCode = 404;
+      response.statusMessage = "Not Found";
+      response.end("");
+    });
   });
 
   const getPort = (await import("get-port")).default;

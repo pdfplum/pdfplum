@@ -50,6 +50,7 @@ exports.executePdfGenerator = functions.handler.https.onRequest(
     // eslint-disable-next-line require-jsdoc
     function handleError(error: Error) {
       console.error(error);
+      response.status(500);
       response.setHeader("content-type", "application/json");
       response.end(
         JSON.stringify({

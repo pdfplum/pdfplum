@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 0.7.10
+
+- Avoid http request timeout and return http response with status code 404
+  instead when a resource is not available in the bundle.
+
 ## Version 0.7.9
 
 - Move usage section from `README.md` to `PREINSTALL.md`.
@@ -8,8 +13,8 @@
 
 ## Version 0.7.8
 
-- Setup testing infrastructure. (`jest`, setting up environment, etc) ([Darren
-  Ackers](https://github.com/sassanh/template-to-pdf/pull/4) -
+- Setup testing infrastructure. (`jest`, setting up environment, etc)
+  ([Darren Ackers](https://github.com/sassanh/template-to-pdf/pull/4) -
   [PR](https://github.com/sassanh/template-to-pdf/pull/4))
 - Configure GitHub actions for the repository.
 
@@ -89,11 +94,11 @@
 
 ## Version 0.6.0
 
-- Add default value for Firebase Storage bucket names and tempalte id in
+- Add default value for Firebase Storage bucket names and template id in
   extension parameters.
 
-- Allow both "template-id.zip" and "tempalte-id" (with and without ".zip"
-  extension) values for TEMPALTE_ID parameter.
+- Allow both "template-id.zip" and "template-id" (with and without ".zip"
+  extension) values for TEMPLATE_ID parameter.
 
 - Fixed FUNCTION_TIMEOUT's regular expression to only allow values less than
   or equal 540.
