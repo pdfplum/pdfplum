@@ -3,6 +3,7 @@
 ## Version 0.7.11
 
 - Log all console messages and errors reported by Puppeteer.
+- Remove "basic-example" and add "demo" template sample instead. This new template sample better shows different features of the extension and is expected to get updated with the new features coming in the future.
 
 ## Version 0.7.10
 
