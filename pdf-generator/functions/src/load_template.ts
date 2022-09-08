@@ -79,7 +79,6 @@ export async function loadTemplate({
         relativePath,
       });
       if (/\.(txt|md|html)$/.test(relativePath)) {
-        console.log(data);
         content = Handlebars.compile(await file.async("text"))(data);
       } else {
         content = await file.async("nodebuffer");

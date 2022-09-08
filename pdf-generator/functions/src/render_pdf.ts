@@ -1,3 +1,4 @@
+import * as functions from "firebase-functions";
 import puppeteer, { PDFOptions } from "puppeteer";
 
 /**
@@ -64,6 +65,34 @@ export async function renderPdf({
   const page = await browser.newPage();
   page.setDefaultTimeout(0);
   page.setDefaultNavigationTimeout(0);
+
+  page.on("console", (message) =>
+    functions.logger.info(
+      "Message logged while loading template bundle in the browser",
+      {
+        type: message.type(),
+        args: message.args(),
+        stackTrace: message.stackTrace(),
+        location: message.location(),
+        text: message.text(),
+      }
+    )
+  );
+  page.on("pageerror", (error) => {
+    functions.logger.info(
+      "Error raised while loading template bundle in the browser",
+      {
+        errorMessage: error.message,
+        stack: error.stack,
+      }
+    );
+  });
+  page.on("requestfailed", (request): void => {
+    functions.logger.info(
+      `Request failed while loading template bundle in the browser (${request.url()})`,
+      { request, error: request.failure()?.errorText }
+    );
+  });
 
   await page.goto(`http://localhost:${portNumber}`, {
     timeout: 0,
