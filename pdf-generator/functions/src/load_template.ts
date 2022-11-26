@@ -8,6 +8,17 @@ import Handlebars from "handlebars";
 import * as functions from "firebase-functions";
 import { FirebaseError } from "firebase/app";
 
+/* eslint-disable @typescript-eslint/no-var-requires */
+require("handlebars-helpers").array();
+require("handlebars-helpers").collection();
+require("handlebars-helpers").comparision();
+require("handlebars-helpers").date();
+require("handlebars-helpers").math();
+require("handlebars-helpers").number();
+require("handlebars-helpers").string();
+require("handlebars-helpers").url();
+/* eslint-enable @typescript-eslint/no-var-requires */
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const fetch = (url: any, init?: any) =>
   import("node-fetch").then(({ default: fetch }) => fetch(url, init));

@@ -49,6 +49,7 @@ exports.executePdfGenerator = functions.handler.https.onRequest(
 
     // eslint-disable-next-line require-jsdoc
     function handleError(error: Error) {
+      console.error("Enexpected error");
       console.error(error);
       response.status(500);
       response.setHeader("content-type", "application/json");
@@ -98,7 +99,7 @@ exports.executePdfGenerator = functions.handler.https.onRequest(
       if (process.env.STORAGE_EMULATOR_PORT != null) {
         connectStorageEmulator(
           storage,
-          "localhost",
+          "127.0.0.1",
           Number.parseInt(process.env.STORAGE_EMULATOR_PORT)
         );
       }
@@ -144,6 +145,13 @@ exports.executePdfGenerator = functions.handler.https.onRequest(
         };
         const app = initializeApp(firebaseConfig);
         const storage = getStorage(app);
+        if (process.env.STORAGE_EMULATOR_PORT != null) {
+          connectStorageEmulator(
+            storage,
+            "127.0.0.1",
+            Number.parseInt(process.env.STORAGE_EMULATOR_PORT)
+          );
+        }
         const pdfRef = ref(storage, outputFileName);
         await uploadBytes(pdfRef, pdf);
         functions.logger.info(

@@ -33,6 +33,12 @@ then
   exit 1
 fi
 
+if [[ -z "$PUBLISHER_ID" ]]
+then
+  echo "'PUBLISHER_ID' environment variable is needed"
+  exit 1
+fi
+
 cd "$EXTENSION_PATH/functions"
 npm run build
 cd -

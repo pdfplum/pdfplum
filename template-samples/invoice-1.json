@@ -1,0 +1,69 @@
+{
+  "chromiumPdfOptions": {
+    "width": 1500,
+    "printBackground": "true"
+  },
+  "adjustHeightToFit": "true",
+  "data": {
+    "companyName": "Lorem ipsum",
+    "companyImage": "data:image/png;base64,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",
+    "date": "2022/05/30",
+    "invoiceId": 30984162,
+    "billContactName": "John Doe",
+    "billClientCompany": "Lorem ipsum",
+    "billAddress": "No. 1 Steet 1, Silicon Valley, California",
+    "billPhone": "1234567890",
+    "billEmail": "example@domain.com",
+    "shipNameOrDept": "Jane Doe",
+    "shipClientCompany": "Lorem ipsum",
+    "shipAddress": "No. 1, Steet 1, Silicon Valley, California",
+    "shipPhone": "1234567890",
+    "rows": [
+      {
+        "description": "Lorem ipsum dolor sit amet",
+        "quantity": 25,
+        "unitPrice": 4500,
+        "total": 112500
+      },
+      {
+        "description": "Lorem ipsum dolor sit amet",
+        "quantity": 40,
+        "unitPrice": 3700,
+        "total": 148000
+      },
+      {
+        "description": "Lorem ipsum dolor sit amet",
+        "quantity": 6,
+        "unitPrice": 54000,
+        "total": 324000
+      },
+      {
+        "description": "Lorem ipsum dolor sit amet",
+        "quantity": 2,
+        "unitPrice": 120000,
+        "total": 240000
+      },
+      {
+        "description": "Lorem ipsum dolor sit amet",
+        "quantity": 500,
+        "unitPrice": 300,
+        "total": 150000
+      },
+      {
+        "description": "Lorem ipsum dolor sit amet",
+        "quantity": 95,
+        "unitPrice": 3250,
+        "total": 308750
+      },
+      {
+        "description": "Lorem ipsum dolor sit amet",
+        "quantity": 30,
+        "unitPrice": 1900,
+        "total": 57000
+      }
+    ],
+    "subtotal": 2354750,
+    "discount": 190000,
+    "taxRate": 0.35
+  }
+}

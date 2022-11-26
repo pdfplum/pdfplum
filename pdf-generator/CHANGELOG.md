@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 0.7.12
+
+- Add "invoice-1" template sample.
+- Add handlebars helpers provided by [handlebars-helpers](https://github.com/helpers/handlebars-helpers) for `array`, `collection`, `comparision`, `date`, `math`, `number` `string` and `url`.
+- Add `test.js` script to make testing template samples easier by running the feedback loop faster.
+
 ## Version 0.7.11
 
 - Log all console messages and errors reported by Puppeteer.

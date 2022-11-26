@@ -11,5 +11,9 @@ Pdfs in this directory are generated using parameters listed here:
 ## markdown
 
 ```txt
-?outputFileName=markdown.pdf&templatePath=<BUCKET_ADDRESS>/markdown&chromiumPdfOptions[width]=1500&adjustHeightToFit=true&data[name]=World
+?templatePath=<BUCKET_ADDRESS>/markdown&outputFileName=markdown.pdf&chromiumPdfOptions[width]=1500&adjustHeightToFit=true&data[name]=World
 ```
+
+## invoice-1
+
+Check `invoice-1.json` for sample get parameters.
