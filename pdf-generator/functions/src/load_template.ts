@@ -2,16 +2,21 @@ import * as fs from "fs";
 import * as os from "os";
 import * as path from "path";
 import QueryString from "qs";
-import { ref, getDownloadURL, FirebaseStorage } from "firebase/storage";
 import jszip from "jszip";
 import Handlebars from "handlebars";
 import * as functions from "firebase-functions";
-import { FirebaseError } from "firebase/app";
+import { initializeApp, FirebaseError } from "firebase/app";
+import {
+  ref,
+  getDownloadURL,
+  connectStorageEmulator,
+  getStorage,
+} from "firebase/storage";
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 require("handlebars-helpers").array();
 require("handlebars-helpers").collection();
-require("handlebars-helpers").comparision();
+require("handlebars-helpers").comparison();
 require("handlebars-helpers").date();
 require("handlebars-helpers").math();
 require("handlebars-helpers").number();
@@ -29,20 +34,36 @@ Handlebars.registerHelper("json", function (object) {
 });
 
 /**
- * loads template zip file from Firebase Storage bucket, unzips it in a
- * temporary directory and returns the path of the temporary directory
+ * Loads template zip file from Firebase Storage bucket, unzips it in a
+ * temporary directory and returns the path of the temporary directory.
  */
 export async function loadTemplate({
   data,
-  storage,
+  templateBucket,
   templatePrefix,
   templateId,
 }: {
   data: QueryString.ParsedQs | undefined;
-  storage: FirebaseStorage;
+  templateBucket: string;
   templatePrefix: string;
   templateId: string;
 }): Promise<string> {
+  functions.logger.info("Initializing Firebase Storage");
+  const firebaseConfig = {
+    storageBucket: templateBucket,
+  };
+  const app = initializeApp(firebaseConfig);
+  const storage = getStorage(app);
+  if (process.env.STORAGE_EMULATOR_PORT != null) {
+    connectStorageEmulator(
+      storage,
+      "127.0.0.1",
+      Number.parseInt(process.env.STORAGE_EMULATOR_PORT)
+    );
+  }
+  functions.logger.info("Firebase Storage initialized successfully");
+
+  functions.logger.info("Loading template file");
   let templateUrl: string;
   try {
     const templateRef = ref(storage, `${templatePrefix}/${templateId}`);
@@ -86,12 +107,15 @@ export async function loadTemplate({
       if (relativePath === "" || relativePath.endsWith("/")) {
         return;
       }
-      functions.logger.info("Processing file with handlebars", {
-        relativePath,
-      });
       if (/\.(txt|md|html)$/.test(relativePath)) {
+        functions.logger.info("Processing file with handlebars", {
+          relativePath,
+        });
         content = Handlebars.compile(await file.async("text"))(data);
       } else {
+        functions.logger.info("Copying file as is", {
+          relativePath,
+        });
         content = await file.async("nodebuffer");
       }
       const filePath = path.join(temporaryDirectoryPath, relativePath);
@@ -101,6 +125,8 @@ export async function loadTemplate({
   );
 
   await Promise.all(promises);
+
+  functions.logger.info("Template file loaded successfully");
 
   return temporaryDirectoryPath;
 }

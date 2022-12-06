@@ -1,0 +1,51 @@
+{
+  "chromiumPdfOptions": {
+    "format": "a5",
+    "printBackground": "true"
+  },
+  "adjustHeightToFit": "no",
+  "data": {
+    "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    "flag": "OK",
+    "articles": [
+      {
+        "title": "ABCD",
+        "content": "Abcd content"
+      },
+      {
+        "title": "EFGH",
+        "content": "Efgh content"
+      },
+      {
+        "title": "IJKL",
+        "content": "Ijkl content"
+      },
+      {
+        "title": "MNOP",
+        "content": "Mnop content"
+      },
+      {
+        "title": "QRST",
+        "content": "Qrst content"
+      }
+    ],
+    "colors": {
+      "warm": [
+        "Red",
+        "Yellow",
+        "Orange"
+      ],
+      "cold": [
+        "Green",
+        "Blue",
+        "Gray"
+      ]
+    },
+    "info": {
+      "Age": "38",
+      "Name": "John Doe",
+      "Birthday": "1985/20/06",
+      "Address": "Silicon Valley"
+    }
+  }
+}

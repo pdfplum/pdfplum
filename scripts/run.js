@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env NODE_PATH=./pdf-generator/functions/node_modules node
 const child_process = require("child_process");
 const { promisify } = require("util");
 const { readFileSync, writeFileSync } = require("fs");
@@ -12,7 +12,7 @@ const {
 const qs = require("qs");
 const path = require("path");
 
-const PROJECT = "demo-pdf-generator-c5d7d";
+const PROJECT = "demo-test";
 const BUCKET = `${PROJECT}.appspot.com`;
 const USE_OFFICIAL_UPLOAD_METHOD = true;
 
@@ -22,7 +22,7 @@ async function main() {
   const templatePath = process.argv[2] || process.env.TEMPLATE;
   const templateDirectory = path.dirname(templatePath);
   const templateName = path.basename(templatePath);
-  await exec("rm -f /tmp/result.pdf");
+  await exec(`rm -f ${templateName}.pdf`, { cwd: "template-samples" });
   await exec(`rm -f ${templateName}.zip`, { cwd: "template-samples" });
   await exec(`zip ${templateName}.zip -r ${templateName}/*`, {
     cwd: templateDirectory,
@@ -56,11 +56,14 @@ async function main() {
     outputFileName: `${templateName}.pdf`,
   });
   const response = await fetch(
-    `http://127.0.0.1:5001/${PROJECT}/us-central1/ext-pdf-generator-executePdfGenerator?${parameters}`
+    `http://127.0.0.1:5001/${PROJECT}/us-central1/ext-pdf-generator-executePdfGeneratorHttp?${parameters}`
   );
   if (response.status === 200) {
-    writeFileSync("/tmp/result.pdf", Buffer.from(await response.arrayBuffer()));
-    await exec("open /tmp/result.pdf");
+    writeFileSync(
+      `template-samples/${templateName}.pdf`,
+      Buffer.from(await response.arrayBuffer())
+    );
+    await exec(`open template-samples/${templateName}.pdf`);
   } else {
     console.log(`Status: ${response.status}`);
     console.log(`Response: ${await response.text()}`);

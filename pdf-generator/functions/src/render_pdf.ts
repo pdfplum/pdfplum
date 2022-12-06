@@ -1,9 +1,9 @@
-import * as functions from "firebase-functions";
 import puppeteer, { PDFOptions } from "puppeteer";
+import * as functions from "firebase-functions";
 
 /**
  * Opens a Chromium page, opens the content served on `portNumber`, generates
- * a pdf out of it and returns it
+ * a pdf out of it and returns it.
  */
 export async function renderPdf({
   adjustHeightToFit,
@@ -18,6 +18,7 @@ export async function renderPdf({
   portNumber: number;
   shouldWaitForIsReady: boolean;
 }): Promise<Buffer> {
+  functions.logger.info("Rendering pdf");
   const chromiumArguments = [
     "--allow-running-insecure-content",
     "--autoplay-policy=user-gesture-required",
@@ -132,6 +133,8 @@ export async function renderPdf({
   });
 
   await page.close();
+
+  functions.logger.info("Pdf rendered successfully");
 
   return pdf;
 }

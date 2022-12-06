@@ -5,7 +5,8 @@
   font-style: normal;
 }
 
-html, body {
+html,
+body {
   width: 100%;
   height: 100%;
   margin: 0;
@@ -16,15 +17,18 @@ html, body {
 }
 
 section {
-  width: 100%;
-  height: 100%;
+  width: calc(100% - 32px);
+  height: calc(100% - 32px);
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   break-after: page;
-  padding: 16px;
+  margin: 16px;
+  padding: 8px;
+  border: 4px solid #ab5e58ff;
+  border-radius: 2px;
 }
 
 section * {
@@ -48,6 +52,7 @@ code {
   margin-bottom: 32px;
   overflow-wrap: anywhere;
   word-break: break-all;
+  padding: 2px;
 }
 
 .progressbar {
@@ -65,14 +70,14 @@ code {
   background-color: #c9f700;
 }
 
-#ofline-font {
+.offline-font {
   font-family: Lobster;
 }
 
-#online-font {
+.online-font {
   font-family: Handlee;
 }
-#online-font a {
+.online-font a {
   font-family: Handlee;
 }
 

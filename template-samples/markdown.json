@@ -1,0 +1,9 @@
+{
+  "chromiumPdfOptions": {
+    "width": 1500
+  },
+  "adjustHeightToFit": "yes",
+  "data": {
+    "name": "World"
+  }
+}

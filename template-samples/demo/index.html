@@ -12,17 +12,20 @@
 
 <body>
   <section>
-    <p id="ofline-font">
-      This text is rendered with a font loaded from "Lobster.ttf" coming from the
-      template bundle!
+    <p>
+      This demo covers some different mechanisms of passing information to the pdf generator engine, providing resources
+      like images and fonts for it and rendering different data structures.
     </p>
   </section>
   <section>
-    <p id="online-font">
+    <p class="offline-font">
+      This text is rendered with a font loaded from "Lobster.ttf" coming from the template bundle!
+    </p>
+  </section>
+  <section>
+    <p class="online-font">
       And this text is rendered with a font loaded from "Handlee.woff2" coming from <a
-        href="https://fonts.googleapis.com/css2?family=Handlee&display=swap">
-        Google Fonts
-      </a>!
+        href="https://fonts.googleapis.com/css2?family=Handlee&display=swap">Google Fonts</a>!
     </p>
   </section>
   <section>
@@ -31,7 +34,7 @@
   </section>
   <section>
     <p>
-      But this one is loaded from <a href="https://via.placeholder.com/1200/05f/fff.png">here</a>:
+      But this one is loaded from <a href="https://via.placeholder.com/1200/05f/fff.png">placeholder.com</a>:
     </p>
     <img src="https://via.placeholder.com/1200/05f/fff.png" />
   </section>
@@ -43,8 +46,8 @@
   </section>
   <section>
     <p>
-      This other progress bar is rendered with a stylesheet loaded from bootstrap.min.css coming from
-      <a href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">jsDelivr</a>:
+      This other progress bar is rendered with a stylesheet loaded from "bootstrap.min.css" coming from
+      <a href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">jsDelivr CDN</a>:
     </p>
     <div class="progress">
       <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" aria-label="Warning striped example"
@@ -53,7 +56,7 @@
   </section>
   <section>
     <p>
-      This chart is rendered with a script loaded from chartjs.min.js coming from the template bundle:
+      This chart is rendered with a script loaded from "chartjs.min.js" coming from the template bundle:
     </p>
     <div style='width: 400px;'>
       <canvas id="chart-1"></canvas>
@@ -61,16 +64,17 @@
   </section>
   <section>
     <p>
-      And this other chart is rendered with a script loaded from apexcharts coming from
+      And this other chart is rendered with APEXCHARTS.JS coming from
       <a href="https://cdn.jsdelivr.net/npm/apexcharts">jsDelivr CDN</a>:
     </p>
     <div id="chart-2" style='width: 400px;'></div>
   </section>
   </section>
-  <section id="date">
+  <section>
+    Timestamp: <span id="date"></span>
   </section>
   <section>
-    <p>This text is a Handlebars' normal placeholder:</p>
+    <p>This text is a simple Handlebars placeholder:</p>
     <code>{{text}}</code>
   </section>
   <section>
@@ -84,11 +88,11 @@
     </code>
   </section>
   <section>
-    <p>Thesse words are rendered using Handlebars's built-in "#each" helper:</p>
+    <p>These articles are rendered using Handlebars' built-in "#each" helper:</p>
     <code>
       <ul>
         {{#each articles}}
-        <li>{{this}}</li>
+        <li>{{this.title}}: {{this.content}}</li>
         {{/each}}
       </ul>
     </code>
@@ -100,7 +104,7 @@
     </code>
   </section>
   <section>
-    <p>These color names are rendered by a nested object coming from the get parameters:</p>
+    <p>These color names are rendered by a nested object:</p>
     <p>Raw data:</p>
     <code>
       {{json colors}}
@@ -111,12 +115,20 @@
     </code>
   </section>
   <section>
-    <p>These pairs are rendered by a plain object comming from the get parameters:</p>
     <p>Raw data:</p>
     <code>
       {{json info}}
     </code>
-    <p>Processed data:</p>
+    <p>Rendered using Handlebars templage tags:</p>
+    <code>
+      <ul>
+        <li>Age: {{ info.Age}}</li>
+        <li>Name: {{ info.Name}}</li>
+        <li>Birthday: {{ info.Birthday}}</li>
+        <li>Address: {{ info.Address}}</li>
+      </ul>
+    </code>
+    <p>Rendered in a script tag:</p>
     <code>
       <ul id="info"></ul>
     </code>
@@ -129,7 +141,7 @@
   const colors = {{json colors}};
   const info = {{json info}};
 
-  [...colors.cold, ...colors.hot].forEach((color) => {
+  [...colors.cold, ...colors.warm].forEach((color) => {
     const tag = document.createElement("li");
     tag.textContent = color;
     document.getElementById("colors").append(tag);

@@ -1,10 +1,15 @@
 # Changelog
 
-## Version 0.7.12
+## Version 0.8.0
 
+- New usage: run function when `document.create` event of Firestore is triggered.
 - Add "invoice-1" template sample.
-- Add handlebars helpers provided by [handlebars-helpers](https://github.com/helpers/handlebars-helpers) for `array`, `collection`, `comparision`, `date`, `math`, `number` `string` and `url`.
+- Add handlebars helpers provided by [handlebars-helpers](https://github.com/helpers/handlebars-helpers) for `array`, `collection`, `comparison`, `date`, `math`, `number` `string` and `url`.
 - Add `test.js` script to make testing template samples easier by running the feedback loop faster.
+- Change `true`/`false` extension variable values to `yes`/`no`.
+- Add a script to generate extension variables section of `PREINSTALL.md` document (it used to be written manually) so that it can be used in git precommit hooks.
+- Add a script to update all template samples zip files and pdf files so that it can be used in git precommit hooks.
+- Add get parameters of each template sample as JSON data in a file with the same name as the template sample with `.json` extension.
 
 ## Version 0.7.11
 
@@ -23,7 +28,7 @@
 
 ## Version 0.7.8
 
-- Setup testing infrastructure. (`jest`, setting up environment, etc) ([Darren Ackers](https://github.com/sassanh/template-to-pdf/pull/4) - [PR](https://github.com/sassanh/template-to-pdf/pull/4))
+- Setup testing infrastructure. (`jest`, setting up environment, etc) ([Darren Ackers](https://github.com/dackers86) - [PR](https://github.com/sassanh/template-to-pdf/pull/4))
 - Configure GitHub actions for the repository.
 
 ## Version 0.7.7

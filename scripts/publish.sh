@@ -39,6 +39,9 @@ then
   exit 1
 fi
 
+npm run generate:docs
+npm run generate:samples
+
 cd "$EXTENSION_PATH/functions"
 npm run build
 cd -
@@ -50,11 +53,6 @@ do
   DESTINATION=${ENTRY[1]:-$SOURCE}
   mkdir -p "$DESTINATION_PATH/$(dirname $DESTINATION)"
   cp -r "$SOURCE" "$DESTINATION_PATH/$DESTINATION"
-
-  if [[ "$SOURCE" == "$PACKAGE_DOT_JSON_FILE" ]]
-  then
-    sed -i "s/<VERSION>/$VERSION/g" "$DESTINATION_PATH/$DESTINATION"
-  fi
 done
 
 cd $DESTINATION_PATH

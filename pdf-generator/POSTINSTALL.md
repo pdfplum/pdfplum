@@ -41,7 +41,7 @@ You can start testing this extension right away.
 1. Run this command:
 
    ```bash
-   wget "https://${param:LOCATION}-${PROJECT_ID}.cloudfunctions.net/ext-${EXT_INSTANCE_ID}-executePdfGenerator?templatePath=${STORAGE_BUCKET}/basic-example.zip&outputFileName=basic-example.pdf&chromiumPdfOptions[printBackground]=true&adjustHeightToFit=true&data[name]=World&data[title]=Title&data[articles][0][url]=wikipedia.org&data[articles][0][title]=Wikipedia&data[articles][1][url]=google.com&data[articles][1][title]=Google&data[description]=Description" -O basic-example.pdf
+   wget "https://${param:LOCATION}-${PROJECT_ID}.cloudfunctions.net/ext-${EXT_INSTANCE_ID}-executePdfGenerator?templatePath=${STORAGE_BUCKET}/basic-example.zip&outputFileName=basic-example.pdf&chromiumPdfOptions[printBackground]=true&adjustHeightToFit=yes&data[name]=World&data[title]=Title&data[articles][0][url]=wikipedia.org&data[articles][0][title]=Wikipedia&data[articles][1][url]=google.com&data[articles][1][title]=Google&data[description]=Description" -O basic-example.pdf
 
    ```
 

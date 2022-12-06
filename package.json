@@ -10,11 +10,15 @@
     "lint:documents": "prettier --list-different \"**/*.md\"",
     "lint": "npm run lint:code; npm run lint:config; npm run lint:documents",
     "test": "cd pdf-generator/functions; npm run test",
-    "publish": "./scripts/publish.sh"
+    "publish": "scripts/publish.sh",
+    "generate:docs": "scripts/generate_documents.js",
+    "generate:samples": "scripts/generate_samples.sh",
+    "dev:run": "scripts/run.js"
   },
   "devDependencies": {
     "prettier": "^2.7.1",
-    "qs": "^6.11.0"
+    "qs": "^6.11.0",
+    "yaml": "^2.1.3"
   },
   "license": "Apache-2.0"
 }

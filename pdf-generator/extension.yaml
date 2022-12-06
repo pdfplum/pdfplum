@@ -49,10 +49,10 @@ billingRequired: true
 # In the `resources` field, list each of your extension's functions, including the trigger for each function.
 # Learn more in the docs: https://firebase.google.com/docs/extensions/alpha/ref-extension-yaml#resources-field
 resources:
-  - name: executePdfGenerator
+  - name: executePdfGeneratorHttp
     type: firebaseextensions.v1beta.function
     description: >-
-      Generate pdf from html template
+      Generate pdf from html template, triggered by a http call
     properties:
       # LOCATION is a user-configured parameter value specified by the user
       # during installation.
@@ -61,14 +61,28 @@ resources:
       timeout: ${param:FUNCTION_TIMEOUT}s
       availableMemoryMb: ${param:FUNCTION_MEMORY}
       httpsTrigger: {}
+  - name: executePdfGeneratorFirestore
+    type: firebaseextensions.v1beta.function
+    description: >-
+      Generate pdf from html template, triggered by a Firestore write
+    properties:
+      # LOCATION is a user-configured parameter value specified by the user
+      # during installation.
+      location: ${param:LOCATION}
+      runtime: nodejs16
+      timeout: ${param:FUNCTION_TIMEOUT}s
+      availableMemoryMb: ${param:FUNCTION_MEMORY}
+      eventTrigger:
+        eventType: providers/cloud.firestore/eventTypes/document.create
+        resource: projects/${param:PROJECT_ID}/databases/(default)/documents/${param:FIRESTORE_COLLECTION}/{id}
 
 # In the `params` field, set up your extension's user-configured parameters.
 # Learn more in the docs: https://firebase.google.com/docs/extensions/alpha/ref-extension-yaml#params-field
 params:
   - param: OUTPUT_STORAGE_BUCKET
-    label: Output Firebase Storage bucket name
-    description: >
-      What is the name of the bucket the output pdf should be stored in?
+    label: Output Firebase Storage bucket name.
+    description: >-
+      The name of the bucket the output pdf will be stored in.
     type: string
     example: bucket_name
     default: ${STORAGE_BUCKET}
@@ -76,9 +90,19 @@ params:
     immutable: false
 
   - param: RETURN_PDF_IN_RESPONSE
-    label: Should the endpoint return the pdf?
-    description: >
-      Whether the generated pdf should be returned in the response of the endpoint or not (set it to "true" to enable it)
+    label: Should the endpoint return the generated pdf?
+    description: >-
+      Whether the generated pdf should be returned in the response of the endpoint or not.
+      If not set, a JSON report will be returned instead:
+
+
+      ```json
+
+      {
+        "done": "successful"
+      }
+
+      ```
     type: select
     options:
       - label: Return pdf in response
@@ -91,8 +115,9 @@ params:
 
   - param: TEMPLATE_PATH
     label: Template path
-    description: >
-      What is the path of the zip file containing the template files stored in a Firebase Storage bucket?
+    description: >-
+      The path of the zip file containing the template files stored in a Firebase Storage bucket.
+      Can be overrided by get parameters.
     type: string
     example: some-bucket.appspot.com/basic-example
     validationRegex: "^([0-9a-z_.-]*)(/[A-Za-z0-9_-]+)+(.zip)?$"
@@ -101,10 +126,59 @@ params:
     required: true
     immutable: false
 
+  - param: ADJUST_HEIGHT_TO_FIT
+    label: Should it automatically set the document height to fit its content?
+    description: >-
+      If set, it will automatically adjust the height of the pdf so that all the content of the webpage can fit inside one page.
+      The generated pdf in this case will always have only a single page.
+      Can be overrided by get parameters.
+    type: select
+    options:
+      - label: Automatically set document height to fit its content
+        value: yes
+      - label: Do not set document height automatically
+        value: no
+    default: no
+    required: true
+    immutable: false
+
+  - param: CHROMIUM_PDF_OPTIONS
+    label: Chromium pdf generation options
+    description: >-
+      Options to pass to Chromium pdf generation engine provided as a JSON string.
+      Documented [here](https://www.puppeteersharp.com/api/PuppeteerSharp.PdfOptions.html).
+      Can be overrided by get parameters.
+    type: string
+    required: false
+    immutable: false
+
+  - param: SHOULD_WAIT_FOR_IS_READY
+    label: Wait for `isReady`?
+    description: >-
+      Whether it should wait for `window.isReady` variable to be set to true before rendering the pdf or not.
+      Can be overrided by get parameters.
+    type: select
+    options:
+      - label: Wait for `isReady` to be set to true before rendering the pdf
+        value: yes
+      - label: Render the pdf as soon as html is completely loaded
+        value: no
+    default: no
+    required: true
+    immutable: false
+
+  - param: FIRESTORE_COLLECTION
+    label: Firestore collection to listen to its insertions
+    description: >-
+      If provided, the extension will listen to create events in this collection and whenever a new document is created in this collection will generate a pdf based on its values.
+    type: string
+    required: false
+    immutable: false
+
   - param: LOCATION
     label: Cloud Functions location
     description: >-
-      Where do you want to deploy the functions created for this extension?
+      The location you want to deploy the functions created for this extension.
       You usually want a location close to your Storage bucket. For help selecting a
       location, refer to the [location selection
       guide](https://firebase.google.com/docs/functions/locations).
@@ -161,7 +235,7 @@ params:
   - param: FUNCTION_MEMORY
     label: Cloud Function memory
     description: >-
-      Memory of the function responsible of resizing images. 
+      Memory of the function responsible of resizing images.
       Choose how much memory to give to the function that resize images. (For animated GIF => GIF we recommend using a minimum of 2GB).
     type: select
     options:
