@@ -1,34 +1,7 @@
 import { uuidv4 } from "@firebase/util";
 import { PDFOptions } from "puppeteer";
 import { ParsedQs } from "qs";
-import * as functions from "firebase-functions";
-
-export type ExtensionParameters = {
-  ADJUST_HEIGHT_TO_FIT: "yes" | "no";
-  CHROMIUM_PDF_OPTIONS: string;
-  OUTPUT_STORAGE_BUCKET?: string;
-  RETURN_PDF_IN_RESPONSE: string;
-  SHOULD_WAIT_FOR_IS_READY: "yes" | "no";
-  TEMPLATE_PATH: string;
-};
-
-const {
-  ADJUST_HEIGHT_TO_FIT,
-  CHROMIUM_PDF_OPTIONS,
-  OUTPUT_STORAGE_BUCKET,
-  RETURN_PDF_IN_RESPONSE,
-  SHOULD_WAIT_FOR_IS_READY,
-  TEMPLATE_PATH,
-} = process.env as ExtensionParameters;
-
-export const extensionParameters: ExtensionParameters = {
-  ADJUST_HEIGHT_TO_FIT,
-  CHROMIUM_PDF_OPTIONS,
-  OUTPUT_STORAGE_BUCKET,
-  RETURN_PDF_IN_RESPONSE,
-  SHOULD_WAIT_FOR_IS_READY,
-  TEMPLATE_PATH,
-};
+import { extensionParameters } from "./utilities/extension_parameters";
 
 export interface GetParameters {
   adjustHeightToFit?: "yes" | "no";
@@ -71,10 +44,8 @@ const BOOLEAN_PDF_OPTIONS = [
  * @return {ParsedParameters}
  */
 export function parseParameters({
-  extensionParameters,
   rawParameters,
 }: {
-  extensionParameters: ExtensionParameters;
   rawParameters:
     | (GetParameters & {
         [key in Exclude<keyof FirestoreParameters, "data">]?: undefined;
@@ -83,8 +54,6 @@ export function parseParameters({
         [key in Exclude<keyof GetParameters, "data">]?: undefined;
       });
 }): ParsedParameters {
-  functions.logger.info("Parsing parameters");
-
   if (typeof rawParameters.data === "string") {
     throw new Error("'data' should be an object, not a string.");
   }
@@ -151,8 +120,6 @@ export function parseParameters({
       (rawParameters.shouldWaitForIsReady?.toLowerCase() ??
         extensionParameters.SHOULD_WAIT_FOR_IS_READY.toLowerCase()) === "yes",
   };
-
-  functions.logger.info("Parameters parsed successfully");
 
   return parameters;
 }

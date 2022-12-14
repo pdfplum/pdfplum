@@ -1,14 +1,14 @@
-import * as functions from "firebase-functions";
-import { eventChannel, runAction } from "./index";
 import { loadTemplate } from "./load_template";
-import {
-  ExtensionParameters,
-  extensionParameters,
-  ParsedParameters,
-} from "./parse_parameters";
+import { ParsedParameters } from "./parse_parameters";
 import { renderPdf } from "./render_pdf";
 import { serveTemplate } from "./serve_template";
 import { storePdf } from "./store_pdf";
+import { runAction } from "./utilities/action";
+import { eventChannel } from "./utilities/event_channel";
+import {
+  extensionParameters,
+  ExtensionParameters,
+} from "./utilities/extension_parameters";
 
 export interface PdfInformation {
   timestamp: number;
@@ -37,8 +37,6 @@ export async function producePdf({
   outputBucketName,
   parameters,
 }: Parameters): Promise<ReturnValue> {
-  functions.logger.info("Producing pdf from template", parameters);
-
   const templateFilesPath = await runAction(loadTemplate, parameters);
 
   const portNumber = await runAction(serveTemplate, {
@@ -61,8 +59,6 @@ export async function producePdf({
     publicUrl,
     fileSize: pdf.length,
   };
-
-  functions.logger.info("Pdf produced successfully");
 
   const functionContext = {
     ...pdfInformation,

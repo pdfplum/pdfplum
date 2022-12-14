@@ -55,6 +55,9 @@ async function main() {
     templatePath: `${BUCKET}/${templateName}`,
     outputFileName: `${templateName}.pdf`,
   });
+  console.log(
+    `Fetching "http://127.0.0.1:5001/${PROJECT}/us-central1/ext-pdf-generator-executePdfGeneratorHttp?${parameters}"`
+  );
   const response = await fetch(
     `http://127.0.0.1:5001/${PROJECT}/us-central1/ext-pdf-generator-executePdfGeneratorHttp?${parameters}`
   );

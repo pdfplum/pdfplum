@@ -1,12 +1,6 @@
-import * as functions from "firebase-functions";
-import { initializeApp } from "firebase/app";
-import {
-  connectStorageEmulator,
-  getDownloadURL,
-  getStorage,
-  ref,
-  uploadBytes,
-} from "firebase/storage";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { runAction } from "./utilities/action";
+import { initializeFirebaseStorage } from "./utilities/initialize_storage";
 
 export interface Parameters {
   outputFileName: string;
@@ -24,25 +18,10 @@ export async function storePdf({
 }: Parameters): Promise<string | undefined> {
   let publicUrl: string | undefined;
 
-  console.log(outputBucketName);
-
   if (outputBucketName != null && outputBucketName != "") {
-    functions.logger.info("Uploading pdf file to Firebase Storage");
-    const firebaseConfig = {
-      storageBucket: outputBucketName,
-    };
-    const app = initializeApp(firebaseConfig);
-    const storage = getStorage(app);
-    if (process.env.STORAGE_EMULATOR_PORT != null) {
-      connectStorageEmulator(
-        storage,
-        "127.0.0.1",
-        Number.parseInt(process.env.STORAGE_EMULATOR_PORT)
-      );
-    }
+    const storage = runAction(initializeFirebaseStorage, outputBucketName);
     const pdfRef = ref(storage, outputFileName);
     await uploadBytes(pdfRef, pdf);
-    functions.logger.info("Pdf file uploaded to Firebase Storage successfully");
     publicUrl = await getDownloadURL(pdfRef);
   }
 

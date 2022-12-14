@@ -5,24 +5,11 @@ import QueryString from "qs";
 import jszip from "jszip";
 import Handlebars from "handlebars";
 import * as functions from "firebase-functions";
-import { initializeApp, FirebaseError } from "firebase/app";
-import {
-  ref,
-  getDownloadURL,
-  connectStorageEmulator,
-  getStorage,
-} from "firebase/storage";
-
-/* eslint-disable @typescript-eslint/no-var-requires */
-require("handlebars-helpers").array();
-require("handlebars-helpers").collection();
-require("handlebars-helpers").comparison();
-require("handlebars-helpers").date();
-require("handlebars-helpers").math();
-require("handlebars-helpers").number();
-require("handlebars-helpers").string();
-require("handlebars-helpers").url();
-/* eslint-enable @typescript-eslint/no-var-requires */
+import { FirebaseError } from "firebase/app";
+import { ref, getDownloadURL } from "firebase/storage";
+import { runAction } from "./utilities/action";
+import { initializeFirebaseStorage } from "./utilities/initialize_storage";
+import "./utilities/setup_handlebars";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const fetch = (url: any, init?: any) =>
@@ -48,22 +35,8 @@ export async function loadTemplate({
   templatePrefix: string;
   templateId: string;
 }): Promise<string> {
-  functions.logger.info("Initializing Firebase Storage");
-  const firebaseConfig = {
-    storageBucket: templateBucket,
-  };
-  const app = initializeApp(firebaseConfig);
-  const storage = getStorage(app);
-  if (process.env.STORAGE_EMULATOR_PORT != null) {
-    connectStorageEmulator(
-      storage,
-      "127.0.0.1",
-      Number.parseInt(process.env.STORAGE_EMULATOR_PORT)
-    );
-  }
-  functions.logger.info("Firebase Storage initialized successfully");
+  const storage = runAction(initializeFirebaseStorage, templateBucket);
 
-  functions.logger.info("Loading template file");
   let templateUrl: string;
   try {
     const templateRef = ref(storage, `${templatePrefix}/${templateId}`);
@@ -125,8 +98,6 @@ export async function loadTemplate({
   );
 
   await Promise.all(promises);
-
-  functions.logger.info("Template file loaded successfully");
 
   return temporaryDirectoryPath;
 }

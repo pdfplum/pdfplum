@@ -6,13 +6,13 @@ For inspiration, there are some pre-made templates and their outputs prepared in
 
 ## Demo
 
-You can download `basic-example.zip` template from [here](https://github.com/sassanh/template-to-pdf/tree/main/template-samples) and upload it to your Firebase Storage bucket and then run:
+You can download `demo.zip` template from [here](https://github.com/sassanh/template-to-pdf/tree/main/template-samples) and upload it to your Firebase Storage bucket and then run:
 
 ```bash
-wget "https://us-central1-test-fdaf6.cloudfunctions.net/ext-pdf-generator-hipn-executePdfGenerator?templatePath=<TEMPLATE_PATH>&outputFileName=basic-example.pdf&chromiumPdfOptions[printBackground]=true&adjustHeightToFit=yes&data[name]=World&data[title]=Title&data[articles][0][url]=wikipedia.org&data[articles][0][title]=Wikipedia&data[articles][1][url]=google.com&data[articles][1][title]=Google&data[description]=Description" -O basic-example.pdf
+wget "https://us-central1-test-fdaf6.cloudfunctions.net/ext-pdf-generator-hipn-executePdfGenerator?templatePath=<TEMPLATE_PATH>&chromiumPdfOptions[format]=a5&chromiumPdfOptions[printBackground]=true&adjustHeightToFit=no&data[text]=Lorem ipsum dolor sit amet consectetur adipisicing elit.&data[flag]=OK&data[articles][0][title]=ABCD&data[articles][0][content]=Abcd content&data[articles][1][title]=EFGH&data[articles][1][content]=Efgh content&data[articles][2][title]=IJKL&data[articles][2][content]=Ijkl content&data[articles][3][title]=MNOP&data[articles][3][content]=Mnop content&data[articles][4][title]=QRST&data[articles][4][content]=Qrst content&data[colors][warm][0]=Red&data[colors][warm][1]=Yellow&data[colors][warm][2]=Orange&data[colors][cold][0]=Green&data[colors][cold][1]=Blue&data[colors][cold][2]=Gray&data[info][Age]=38&data[info][Name]=John Doe&data[info][Birthday]=1985%2F20%2F06&data[info][Address]=Silicon Valley" -O demo.pdf
 ```
 
-Where `TEMPLATE_PATH` is the path of the uploaded template file in your bucket (make sure you provide read access to it). This will save the generated pdf on your machine with name `basic-example.pdf`. You can change the get parameters providing `data` to see the pdf generated with different values. You can also unzip the template, change the html file/styles/etc, zip it and upload it to your bucket to see your changes in action.
+Where `TEMPLATE_PATH` is the path of the uploaded template file in your bucket (make sure you provide read access to it). This will save the generated pdf on your machine with name `demo.pdf`. You can change the get parameters providing `data` to see the pdf generated with different values. You can also unzip the template, change the html file/styles/etc, zip it and upload it to your bucket to see your changes in action.
 
 ## Additional setup
 
