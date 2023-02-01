@@ -1,14 +1,21 @@
 # Changelog
 
+## Version 0.9.0
+
+- Rename the extension to pdf-plum.
+- Add link to the [website](https://pdfplum.com).
+- `package.json` script entries `dev:run` and `dev:run:headful` to run the extension for a template provided as the argument.
+- Update docs
+
 ## Version 0.8.0
 
 - New usage: run function when `document.create` event of Firestore is triggered.
 - Add "invoice-1" template sample.
 - Add handlebars helpers provided by [handlebars-helpers](https://github.com/helpers/handlebars-helpers) for `array`, `collection`, `comparison`, `date`, `math`, `number` `string` and `url`.
-- Add `test.js` script to make testing template samples easier by running the feedback loop faster.
+- Add `run.js` script to make testing template samples easier by running the feedback loop faster.
 - Change `true`/`false` extension variable values to `yes`/`no`.
 - Add a script to generate extension variables section of `PREINSTALL.md` document (it used to be written manually) so that it can be used in git precommit hooks.
-- Add a script to update all template samples zip files and pdf files so that it can be used in git precommit hooks.
+- Add a script to update all template samples zip files and PDF files so that it can be used in git precommit hooks.
 - Add get parameters of each template sample as JSON data in a file with the same name as the template sample with `.json` extension.
 
 ## Version 0.7.11
@@ -28,7 +35,7 @@
 
 ## Version 0.7.8
 
-- Setup testing infrastructure. (`jest`, setting up environment, etc) ([Darren Ackers](https://github.com/dackers86) - [PR](https://github.com/sassanh/template-to-pdf/pull/4))
+- Setup testing infrastructure. (`jest`, setting up environment, etc) ([Darren Ackers](https://github.com/dackers86) - [PR](https://github.com/sassanh/pdf-plum/pull/4))
 - Configure GitHub actions for the repository.
 
 ## Version 0.7.7
@@ -37,7 +44,7 @@
 
 ## Version 0.7.6
 
-- Add `shouldWaitForIsReady` in get parameters. Setting this parameter will cause the function to wait for `window.isReady` to be set to true before rendering the pdf.
+- Add `shouldWaitForIsReady` in get parameters. Setting this parameter will cause the function to wait for `window.isReady` to be set to true before rendering the PDF.
 
 ## Version 0.7.5
 
@@ -55,15 +62,15 @@
 
 ## Version 0.7.2
 
-- Improve documentation ([Darren Ackers](https://github.com/dackers86) - [PR](https://github.com/sassanh/template-to-pdf/pull/3))
-- Change boolean extension parameters values to yes/no instead of true/false ([Darren Ackers](https://github.com/dackers86) - [PR](https://github.com/sassanh/template-to-pdf/pull/2))
-- Update regular expression of `TEMPLATE_PATH` to allow zip extensions for template paths ([Darren Ackers](https://github.com/dackers86) - [PR](https://github.com/sassanh/template-to-pdf/pull/1))
+- Improve documentation ([Darren Ackers](https://github.com/dackers86) - [PR](https://github.com/sassanh/pdf-plum/pull/3))
+- Change boolean extension parameters values to yes/no instead of true/false ([Darren Ackers](https://github.com/dackers86) - [PR](https://github.com/sassanh/pdf-plum/pull/2))
+- Update regular expression of `TEMPLATE_PATH` to allow zip extensions for template paths ([Darren Ackers](https://github.com/dackers86) - [PR](https://github.com/sassanh/pdf-plum/pull/1))
 - Set actual version number in package.json (instead of `<VERSION>` placeholder) and check if it matches with CHANGELOG.md version instead of setting it in publish script. This is to help local development where a placeholder version in package.json makes initial setup inconvenient.
 - Update regular expression of `TEMPLATE_PATH` to allow nested paths.
 
 ## Version 0.7.1
 
-- Fix for when `OUTPUT_STORAGE_BUCKET` is not set and yet the extension tries to save the pdf to Firebase Storage.
+- Fix for when `OUTPUT_STORAGE_BUCKET` is not set and yet the extension tries to save the PDF to Firebase Storage.
 
 ## Version 0.7.0
 
@@ -89,7 +96,7 @@
 
 ## Version 0.5.0
 
-- Add events for when the pdf generation finishes, one for when it finishes successfully and another for when an error occurs.
+- Add events for when the PDF generation finishes, one for when it finishes successfully and another for when an error occurs.
 
 ## Version 0.4.1
 
@@ -97,9 +104,9 @@
 
 ## Version 0.4.0
 
-- Add a markdown template example so that everyone can easily copy it and put their own markdown in case they prefer Markdown over html/css.
-- Add `adjustHeightToFit` to automatically set the page height to the height of content so that everything can fit in a single page. Useful for generating single page pdf files.
-- Introduce `chromiumPdfOptions` in get parameters to control the pdf generation. Options described [here](https://www.puppeteersharp.com/api/PuppeteerSharp.PdfOptions.html).
+- Add a markdown template example so that everyone can easily copy it and put their own markdown in case they prefer Markdown over HTML/CSS.
+- Add `adjustHeightToFit` to automatically set the page height to the height of content so that everything can fit in a single page. Useful for generating single page PDF files.
+- Introduce `chromiumPdfOptions` in get parameters to control the PDF generation. Options described [here](https://www.puppeteersharp.com/api/PuppeteerSharp.PdfOptions.html).
 - Instead of providing template values directly in get parameters, now they should be provided as keys of `data` get parameter.
 - `_` prefix is eliminated for all get parameters.
 - Add detailed installation and usage instructions in `README.md`.

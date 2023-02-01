@@ -7,7 +7,7 @@ process.env.FIREBASE_AUTH_EMULATOR_HOST = "localhost:9099";
 admin.initializeApp({ projectId: "demo-test" });
 
 describe("functions", () => {
-  test("should generate a pdf", async () => {
+  test("should generate a PDF file", async () => {
     expect(true).toBe(true);
   });
 });

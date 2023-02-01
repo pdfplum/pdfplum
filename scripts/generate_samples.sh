@@ -1,8 +1,7 @@
 #!/usr/bin/env sh
 
-for i in $(ls template-samples/*.json)
+for i in $(ls template-samples/**.json)
 do
-  filename=$(basename -- $i)
-  template="${filename%.*}"
-  npm run dev:run "template-samples/${template}"
+  template="${i%.*}"
+  npm run dev:run "${template}"
 done

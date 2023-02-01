@@ -1,24 +1,27 @@
 {
   "version": "0.7.11",
   "scripts": {
-    "format:code": "cd pdf-generator/functions; npm run format",
+    "format:code": "cd pdf-plum/functions; npm run format",
     "format:config": "prettier --write \"**/*.{json,yml,yaml}\"",
     "format:documents": "prettier --write \"**/*.md\"",
     "format": "npm run format:code; npm run format:config; npm run format:documents",
-    "lint:code": "cd pdf-generator/functions; npm run lint",
+    "lint:code": "cd pdf-plum/functions; npm run lint",
     "lint:config": "prettier --list-different \"**/*.{json,yml,yaml}\"",
     "lint:documents": "prettier --list-different \"**/*.md\"",
     "lint": "npm run lint:code; npm run lint:config; npm run lint:documents",
-    "test": "cd pdf-generator/functions; npm run test",
+    "test": "cd pdf-plum/functions; npm run test",
     "publish": "scripts/publish.sh",
     "generate:docs": "scripts/generate_documents.js",
     "generate:samples": "scripts/generate_samples.sh",
-    "dev:run": "scripts/run.js"
+    "dev:run": "scripts/run.js",
+    "dev:run:headful": "scripts/run.js --headful"
   },
   "devDependencies": {
-    "prettier": "^2.7.1",
+    "minimist": "^1.2.7",
+    "prettier": "^2.8.3",
     "qs": "^6.11.0",
-    "yaml": "^2.1.3"
+    "yaml": "^2.2.1",
+    "yargs": "^17.6.2"
   },
   "license": "Apache-2.0"
 }

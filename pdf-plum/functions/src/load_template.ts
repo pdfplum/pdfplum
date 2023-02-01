@@ -5,8 +5,7 @@ import QueryString from "qs";
 import jszip from "jszip";
 import Handlebars from "handlebars";
 import * as functions from "firebase-functions";
-import { FirebaseError } from "firebase/app";
-import { ref, getDownloadURL } from "firebase/storage";
+import { ref, getDownloadURL, StorageError } from "firebase/storage";
 import { runAction } from "./utilities/action";
 import { initializeFirebaseStorage } from "./utilities/initialize_storage";
 import "./utilities/setup_handlebars";
@@ -43,7 +42,7 @@ export async function loadTemplate({
     templateUrl = await getDownloadURL(templateRef);
   } catch (exception) {
     if (
-      exception instanceof FirebaseError &&
+      exception instanceof StorageError &&
       exception.code === "storage/object-not-found"
     ) {
       try {
@@ -60,7 +59,7 @@ export async function loadTemplate({
   const templateBuffer = response.arrayBuffer();
 
   const temporaryDirectoryPath = fs.mkdtempSync(
-    path.join(os.tmpdir(), "pdf-generator-")
+    path.join(os.tmpdir(), "pdf-plum-")
   );
 
   const zipFile = await jszip.loadAsync(templateBuffer);

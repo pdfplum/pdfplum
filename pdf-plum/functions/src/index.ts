@@ -14,7 +14,7 @@ process.on("unhandledRejection", (reason, p) => {
   console.error(reason, "Unhandled Rejection at Promise", p);
 });
 
-exports.executePdfGeneratorHttp = functions.handler.https.onRequest(
+exports.executePdfGeneratorHttp = functions.https.onRequest(
   async (
     request: Request<ParamsDictionary, unknown, unknown, GetParameters>,
     response
@@ -63,8 +63,9 @@ exports.executePdfGeneratorHttp = functions.handler.https.onRequest(
   }
 );
 
-exports.executePdfGeneratorFirestore =
-  functions.handler.firestore.document.onCreate(
+exports.executePdfGeneratorFirestore = functions.firestore
+  .document(extensionParameters.FIRESTORE_COLLECTION)
+  .onCreate(
     async (
       snapshot: functions.firestore.QueryDocumentSnapshot,
       context: functions.EventContext

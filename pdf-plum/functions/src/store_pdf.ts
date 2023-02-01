@@ -9,7 +9,7 @@ export interface Parameters {
 }
 
 /**
- * Stores the pdf in a Firebase Storage bucket.
+ * Stores the PDF file in a Firebase Storage bucket.
  */
 export async function storePdf({
   outputFileName,

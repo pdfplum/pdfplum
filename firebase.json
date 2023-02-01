@@ -12,10 +12,11 @@
     },
     "firestore": {
       "port": 8080
-    }
+    },
+    "singleProjectMode": true
   },
   "extensions": {
-    "pdf-generator": "./pdf-generator"
+    "pdf-plum": "./pdf-plum"
   },
   "storage": {
     "rules": "storage.rules"

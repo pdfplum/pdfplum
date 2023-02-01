@@ -31,7 +31,7 @@ export interface ReturnValue {
 
 /**
  * Loads template and renders it based on the provided parameters.
- * Returns the generated pdf and its metadata.
+ * Returns the generated PDF and its metadata.
  */
 export async function producePdf({
   outputBucketName,
@@ -68,7 +68,7 @@ export async function producePdf({
 
   if (eventChannel) {
     await eventChannel.publish({
-      type: "firebase.extensions.pdf-generator.v1.complete",
+      type: "firebase.extensions.pdf-plum.v1.complete",
       subject: parameters.templateId,
       data: functionContext,
     });

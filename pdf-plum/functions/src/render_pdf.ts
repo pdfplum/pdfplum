@@ -3,7 +3,7 @@ import * as functions from "firebase-functions";
 
 /**
  * Opens a Chromium page, opens the content served on `portNumber`, generates
- * a pdf out of it and returns it.
+ * a PDF file out of it and returns it.
  */
 export async function renderPdf({
   adjustHeightToFit,
@@ -78,6 +78,15 @@ export async function renderPdf({
       }
     )
   );
+  page.on("error", (error) => {
+    functions.logger.info(
+      "Error raised while loading template bundle in the browser",
+      {
+        errorMessage: error.message,
+        stack: error.stack,
+      }
+    );
+  });
   page.on("pageerror", (error) => {
     functions.logger.info(
       "Error raised while loading template bundle in the browser",
@@ -131,7 +140,9 @@ export async function renderPdf({
     ...extraOptions,
   });
 
-  await page.close();
+  if (headless) {
+    await page.close();
+  }
 
   return pdf;
 }
