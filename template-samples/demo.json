@@ -4,6 +4,7 @@
     "printBackground": "true"
   },
   "adjustHeightToFit": "no",
+  "networkIdleTime": 1000,
   "data": {
     "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
     "flag": "OK",
@@ -30,16 +31,8 @@
       }
     ],
     "colors": {
-      "warm": [
-        "Red",
-        "Yellow",
-        "Orange"
-      ],
-      "cold": [
-        "Green",
-        "Blue",
-        "Gray"
-      ]
+      "warm": ["Red", "Yellow", "Orange"],
+      "cold": ["Green", "Blue", "Gray"]
     },
     "info": {
       "Age": "38",

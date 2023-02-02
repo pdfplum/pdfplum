@@ -3,6 +3,7 @@
     "width": 1500
   },
   "adjustHeightToFit": "yes",
+  "networkIdleTime": 1000,
   "data": {
     "name": "World"
   }
