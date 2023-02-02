@@ -81,6 +81,10 @@ Overrides the [`ADJUST_HEIGHT_TO_FIT`](#adjustheighttofit-required) extension pa
 
 Overrides the [`CHROMIUM_PDF_OPTIONS`](#chromiumpdfoptions-optional) extension parameter.
 
+#### `networkIdleTime`
+
+Overrides the [`NETWORK_IDLE_TIME`](#networkidletime-required) extension parameter.
+
 #### `shouldWaitForIsReady`
 
 Overrides the [`SHOULD_WAIT_FOR_IS_READY`](#shouldwaitforisready-required) extension parameter.
@@ -132,6 +136,13 @@ type: **string**
 
 Options to be passed to Chromium PDF generation engine provided as a JSON string. Documented [here](https://www.puppeteersharp.com/api/PuppeteerSharp.PdfOptions.html). Can be overridden by GET parameters.
 
+#### `NETWORK_IDLE_TIME` (required)
+
+Network idle time (in milliseconds)<br/>
+type: **string**
+
+Amount of time without any network activity before rendering the PDF file starts. It is to make sure all external resources have been loaded and a grace time has been passed.
+
 #### `SHOULD_WAIT_FOR_IS_READY` (required)
 
 Wait for `isReady`?<br/>
@@ -162,7 +173,7 @@ Memory of the function responsible for resizing images. Choose how much memory t
 
 #### `FUNCTION_TIMEOUT` (required)
 
-Cloud Function timeout<br/>
+Cloud Function timeout (in seconds)<br/>
 type: **string**
 
-The time (in seconds) the function has to finish its job.
+The time the function has to finish its job.

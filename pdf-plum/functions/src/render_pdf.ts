@@ -10,12 +10,14 @@ export async function renderPdf({
   chromiumPdfOptions,
   headless,
   portNumber,
+  networkIdleTime,
   shouldWaitForIsReady,
 }: {
   adjustHeightToFit: boolean;
   chromiumPdfOptions: PDFOptions;
   headless: boolean;
   portNumber: number;
+  networkIdleTime: number;
   shouldWaitForIsReady: boolean;
 }): Promise<Buffer> {
   const chromiumArguments = [
@@ -107,6 +109,8 @@ export async function renderPdf({
     timeout: 0,
     ...(headless ? { waitUntil: "networkidle0" } : {}),
   });
+
+  await page.waitForNetworkIdle({ idleTime: networkIdleTime, timeout: 0 });
 
   if (shouldWaitForIsReady) {
     const watchDog = page.waitForFunction("window.isReady === true");

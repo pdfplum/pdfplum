@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.9.1
+
+- Add `networkIdleTime` (milliseconds) GET parameter. PDFPlum will only start rendering the PDF file, as soon as the specified duration passes without any network activity.
+
 ## Version 0.9.0
 
 - Rename the extension to pdf-plum.
@@ -16,7 +20,7 @@
 - Change `true`/`false` extension variable values to `yes`/`no`.
 - Add a script to generate extension variables section of `PREINSTALL.md` document (it used to be written manually) so that it can be used in git precommit hooks.
 - Add a script to update all template samples zip files and PDF files so that it can be used in git precommit hooks.
-- Add get parameters of each template sample as JSON data in a file with the same name as the template sample with `.json` extension.
+- Add GET parameters of each template sample as JSON data in a file with the same name as the template sample with `.json` extension.
 
 ## Version 0.7.11
 
@@ -44,7 +48,7 @@
 
 ## Version 0.7.6
 
-- Add `shouldWaitForIsReady` in get parameters. Setting this parameter will cause the function to wait for `window.isReady` to be set to true before rendering the PDF.
+- Add `shouldWaitForIsReady` in GET parameters. Setting this parameter will cause the function to wait for `window.isReady` to be set to true before rendering the PDF.
 
 ## Version 0.7.5
 
@@ -106,9 +110,9 @@
 
 - Add a markdown template example so that everyone can easily copy it and put their own markdown in case they prefer Markdown over HTML/CSS.
 - Add `adjustHeightToFit` to automatically set the page height to the height of content so that everything can fit in a single page. Useful for generating single page PDF files.
-- Introduce `chromiumPdfOptions` in get parameters to control the PDF generation. Options described [here](https://www.puppeteersharp.com/api/PuppeteerSharp.PdfOptions.html).
-- Instead of providing template values directly in get parameters, now they should be provided as keys of `data` get parameter.
-- `_` prefix is eliminated for all get parameters.
+- Introduce `chromiumPdfOptions` in GET parameters to control the PDF generation. Options described [here](https://www.puppeteersharp.com/api/PuppeteerSharp.PdfOptions.html).
+- Instead of providing template values directly in GET parameters, now they should be provided as keys of `data` GET parameter.
+- `_` prefix is eliminated for all GET parameters.
 - Add detailed installation and usage instructions in `README.md`.
 
 ## Version 0.3.3

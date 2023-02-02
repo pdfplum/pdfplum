@@ -10,6 +10,7 @@ export interface GetParameters {
   headful?: "true" | "false";
   outputFileName?: string;
   templatePath?: string;
+  networkIdleTime?: string;
   shouldWaitForIsReady?: "yes" | "no";
 }
 
@@ -27,6 +28,7 @@ export interface ParsedParameters {
   templateBucket: string;
   templatePrefix: string;
   templateId: string;
+  networkIdleTime: number;
   shouldWaitForIsReady: boolean;
 }
 
@@ -116,6 +118,9 @@ export function parseParameters({
     templateBucket,
     templatePrefix,
     templateId,
+    networkIdleTime: Number.parseInt(
+      rawParameters.networkIdleTime ?? extensionParameters.NETWORK_IDLE_TIME
+    ),
     shouldWaitForIsReady:
       (rawParameters.shouldWaitForIsReady?.toLowerCase() ??
         extensionParameters.SHOULD_WAIT_FOR_IS_READY.toLowerCase()) === "yes",

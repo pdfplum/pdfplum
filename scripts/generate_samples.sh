@@ -1,7 +1,10 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
-for i in $(ls template-samples/**.json)
+shopt -s globstar
+
+for i in $(ls template-samples/**/*.json)
 do
   template="${i%.*}"
+  echo $template
   npm run dev:run "${template}"
 done
