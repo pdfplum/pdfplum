@@ -2,7 +2,7 @@
 # ocs: https://firebase.google.com/docs/extensions/alpha/ref-extension-yaml
 
 # Identifier for your extension
-name: pdf-plum
+name: pdfplum
 
 # Follow semver versioning
 version: 0.7.11
@@ -20,17 +20,17 @@ description: >-
 license: Apache-2.0 # https://spdx.org/licenses/
 
 author:
-  authorName: Sassan Haradji
-  url: https://guthub.com/sassanh
+  authorName: PDFPlum
+  url: https://guthub.com/pdfplum
 
 contributors:
-  - authorName: Sassan Haradji
-    email: sassanh@gmail.com
-    url: https://github.com/sassanh
+  - authorName: PDFPlum
+    email: hi@pdfplum.com
+    url: https://github.com/pdfplum
 
 # Public URL for the source code of your extension
-sourceUrl: https://github.com/sassanh/pdf-plum/tree/main/pdf-plum
-releaseNotesUrl: https://github.com/sassanh/pdf-plum/tree/main/pdf-plum/CHANGELOG.md
+sourceUrl: https://github.com/pdfplum/pdfplum/tree/main/pdfplum
+releaseNotesUrl: https://github.com/pdfplum/pdfplum/tree/main/pdfplum/CHANGELOG.md
 
 # Specify whether a paid-tier billing plan is required to use your extension.
 # Learn more in the docs: https://firebase.google.com/docs/extensions/alpha/ref-extension-yaml#billing-required-field
@@ -268,7 +268,7 @@ params:
     immutable: false
 
 events:
-  - type: firebase.extensions.pdf-plum.v1.complete
+  - type: firebase.extensions.pdfplum.v1.complete
     description: Occurs when PDF generation completes. The event will contain further details.
-  - type: firebase.extensions.pdf-plum.v1.error
+  - type: firebase.extensions.pdfplum.v1.error
     description: Occurs when PDF generation runs into an error. The event will contain further details.

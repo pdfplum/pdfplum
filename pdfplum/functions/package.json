@@ -1,9 +1,9 @@
 {
-  "name": "pdf-plum",
-  "version": "0.7.11",
+  "name": "pdfplum",
+  "version": "0.10.0",
   "description": "Generate PDF documents from templates stored in Firebase Storage",
-  "author": "Sassan Haradji (sassanh@gmail.com)",
-  "repository": "https://github.com/sassanh/pdf-plum",
+  "author": "PDFPlum (hi@pdfplum.com)",
+  "repository": "https://github.com/pdfplum/pdfplum",
   "scripts": {
     "lint": "eslint --ext .js,.ts .",
     "format": "eslint --fix --ext .js,.ts .",

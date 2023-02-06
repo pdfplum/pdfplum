@@ -12,7 +12,7 @@ It then downloads the template provided, runs Handlebars on it with the provided
 
 ## Demo
 
-For inspiration, there are some pre-made templates and their outputs prepared in the [template-samples/](https://github.com/sassanh/pdf-plum/tree/main/template-samples) directory. Each of them includes the HTMLs and their resources. The sample outputs can be found next to the template's `generated` directory. To use any of these in your extension config, just upload the `.zip` file to a Storage bucket and include the complete path of the file in `TEMPLATE_PATH` extension parameter.
+For inspiration, there are some pre-made templates and their outputs prepared in the [template-samples/](https://github.com/pdfplum/pdfplum/tree/main/template-samples) directory. Each of them includes the HTMLs and their resources. The sample outputs can be found next to the template's `generated` directory. To use any of these in your extension config, just upload the `.zip` file to a Storage bucket and include the complete path of the file in `TEMPLATE_PATH` extension parameter.
 
 ## Preparation
 

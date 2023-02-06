@@ -30,7 +30,7 @@ export function createErrorHandler({
 
     if (eventChannel) {
       await eventChannel.publish({
-        type: "firebase.extensions.pdf-plum.v1.error",
+        type: "firebase.extensions.pdfplum.v1.error",
         subject: "error",
         data: { ...context, extensionParameters },
       });

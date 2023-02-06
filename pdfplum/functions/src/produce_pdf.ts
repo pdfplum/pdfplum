@@ -68,7 +68,7 @@ export async function producePdf({
 
   if (eventChannel) {
     await eventChannel.publish({
-      type: "firebase.extensions.pdf-plum.v1.complete",
+      type: "firebase.extensions.pdfplum.v1.complete",
       subject: parameters.templateId,
       data: functionContext,
     });

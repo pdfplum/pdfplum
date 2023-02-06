@@ -1,12 +1,16 @@
 # Changelog
 
+## Version 0.10.0
+
+- Drop dashes in the extension name and repository name `pdf-plum` -> `pdfplum`.
+
 ## Version 0.9.1
 
 - Add `networkIdleTime` (milliseconds) GET parameter. PDFPlum will only start rendering the PDF file, as soon as the specified duration passes without any network activity.
 
 ## Version 0.9.0
 
-- Rename the extension to pdf-plum.
+- Rename the extension to pdfplum.
 - Add link to the [website](https://pdfplum.com).
 - `package.json` script entries `dev:run` and `dev:run:headful` to run the extension for a template provided as the argument.
 - Update docs
@@ -39,7 +43,7 @@
 
 ## Version 0.7.8
 
-- Setup testing infrastructure. (`jest`, setting up environment, etc) ([Darren Ackers](https://github.com/dackers86) - [PR](https://github.com/sassanh/pdf-plum/pull/4))
+- Setup testing infrastructure. (`jest`, setting up environment, etc) ([Darren Ackers](https://github.com/dackers86) - [PR](https://github.com/pdfplum/pdfplum/pull/4))
 - Configure GitHub actions for the repository.
 
 ## Version 0.7.7
@@ -66,9 +70,9 @@
 
 ## Version 0.7.2
 
-- Improve documentation ([Darren Ackers](https://github.com/dackers86) - [PR](https://github.com/sassanh/pdf-plum/pull/3))
-- Change boolean extension parameters values to yes/no instead of true/false ([Darren Ackers](https://github.com/dackers86) - [PR](https://github.com/sassanh/pdf-plum/pull/2))
-- Update regular expression of `TEMPLATE_PATH` to allow zip extensions for template paths ([Darren Ackers](https://github.com/dackers86) - [PR](https://github.com/sassanh/pdf-plum/pull/1))
+- Improve documentation ([Darren Ackers](https://github.com/dackers86) - [PR](https://github.com/pdfplum/pdfplum/pull/3))
+- Change boolean extension parameters values to yes/no instead of true/false ([Darren Ackers](https://github.com/dackers86) - [PR](https://github.com/pdfplum/pdfplum/pull/2))
+- Update regular expression of `TEMPLATE_PATH` to allow zip extensions for template paths ([Darren Ackers](https://github.com/dackers86) - [PR](https://github.com/pdfplum/pdfplum/pull/1))
 - Set actual version number in package.json (instead of `<VERSION>` placeholder) and check if it matches with CHANGELOG.md version instead of setting it in publish script. This is to help local development where a placeholder version in package.json makes initial setup inconvenient.
 - Update regular expression of `TEMPLATE_PATH` to allow nested paths.
 

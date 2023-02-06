@@ -59,7 +59,7 @@ export async function loadTemplate({
   const templateBuffer = response.arrayBuffer();
 
   const temporaryDirectoryPath = fs.mkdtempSync(
-    path.join(os.tmpdir(), "pdf-plum-")
+    path.join(os.tmpdir(), "pdfplum-")
   );
 
   const zipFile = await jszip.loadAsync(templateBuffer);

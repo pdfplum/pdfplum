@@ -1,4 +1,4 @@
-#!/usr/bin/env NODE_PATH=./pdf-plum/functions/node_modules node
+#!/usr/bin/env NODE_PATH=./pdfplum/functions/node_modules node
 const child_process = require("child_process");
 const { promisify } = require("util");
 const { readFileSync, writeFileSync } = require("fs");
@@ -69,10 +69,10 @@ async function main() {
     outputFileName: `${templateName}.pdf`,
   });
   console.log(
-    `Fetching "http://127.0.0.1:5001/${PROJECT}/us-central1/ext-pdf-plum-executePdfGeneratorHttp?${parameters}"`
+    `Fetching "http://127.0.0.1:5001/${PROJECT}/us-central1/ext-pdfplum-executePdfGeneratorHttp?${parameters}"`
   );
   const response = await fetch(
-    `http://127.0.0.1:5001/${PROJECT}/us-central1/ext-pdf-plum-executePdfGeneratorHttp?${parameters}`
+    `http://127.0.0.1:5001/${PROJECT}/us-central1/ext-pdfplum-executePdfGeneratorHttp?${parameters}`
   );
   if (response.status === 200) {
     writeFileSync(
