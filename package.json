@@ -1,5 +1,5 @@
 {
-  "version": "0.10.0",
+  "version": "0.10.1",
   "scripts": {
     "format:code": "cd pdfplum/functions; npm run format",
     "format:config": "prettier --write \"**/*.{json,yml,yaml}\"",
@@ -13,8 +13,8 @@
     "publish": "scripts/publish.sh",
     "generate:docs": "scripts/generate_documents.js",
     "generate:samples": "scripts/generate_samples.sh",
-    "dev:run": "scripts/run.js",
-    "dev:run:headful": "scripts/run.js --headful"
+    "dev:run": "scripts/run.js --open-pdf",
+    "dev:run:headful": "scripts/run.js --open-pdf --headful"
   },
   "devDependencies": {
     "minimist": "^1.2.7",

@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.10.1
+
+- Add `--open-pdf` option to `run` script, if not provided, PDF file won't be opened after being generated.
+
 ## Version 0.10.0
 
 - Drop dashes in the extension name and repository name `pdf-plum` -> `pdfplum`.

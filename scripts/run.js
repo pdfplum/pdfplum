@@ -27,9 +27,12 @@ async function main() {
     .positional("templatePath", { type: "string" })
     .boolean("headful")
     .default("headful", false)
+    .boolean("open-pdf")
+    .default("open-pdf", false)
     .help().argv;
 
-  const { headful } = argv;
+  const headful = argv.headful;
+  const openPdf = argv.openPdf;
 
   const [templatePath] = argv._;
   const templateDirectory = path.dirname(templatePath);
@@ -79,7 +82,7 @@ async function main() {
       `${templateDirectory}/${templateName}.pdf`,
       Buffer.from(await response.arrayBuffer())
     );
-    await exec(`open ${templateDirectory}/${templateName}.pdf`);
+    if (openPdf) await exec(`open ${templateDirectory}/${templateName}.pdf`);
   } else {
     console.log(`Status: ${response.status}`);
     console.log(`Response: ${await response.text()}`);
