@@ -1,6 +1,6 @@
 {
   "name": "pdfplum",
-  "version": "0.10.1",
+  "version": "0.10.3",
   "description": "Generate PDF documents from templates stored in Firebase Storage",
   "author": "PDFPlum (hi@pdfplum.com)",
   "repository": "https://github.com/pdfplum/pdfplum",
@@ -24,22 +24,22 @@
   "main": "lib/index.js",
   "dependencies": {
     "@types/jest": "^29.4.0",
-    "firebase": "^9.16.0-canary.825e648b8",
-    "firebase-admin": "^11.0.1",
-    "firebase-functions": "^4.2.0",
+    "firebase": "^9.17.1",
+    "firebase-admin": "^11.5.0",
+    "firebase-functions": "^4.2.1",
     "get-port": "^6.1.2",
     "googleapis": "^110.0.0",
     "handlebars": "^4.7.7",
-    "handlebars-helpers": "^0.9.8",
+    "handlebars-helpers": "^0.10.0",
     "jszip": "^3.10.1",
     "node-fetch": "^3.3.0",
-    "puppeteer": "^19.6.2",
+    "puppeteer": "^19.6.3",
     "serve-static": "^1.15.0",
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.5"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.49.0",
-    "@typescript-eslint/parser": "^5.49.0",
+    "@typescript-eslint/eslint-plugin": "^5.51.0",
+    "@typescript-eslint/parser": "^5.51.0",
     "dotenv": "^16.0.3",
     "eslint": "^8.33.0",
     "eslint-config-google": "^0.14.0",

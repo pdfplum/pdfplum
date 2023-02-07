@@ -1,5 +1,5 @@
 {
-  "version": "0.10.1",
+  "version": "0.10.3",
   "scripts": {
     "format:code": "cd pdfplum/functions; npm run format",
     "format:config": "prettier --write \"**/*.{json,yml,yaml}\"",

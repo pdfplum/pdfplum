@@ -1,61 +1,32 @@
-# Learn detailed information about the fields of an extension.yaml file in the
-# ocs: https://firebase.google.com/docs/extensions/alpha/ref-extension-yaml
-
-# Identifier for your extension
 name: pdfplum
-
-# Follow semver versioning
-version: 0.10.1
-
-# Version of the Firebase Extensions specification
+version: 0.10.3
 specVersion: v1beta
 
-# Friendly display name for your extension (~3-5 words)
 displayName: Generate PDF using Puppeteer and Handlebars.js
-
-# Brief description of the task your extension performs (~1 sentence)
 description: >-
   Generates PDF files from HTML templates and HTTP calls using Puppeteer and Handlebars.js and stores them in Firebase Storage and/or returns them in response.
 
-license: Apache-2.0 # https://spdx.org/licenses/
+license: Apache-2.0
 
 author:
   authorName: PDFPlum
-  url: https://guthub.com/pdfplum
+  url: https://pdfplum.com
 
 contributors:
-  - authorName: PDFPlum
-    email: hi@pdfplum.com
-    url: https://github.com/pdfplum
+  - authorName: Sassan Haradji
+    url: https://github.com/sassanh
 
-# Public URL for the source code of your extension
 sourceUrl: https://github.com/pdfplum/pdfplum/tree/main/pdfplum
 releaseNotesUrl: https://github.com/pdfplum/pdfplum/tree/main/pdfplum/CHANGELOG.md
 
-# Specify whether a paid-tier billing plan is required to use your extension.
-# Learn more in the docs: https://firebase.google.com/docs/extensions/alpha/ref-extension-yaml#billing-required-field
 billingRequired: true
 
-# In an `apis` field, list any Google APIs (like Cloud Translation, BigQuery, etc.)
-# required for your extension to operate.
-# Learn more in the docs: https://firebase.google.com/docs/extensions/alpha/ref-extension-yaml#apis-field
-
-# In a `roles` field, list any IAM access roles required for your extension to operate.
-# Learn more in the docs: https://firebase.google.com/docs/extensions/alpha/ref-extension-yaml#roles-field
-# roles:
-#  - role: datastore.user
-#    reason: Allows this extension to access Cloud Firestore to read.
-
-# In the `resources` field, list each of your extension's functions, including the trigger for each function.
-# Learn more in the docs: https://firebase.google.com/docs/extensions/alpha/ref-extension-yaml#resources-field
 resources:
   - name: executePdfGeneratorHttp
     type: firebaseextensions.v1beta.function
     description: >-
       Generate PDF from HTML template, triggered by a http call
     properties:
-      # LOCATION is a user-configured parameter value specified by the user
-      # during installation.
       location: ${param:LOCATION}
       runtime: nodejs16
       timeout: ${param:FUNCTION_TIMEOUT}s
@@ -76,8 +47,6 @@ resources:
         eventType: providers/cloud.firestore/eventTypes/document.create
         resource: projects/${param:PROJECT_ID}/databases/(default)/documents/${param:FIRESTORE_COLLECTION}/{id}
 
-# In the `params` field, set up your extension's user-configured parameters.
-# Learn more in the docs: https://firebase.google.com/docs/extensions/alpha/ref-extension-yaml#params-field
 params:
   - param: OUTPUT_STORAGE_BUCKET
     label: Output Firebase Storage bucket name

@@ -1,5 +1,14 @@
 # Changelog
 
+## Version 0.10.3
+
+- Workaround for [an issue](https://github.com/puppeteer/puppeteer/issues/9533) in Puppeteer not being able to reach the downloaded binary.
+
+## Version 0.10.2
+
+- Update Puppeteer to version `19.6.3`.
+- Move Puppeteer cache to `__dirname`.
+
 ## Version 0.10.1
 
 - Add `--open-pdf` option to `run` script, if not provided, PDF file won't be opened after being generated.
@@ -129,8 +138,8 @@
 
 ## Version 0.3.2
 
-- Install puppeteer for local test
-- Use chrome-aws-lambda instead of puppeteer to improve performance
+- Install Puppeteer for local test
+- Use chrome-aws-lambda instead of Puppeteer to improve performance
 
 ## Version 0.3.1
 
