@@ -1,5 +1,5 @@
 name: pdfplum
-version: 0.10.3
+version: 0.10.4
 specVersion: v1beta
 
 displayName: Generate PDF using Puppeteer and Handlebars.js
@@ -37,8 +37,6 @@ resources:
     description: >-
       Generate PDF from HTML template, triggered by a Firestore write
     properties:
-      # LOCATION is a user-configured parameter value specified by the user
-      # during installation.
       location: ${param:LOCATION}
       runtime: nodejs16
       timeout: ${param:FUNCTION_TIMEOUT}s

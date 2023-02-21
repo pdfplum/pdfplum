@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.10.4
+
+- Downgrade Puppeteer to `^18` to workaround [issue](https://github.com/puppeteer/puppeteer/issues/9533) as suggested in its comments.
+
 ## Version 0.10.3
 
 - Workaround for [an issue](https://github.com/puppeteer/puppeteer/issues/9533) in Puppeteer not being able to reach the downloaded binary.
