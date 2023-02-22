@@ -1,4 +1,4 @@
-#!/usr/bin/env NODE_PATH=./pdfplum/functions/node_modules node
+#!/usr/bin/env NODE_PATH=./pdf-generator/functions/node_modules node
 const child_process = require("child_process");
 const { promisify } = require("util");
 const { readFileSync, writeFileSync } = require("fs");
@@ -16,7 +16,7 @@ const path = require("path");
 
 const PROJECT = "demo-test";
 const BUCKET = `${PROJECT}.appspot.com`;
-const USE_OFFICIAL_UPLOAD_METHOD = true;
+const USE_OFFICIAL_UPLOAD_METHOD = false;
 
 const exec = promisify(child_process.exec);
 
@@ -55,7 +55,6 @@ async function main() {
     const templateRef = ref(storage, `${templateName}.zip`);
     await uploadBytes(templateRef, templateContent);
   } else {
-    console.log("Normal upload failed.");
     await fetch(
       `http://127.0.0.1:9199/v0/b/${PROJECT}.appspot.com/o?name=${templateName}`,
       {
@@ -72,10 +71,10 @@ async function main() {
     outputFileName: `${templateName}.pdf`,
   });
   console.log(
-    `Fetching "http://127.0.0.1:5001/${PROJECT}/us-central1/ext-pdfplum-executePdfGeneratorHttp?${parameters}"`
+    `Fetching "http://127.0.0.1:5001/${PROJECT}/us-central1/ext-pdf-generator-executePdfGeneratorHttp?${parameters}"`
   );
   const response = await fetch(
-    `http://127.0.0.1:5001/${PROJECT}/us-central1/ext-pdfplum-executePdfGeneratorHttp?${parameters}`
+    `http://127.0.0.1:5001/${PROJECT}/us-central1/ext-pdf-generator-executePdfGeneratorHttp?${parameters}`
   );
   if (response.status === 200) {
     writeFileSync(

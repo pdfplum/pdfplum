@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 0.11.0
+
+- Add `storage.admin` role to extension so that it can work with private Firebase Storage buckets.
+- Rename the extension from `pdfplum/pdfplum` to `pdfplum/pdf-generator` to match Firebase extensions naming pattern.
+- Use `firebase-admin/storage` to directly download the file content instead of first getting its url and then `fetch`ing it.
+
 ## Version 0.10.4
 
 - Downgrade Puppeteer to `^18` to workaround [issue](https://github.com/puppeteer/puppeteer/issues/9533) as suggested in its comments.

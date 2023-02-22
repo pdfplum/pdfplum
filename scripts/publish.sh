@@ -3,10 +3,10 @@
 set -e
 
 DESTINATION_PATH=./publish-package
-EXTENSION_PATH=./pdfplum
-CHANGELOG_FILE=pdfplum/CHANGELOG.md
-EXTENSION_DOT_YAML_FILE=./pdfplum/extension.yaml
-PACKAGE_DOT_JSON_FILE=./pdfplum/functions/package.json
+EXTENSION_PATH=./pdf-generator
+CHANGELOG_FILE=pdf-generator/CHANGELOG.md
+EXTENSION_DOT_YAML_FILE=./pdf-generator/extension.yaml
+PACKAGE_DOT_JSON_FILE=./pdf-generator/functions/package.json
 ROOT_PACKAGE_DOT_JSON_FILE=./package.json
 
 rm -rf $DESTINATION_PATH
@@ -25,7 +25,7 @@ fi
 
 if [[ "$VERSION" != "$PACKAGE_VERSION" ]]
 then
-  echo "Version in 'CHANGELOG.md' ($VERSION) does not match with the version in '/pdfplum/functions/package.json' ($PACKAGE_VERSION)"
+  echo "Version in 'CHANGELOG.md' ($VERSION) does not match with the version in '/pdf-generator/functions/package.json' ($PACKAGE_VERSION)"
   exit 1
 fi
 
@@ -58,4 +58,4 @@ do
 done
 
 cd $DESTINATION_PATH
-firebase ext:dev:publish $PUBLISHER_ID/pdfplum
+firebase ext:dev:publish $PUBLISHER_ID/pdf-generator

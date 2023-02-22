@@ -16,7 +16,7 @@
     "singleProjectMode": true
   },
   "extensions": {
-    "pdfplum": "./pdfplum"
+    "pdf-generator": "./pdf-generator"
   },
   "storage": {
     "rules": "storage.rules"

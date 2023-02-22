@@ -1,5 +1,5 @@
-name: pdfplum
-version: 0.10.4
+name: pdf-generator
+version: 0.11.0
 specVersion: v1beta
 
 displayName: Generate PDF using Puppeteer and Handlebars.js
@@ -20,6 +20,14 @@ sourceUrl: https://github.com/pdfplum/pdfplum/tree/main/pdfplum
 releaseNotesUrl: https://github.com/pdfplum/pdfplum/tree/main/pdfplum/CHANGELOG.md
 
 billingRequired: true
+
+apis:
+  - apiName: storage-component.googleapis.com
+    reason: Needed to use Cloud Storage
+
+roles:
+  - role: storage.admin
+    reason: Allows the extension to read templates from and write pdf files to Storage
 
 resources:
   - name: executePdfGeneratorHttp
@@ -54,6 +62,20 @@ params:
     example: bucket_name
     default: ${STORAGE_BUCKET}
     required: false
+    immutable: false
+
+  - param: SHOULD_MAKE_PDF_PUBLIC
+    label: Should the generated PDF in output storage bucket be public or private?
+    description: >-
+      Whether the generated PDF file should be public or private.
+    type: select
+    options:
+      - label: Public
+        value: yes
+      - label: Private
+        value: no
+    default: no
+    required: true
     immutable: false
 
   - param: RETURN_PDF_IN_RESPONSE

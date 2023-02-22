@@ -1,3 +1,7 @@
+import * as admin from "firebase-admin";
+
+admin.initializeApp();
+
 import * as functions from "firebase-functions";
 import { ParamsDictionary, Request } from "express-serve-static-core";
 import {

@@ -5,14 +5,9 @@ import QueryString from "qs";
 import jszip from "jszip";
 import Handlebars from "handlebars";
 import * as functions from "firebase-functions";
-import { ref, getDownloadURL, StorageError } from "firebase/storage";
-import { runAction } from "./utilities/action";
-import { initializeFirebaseStorage } from "./utilities/initialize_storage";
+import { getStorage } from "firebase-admin/storage";
+import { ApiError } from "@google-cloud/storage/build/src/nodejs-common";
 import "./utilities/setup_handlebars";
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const fetch = (url: any, init?: any) =>
-  import("node-fetch").then(({ default: fetch }) => fetch(url, init));
 
 Handlebars.registerHelper("json", function (object) {
   const result = JSON.stringify(object);
@@ -25,7 +20,7 @@ Handlebars.registerHelper("json", function (object) {
  */
 export async function loadTemplate({
   data,
-  templateBucket,
+  templateBucket: templateBucketName,
   templatePrefix,
   templateId,
 }: {
@@ -34,20 +29,20 @@ export async function loadTemplate({
   templatePrefix: string;
   templateId: string;
 }): Promise<string> {
-  const storage = runAction(initializeFirebaseStorage, templateBucket);
+  const templateBucket = getStorage().bucket(templateBucketName);
 
-  let templateUrl: string;
+  let templateBuffer;
   try {
-    const templateRef = ref(storage, `${templatePrefix}/${templateId}`);
-    templateUrl = await getDownloadURL(templateRef);
+    [templateBuffer] = await templateBucket
+      .file(`${templatePrefix}/${templateId}`)
+      .download();
   } catch (exception) {
-    if (
-      exception instanceof StorageError &&
-      exception.code === "storage/object-not-found"
-    ) {
+    console.log(exception, typeof exception);
+    if (exception instanceof ApiError && exception.code === 404) {
       try {
-        const templateRef = ref(storage, `${templatePrefix}/${templateId}.zip`);
-        templateUrl = await getDownloadURL(templateRef);
+        [templateBuffer] = await templateBucket
+          .file(`${templatePrefix}/${templateId}.zip`)
+          .download();
       } catch {
         throw exception;
       }
@@ -55,9 +50,6 @@ export async function loadTemplate({
       throw exception;
     }
   }
-  const response = await fetch(templateUrl);
-  const templateBuffer = response.arrayBuffer();
-
   const temporaryDirectoryPath = fs.mkdtempSync(
     path.join(os.tmpdir(), "pdfplum-")
   );

@@ -4,7 +4,7 @@ const YAML = require("yaml");
 const fs = require("fs");
 
 const extensionFileContent = YAML.parse(
-  fs.readFileSync("pdfplum/extension.yaml", { encoding: "utf8" })
+  fs.readFileSync("pdf-generator/extension.yaml", { encoding: "utf8" })
 );
 
 const firebaseExtensionParametersHeader = "### Firebase extension parameters\n";
@@ -20,7 +20,7 @@ ${parameter.description}
 `;
 }
 
-const preinstallTemplate = fs.readFileSync("pdfplum/PREINSTALL.md", {
+const preinstallTemplate = fs.readFileSync("pdf-generator/PREINSTALL.md", {
   encoding: "utf8",
 });
 const preinstallContent = preinstallTemplate.replace(
@@ -30,4 +30,4 @@ const preinstallContent = preinstallTemplate.replace(
   ),
   parametersMarkdown
 );
-fs.writeFileSync("pdfplum/PREINSTALL.md", preinstallContent);
+fs.writeFileSync("pdf-generator/PREINSTALL.md", preinstallContent);

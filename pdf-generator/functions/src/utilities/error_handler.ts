@@ -1,5 +1,5 @@
 import * as functions from "firebase-functions";
-import { eventChannel } from "./event_channel";
+import { eventChannel, EVENT_TYPE_PREFIX } from "./event_channel";
 import { extensionParameters } from "./extension_parameters";
 
 export let contextStack: string[];
@@ -30,7 +30,7 @@ export function createErrorHandler({
 
     if (eventChannel) {
       await eventChannel.publish({
-        type: "firebase.extensions.pdfplum.v1.error",
+        type: `${EVENT_TYPE_PREFIX}error`,
         subject: "error",
         data: { ...context, extensionParameters },
       });

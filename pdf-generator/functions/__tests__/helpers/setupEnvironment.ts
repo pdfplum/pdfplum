@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 
 export const pathToEnvFile = path.resolve(
   __dirname,
-  "../../../extensions/pdfplum.env.test"
+  "../../../extensions/pdf-generator.env.test"
 );
 
 export const setupEnvironment = () => {

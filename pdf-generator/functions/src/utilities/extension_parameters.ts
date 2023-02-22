@@ -5,6 +5,7 @@ export type ExtensionParameters = {
   NETWORK_IDLE_TIME: string;
   OUTPUT_STORAGE_BUCKET?: string;
   RETURN_PDF_IN_RESPONSE: string;
+  SHOULD_MAKE_PDF_PUBLIC: string;
   SHOULD_WAIT_FOR_IS_READY: "yes" | "no";
   TEMPLATE_PATH: string;
 };
@@ -16,6 +17,7 @@ const {
   NETWORK_IDLE_TIME,
   OUTPUT_STORAGE_BUCKET,
   RETURN_PDF_IN_RESPONSE,
+  SHOULD_MAKE_PDF_PUBLIC,
   SHOULD_WAIT_FOR_IS_READY,
   TEMPLATE_PATH,
 } = process.env as ExtensionParameters;
@@ -27,6 +29,7 @@ export const extensionParameters: ExtensionParameters = {
   NETWORK_IDLE_TIME,
   OUTPUT_STORAGE_BUCKET,
   RETURN_PDF_IN_RESPONSE,
+  SHOULD_MAKE_PDF_PUBLIC,
   SHOULD_WAIT_FOR_IS_READY,
   TEMPLATE_PATH,
 };

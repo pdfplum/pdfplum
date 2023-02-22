@@ -12,10 +12,10 @@ This is a Firebase extension to generate PDF files from a template bundle using 
 
 ## Installation
 
-Use [this link](https://console.firebase.google.com/project/_/extensions/install?ref=pdfplum/pdfplum) to install the latest version of PDFPlum in your Firebase project.
+Use [this link](https://console.firebase.google.com/project/_/extensions/install?ref=pdfplum/pdf-generator) to install the latest version of PDFPlum in your Firebase project.
 
-Check [Firebase Extension parameters](/pdfplum/PREINSTALL.md#firebase-extension-parameters) for details about the parameters set in the installation process.
+Check [Firebase Extension parameters](https://github.com/pdfplum/pdfplum/PREINSTALL.md#firebase-extension-parameters) for details about the parameters set in the installation process.
 
 ## Usage
 
-It is all described in the installation page. You can also check it [here](/pdfplum/PREINSTALL.md#usage).
+It is all described in the installation page. You can also check it [here](https://github.com/pdfplum/pdfplum/PREINSTALL.md#usage).

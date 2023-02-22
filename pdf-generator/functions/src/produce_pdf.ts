@@ -4,7 +4,7 @@ import { renderPdf } from "./render_pdf";
 import { serveTemplate } from "./serve_template";
 import { storePdf } from "./store_pdf";
 import { runAction } from "./utilities/action";
-import { eventChannel } from "./utilities/event_channel";
+import { eventChannel, EVENT_TYPE_PREFIX } from "./utilities/event_channel";
 import {
   extensionParameters,
   ExtensionParameters,
@@ -68,7 +68,7 @@ export async function producePdf({
 
   if (eventChannel) {
     await eventChannel.publish({
-      type: "firebase.extensions.pdfplum.v1.complete",
+      type: `${EVENT_TYPE_PREFIX}complete`,
       subject: parameters.templateId,
       data: functionContext,
     });
