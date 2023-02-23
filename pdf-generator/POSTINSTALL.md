@@ -1,35 +1,4 @@
-# Post-installation configuration
-
-Before you can use this extension, you'll need to update your security rules.
-
-## Update security rules
-
-Update your Firebase Storage security rules to allow reads from template path:
-
-```proto
-match /b/${STORAGE_BUCKET}/o {
-  // Allow access to the template path only
-  // use "/{allPaths=**}" to access to all paths in this bucket
-  match /<TEMPLATE_ID> {
-    allow read: if request.auth != null;
-  }
-}
-```
-
-If [`OUTPUT_STORAGE_BUCKET`](https://github.com/pdfplum/pdfplum/tree/main/pdf-generator/PREINSTALL.md#outputstoragebucket-optional) extension parameter is set, you need to allow writes to where generated PDF files are going to be stored at:
-
-```proto
-match /b/${param:OUTPUT_STORAGE_BUCKET}/o {
-  // Allow access to the generated PDF file path
-  match /{outputs_path} {
-    allow write: if request.auth != null;
-  }
-}
-```
-
-You may want to change the conditions, check [here](https://firebase.google.com/docs/storage/security) for more information about security rules.
-
-## Executing the function
+# Executing the function
 
 You can start testing this extension right away.
 
@@ -47,7 +16,7 @@ You can start testing this extension right away.
 
    If [`OUTPUT_STORAGE_BUCKET`](https://github.com/pdfplum/pdfplum/tree/main/pdf-generator/PREINSTALL.md#outputstoragebucket-optional) extension parameter is provided, the generated PDF file will also be stored in Firebase Storage under `${param:OUTPUT_STORAGE_BUCKET}/demo.pdf`. You can check it in your [Firebase Storage dashboard](https://console.firebase.google.com/project/${PROJECT_ID}/storage/${param:OUTPUT_STORAGE_BUCKET}/files).
 
-## Documentation
+# Documentation
 
 - Get parameters are documented [here](https://github.com/pdfplum/pdfplum/tree/main/pdf-generator/PREINSTALL.md#get-parameters).
 - Extension parameters are documented [here](https://github.com/pdfplum/pdfplum/tree/main/pdf-generator/PREINSTALL.md#firebase-extension-parameters).

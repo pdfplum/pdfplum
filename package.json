@@ -1,5 +1,5 @@
 {
-  "version": "0.11.1",
+  "version": "0.11.2",
   "scripts": {
     "format:code": "cd pdf-generator/functions; npm run format",
     "format:config": "prettier --write \"**/*.{json,yml,yaml}\"",
@@ -11,6 +11,7 @@
     "lint": "npm run lint:code; npm run lint:config; npm run lint:documents",
     "test": "cd pdf-generator/functions; npm run test",
     "publish": "scripts/publish.sh",
+    "publish:update-versions": "scripts/publish.sh --update-versions",
     "generate:docs": "scripts/generate_documents.js",
     "generate:samples": "scripts/generate_samples.sh",
     "dev:run": "scripts/run.js --open-pdf",

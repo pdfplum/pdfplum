@@ -1,8 +1,12 @@
 # Changelog
 
+## Version 0.11.2
+
+- Remove "Update security rules" section from `POSTINSTALL.md` as after using `storage.admin` role for the extension it is no longer required to set security rules.
+
 ## Version 0.11.1
 
-- Fix dropping last part of template prefix when extracting it from `templatePath` parameter caused the extension to try to download the template from a wrong url.
+- Fix dropping last part of template prefix when extracting it from `templatePath` parameter which caused the extension to try to download the template from a wrong url.
 
 ## Version 0.11.0
 
