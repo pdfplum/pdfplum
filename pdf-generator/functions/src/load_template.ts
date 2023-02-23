@@ -34,14 +34,14 @@ export async function loadTemplate({
   let templateBuffer;
   try {
     [templateBuffer] = await templateBucket
-      .file(`${templatePrefix}/${templateId}`)
+      .file(`${templatePrefix}${templateId}`)
       .download();
   } catch (exception) {
     console.log(exception, typeof exception);
     if (exception instanceof ApiError && exception.code === 404) {
       try {
         [templateBuffer] = await templateBucket
-          .file(`${templatePrefix}/${templateId}.zip`)
+          .file(`${templatePrefix}${templateId}.zip`)
           .download();
       } catch {
         throw exception;

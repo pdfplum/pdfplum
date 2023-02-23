@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.11.1
+
+- Fix dropping last part of template prefix when extracting it from `templatePath` parameter caused the extension to try to download the template from a wrong url.
+
 ## Version 0.11.0
 
 - Add `storage.admin` role to extension so that it can work with private Firebase Storage buckets.

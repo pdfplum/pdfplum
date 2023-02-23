@@ -86,7 +86,8 @@ export function parseParameters({
 
   const parts = templatePath.split("/");
   const templateBucket = parts[0];
-  const templatePrefix = parts.slice(1, -2).join("/");
+  const templatePrefix =
+    parts.length > 2 ? parts.slice(1, -1).join("/") + "/" : "";
   const templateId = parts[parts.length - 1];
 
   const parameters = {

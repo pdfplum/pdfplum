@@ -102,6 +102,13 @@ type: **string**
 
 The name of the bucket that the output PDF file will be stored in.
 
+#### `SHOULD_MAKE_PDF_PUBLIC` (required)
+
+Should the generated PDF in output storage bucket be public or private?<br/>
+type: **select**
+
+Whether the generated PDF file should be public or private.
+
 #### `RETURN_PDF_IN_RESPONSE` (required)
 
 Should the endpoint return the generated PDF?<br/>

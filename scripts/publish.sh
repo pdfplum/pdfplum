@@ -2,6 +2,11 @@
 
 set -e
 
+if [[ "$1" == "--update-versions" ]]
+then
+  ./scripts/set_version.js
+fi
+
 DESTINATION_PATH=./publish-package
 EXTENSION_PATH=./pdf-generator
 CHANGELOG_FILE=pdf-generator/CHANGELOG.md
@@ -12,10 +17,10 @@ ROOT_PACKAGE_DOT_JSON_FILE=./package.json
 rm -rf $DESTINATION_PATH
 mkdir $DESTINATION_PATH
 
-VERSION=`grep -P "## Version" "$CHANGELOG_FILE" | head -n 1 | sed "s/^## Version //"`
-EXTENSION_VERSION=`grep -P "^version: \d+\.\d+\.\d+\$" $EXTENSION_DOT_YAML_FILE | sed "s/^version: //"`
-PACKAGE_VERSION=`grep -P "^\s*\"version\": \"\d+\.\d+\.\d+\",?\$" $PACKAGE_DOT_JSON_FILE | sed "s/^[[:space:]]*\"version\": \"\([^\"]*\)\",\{0,1\}$/\1/"`
-ROOT_PACKAGE_VERSION=`grep -P "^\s*\"version\": \"\d+\.\d+\.\d+\",?\$" $ROOT_PACKAGE_DOT_JSON_FILE | sed "s/^[[:space:]]*\"version\": \"\([^\"]*\)\",\{0,1\}$/\1/"`
+VERSION=`grep -E "## Version" "$CHANGELOG_FILE" | head -n 1 | sed "s/^## Version //"`
+EXTENSION_VERSION=`grep -E "^version: \d+\.\d+\.\d+\$" $EXTENSION_DOT_YAML_FILE | sed "s/^version: //"`
+PACKAGE_VERSION=`grep -E "^\s*\"version\": \"\d+\.\d+\.\d+\",?\$" $PACKAGE_DOT_JSON_FILE | sed "s/^[[:space:]]*\"version\": \"\([^\"]*\)\",\{0,1\}$/\1/"`
+ROOT_PACKAGE_VERSION=`grep -E "^\s*\"version\": \"\d+\.\d+\.\d+\",?\$" $ROOT_PACKAGE_DOT_JSON_FILE | sed "s/^[[:space:]]*\"version\": \"\([^\"]*\)\",\{0,1\}$/\1/"`
 
 if [[ "$VERSION" != "$EXTENSION_VERSION" ]]
 then
