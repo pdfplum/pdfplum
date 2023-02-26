@@ -12,8 +12,11 @@ jobs:
       - uses: actions/checkout@v3
       - name: NPM Install
         run: npm ci
-      - name: NPM Install (functions directory)
+      - name: NPM Install (firestore-pdf-generator directory)
         run: npm ci
-        working-directory: pdf-generator/functions
+        working-directory: firestore-pdf-generator/functions
+      - name: NPM Install (http-pdf-generator directory)
+        run: npm ci
+        working-directory: http-pdf-generator/functions
       - name: Lint
         run: npm run lint

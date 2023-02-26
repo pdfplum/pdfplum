@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "module": "node16",
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "outDir": "./build",
+    "sourceMap": true,
+    "strict": true,
+    "target": "es2017",
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "rootDirs": [
+      "./src",
+      "../../common-stuff"
+    ],
+    "paths": {
+      "lib/*": [
+        "../../common-stuff/lib/*"
+      ],
+      "firebase-admin/*": [
+        "./node_modules/firebase-admin/lib/*"
+      ],
+      "*": [
+        "./node_modules/*",
+        "./node_modules/@types/*"
+      ]
+    }
+  },
+  "compileOnSave": true,
+  "include": [
+    "src"
+  ]
+}

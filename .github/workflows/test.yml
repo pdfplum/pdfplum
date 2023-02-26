@@ -9,15 +9,44 @@ on:
       - "**"
 
 jobs:
-  test:
+  test-firestore-pdf-generator:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node: ["14", "16"]
-    name: test_node.js_${{ matrix.node }}
+    name: test_firestore-pdf-generator_node.js_${{ matrix.node }}
     defaults:
       run:
-        working-directory: ./pdf-generator/functions
+        working-directory: ./firestore-pdf-generator/functions
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - name: NPM Install
+        run: npm ci
+      - name: Install Firebase CLI
+        uses: nick-invision/retry@v1
+        with:
+          timeout_minutes: 10
+          retry_wait_seconds: 60
+          max_attempts: 3
+          command: npm i -g firebase-tools
+      - name: Use extension commands
+        run: firebase --open-sesame extdev
+      - name: Run tests with coverage
+        run: npm run test
+
+  test-http-pdf-generator:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ["14", "16"]
+    name: test_http-pdf-generator_node.js_${{ matrix.node }}
+    defaults:
+      run:
+        working-directory: ./http-pdf-generator/functions
     steps:
       - uses: actions/checkout@v3
       - name: Setup Node

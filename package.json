@@ -1,5 +1,5 @@
 {
-  "version": "0.11.2",
+  "version": "0.12.0",
   "scripts": {
     "format:code": "cd pdf-generator/functions; npm run format",
     "format:config": "prettier --write \"**/*.{json,yml,yaml}\"",
@@ -11,15 +11,23 @@
     "lint": "npm run lint:code; npm run lint:config; npm run lint:documents",
     "test": "cd pdf-generator/functions; npm run test",
     "publish": "scripts/publish.sh",
-    "publish:update-versions": "scripts/publish.sh --update-versions",
-    "generate:docs": "scripts/generate_documents.js",
-    "generate:samples": "scripts/generate_samples.sh",
+    "publish:update": "npm run update; scripts/publish.sh",
+    "update:extension-specific-stuff": "scripts/update-extension-specific-stuff.js",
+    "update:docs": "scripts/update-documents.js",
+    "update:samples": "scripts/update-samples.sh",
+    "update:versions": "scripts/update-versions.js",
+    "update": "npm run update:extension-specific-stuff; npm run update:docs; npm run update:samples; npm run update:versions",
     "dev:run": "scripts/run.js --open-pdf",
     "dev:run:headful": "scripts/run.js --open-pdf --headful"
   },
   "devDependencies": {
+    "eslint": "^8.35.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
     "minimist": "^1.2.7",
-    "prettier": "^2.8.3",
+    "prettier": "^2.8.4",
     "qs": "^6.11.0",
     "yaml": "^2.2.1",
     "yargs": "^17.6.2"

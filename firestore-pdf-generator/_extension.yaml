@@ -1,0 +1,63 @@
+---
+name: firestore-pdf-generator
+
+displayName: Generate PDF using Puppeteer and Handlebars.js - Firestore version
+description: >-
+  Generates PDF files from HTML templates and Firestore documents using
+  Puppeteer and Handlebars.js and stores them in Firebase Storage and/or returns
+  them in response.
+
+sourceUrl: https://github.com/pdfplum/pdfplum/tree/main/firestore-pdf-generator
+releaseNotesUrl: https://github.com/pdfplum/pdfplum/tree/main/firestore-pdf-generator/CHANGELOG.md
+
+apis:
+  - apiName: firestore.googleapis.com
+    reason: Needed to use listen to Firestore document creation events
+
+roles:
+  - role: datastore.user
+    reason: Allows the extension to listen to document creation events
+      to trigger the PDF generator function
+
+resources:
+  - name: executePdfGeneratorFirestore
+    type: firebaseextensions.v1beta.function
+    description: >-
+      Generate PDF from HTML template, triggered by a Firestore write
+    properties:
+      location: ${param:LOCATION}
+      runtime: nodejs16
+      timeout: ${param:FUNCTION_TIMEOUT}s
+      availableMemoryMb: ${param:FUNCTION_MEMORY}
+      eventTrigger:
+        eventType: providers/cloud.firestore/eventTypes/document.create
+        resource: projects/${param:PROJECT_ID}/databases/(default)/documents/${param:FIRESTORE_COLLECTION}/{id}
+
+params:
+  - param: OUTPUT_STORAGE_BUCKET
+    label: Output Firebase Storage bucket name
+    description: >-
+      The name of the bucket that the output PDF file will be stored in.
+    type: string
+    example: bucket_name
+    default: ${STORAGE_BUCKET}
+    required: true
+    immutable: false
+
+  - param: FIRESTORE_COLLECTION
+    label: Firestore collection, its document creation events should be listened to
+    description: >-
+      If provided, the extension will listen to creation events in this
+      collection, and whenever a new document is created in this collection, it
+      will generate a PDF based on its values.
+    type: string
+    required: false
+    immutable: false
+
+events:
+  - type: firebase.extensions.pdfplum.firestore-pdf-generator.v1.complete
+    description: Occurs when PDF generation completes. The event will contain
+      further details.
+  - type: firebase.extensions.pdfplum.firestore-pdf-generator.v1.error
+    description: Occurs when PDF generation runs into an error. The event will
+      contain further details.

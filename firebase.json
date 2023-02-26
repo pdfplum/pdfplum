@@ -16,7 +16,11 @@
     "singleProjectMode": true
   },
   "extensions": {
-    "pdf-generator": "./pdf-generator"
+    "firestore-pdf-generator": "./firestore-pdf-generator",
+    "http-pdf-generator": "./http-pdf-generator"
+  },
+  "firestore": {
+    "rules": "firestore.rules"
   },
   "storage": {
     "rules": "storage.rules"

@@ -1,0 +1,13 @@
+# Compiled JavaScript files
+build/**/*.js
+build/**/*.json
+build/**/*.js.map
+
+# TypeScript v1 declaration files
+typings/
+
+# Node.js dependency directory
+node_modules/
+
+credentials.json
+

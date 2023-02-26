@@ -1,5 +1,5 @@
-#!/usr/bin/env NODE_PATH=./pdf-generator/functions/node_modules node
-const child_process = require("child_process");
+#!/usr/bin/env NODE_PATH=./http-pdf-generator/functions/node_modules node
+const childProcess = require("child_process");
 const { promisify } = require("util");
 const { readFileSync, writeFileSync } = require("fs");
 const { initializeApp } = require("firebase/app");
@@ -16,10 +16,15 @@ const path = require("path");
 
 const PROJECT = "demo-test";
 const BUCKET = `${PROJECT}.appspot.com`;
-const USE_OFFICIAL_UPLOAD_METHOD = false;
+const USE_OFFICIAL_UPLOAD_METHOD = true;
 
-const exec = promisify(child_process.exec);
+const exec = promisify(childProcess.exec);
 
+/**
+ * Call PDF generator endpoint for template path provided as positional argument.
+ * If `--headful` is provided it will call the endpoint with `headful` parameter to run the Chromium instance in headful mode.
+ * If `--open-pdf` is provided it will try to open the generated PDF returned the response of the http endpoint.
+ */
 async function main() {
   const argv = yargs(hideBin(process.argv))
     .scriptName("run")
@@ -71,10 +76,10 @@ async function main() {
     outputFileName: `${templateName}.pdf`,
   });
   console.log(
-    `Fetching "http://127.0.0.1:5001/${PROJECT}/us-central1/ext-pdf-generator-executePdfGeneratorHttp?${parameters}"`
+    `Fetching "http://127.0.0.1:5001/${PROJECT}/us-central1/ext-http-pdf-generator-executePdfGeneratorHttp?${parameters}"`
   );
   const response = await fetch(
-    `http://127.0.0.1:5001/${PROJECT}/us-central1/ext-pdf-generator-executePdfGeneratorHttp?${parameters}`
+    `http://127.0.0.1:5001/${PROJECT}/us-central1/ext-http-pdf-generator-executePdfGeneratorHttp?${parameters}`
   );
   if (response.status === 200) {
     writeFileSync(

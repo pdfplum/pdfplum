@@ -1,0 +1,66 @@
+---
+name: http-pdf-generator
+
+displayName: Generate PDF using Puppeteer and Handlebars.js - HTTP version
+description: >-
+  Generates PDF files from HTML templates and HTTP calls using
+  Puppeteer and Handlebars.js and stores them in Firebase Storage and/or returns
+  them in response.
+
+sourceUrl: https://github.com/pdfplum/pdfplum/tree/main/http-pdf-generator
+releaseNotesUrl: https://github.com/pdfplum/pdfplum/tree/main/http-pdf-generator/CHANGELOG.md
+
+resources:
+  - name: executePdfGeneratorHttp
+    type: firebaseextensions.v1beta.function
+    description: >-
+      Generate PDF from HTML template, triggered by a http call
+    properties:
+      location: ${param:LOCATION}
+      runtime: nodejs16
+      timeout: ${param:FUNCTION_TIMEOUT}s
+      availableMemoryMb: ${param:FUNCTION_MEMORY}
+      httpsTrigger: {}
+
+params:
+  - param: OUTPUT_STORAGE_BUCKET
+    label: Output Firebase Storage bucket name
+    description: >-
+      The name of the bucket that the output PDF file will be stored in.
+    type: string
+    example: bucket_name
+    default: ${STORAGE_BUCKET}
+    required: false
+    immutable: false
+
+  - param: RETURN_PDF_IN_RESPONSE
+    label: Should the endpoint return the generated PDF?
+    description: >-
+      Whether the generated PDF file should be returned in the response
+      of the endpoint or a JSON report should be returned instead:
+
+
+      ```json
+
+      {
+        "done": "successful"
+      }
+
+      ```
+    type: select
+    options:
+      - label: Return the PDF file in response
+        value: yes
+      - label: Return JSON report in response
+        value: no
+    default: no
+    required: true
+    immutable: false
+
+events:
+  - type: firebase.extensions.pdfplum.http-pdf-generator.v1.complete
+    description: Occurs when PDF generation completes. The event will contain
+      further details.
+  - type: firebase.extensions.pdfplum.http-pdf-generator.v1.error
+    description: Occurs when PDF generation runs into an error. The event will
+      contain further details.

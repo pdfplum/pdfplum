@@ -8,14 +8,21 @@
 
 # PDFPlum
 
-This is a Firebase extension to generate PDF files from a template bundle using HTML/CSS and Handlebars. Check out some examples of the generated PDFs [here](template-samples).
+PDFPlum is a set of Firebase extensions to generate PDF files from a template bundle using HTML/CSS and Handlebars, triggered by different sources.
+Check out some examples of the generated PDFs [here](template-samples).
 
 ## Installation
 
-Use [this link](https://console.firebase.google.com/project/_/extensions/install?ref=pdfplum/pdf-generator) to install the latest version of PDFPlum in your Firebase project.
+Use one of these links based on your source of data to install the latest version of PDFPlum in your Firebase project.
 
-Check [Firebase Extension parameters](https://github.com/pdfplum/pdfplum/PREINSTALL.md#firebase-extension-parameters) for details about the parameters set in the installation process.
+- [firestore-pdf-generator (Firestore source)](https://console.firebase.google.com/project/_/extensions/install?ref=pdfplum/firestore-pdf-generator)
+- [http-pdf-generator (HTTP source)](https://console.firebase.google.com/project/_/extensions/install?ref=pdfplum/http-pdf-generator)
 
 ## Usage
 
-It is all described in the installation page. You can also check it [here](https://github.com/pdfplum/pdfplum/PREINSTALL.md#usage).
+Documentation:
+
+- [firestore-pdf-generator](https://github.com/pdfplum/pdfplum/tree/main/firebase-pdf-generator/PREINSTALL.md)
+- [http-pdf-generator](https://github.com/pdfplum/pdfplum/tree/main/http-pdf-generator/PREINSTALL.md)
+
+It is also all described in the installation page.
