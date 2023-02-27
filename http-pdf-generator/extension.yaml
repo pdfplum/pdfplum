@@ -1,6 +1,6 @@
 ---
 name: http-pdf-generator
-version: 0.12.0
+version: 0.12.1
 specVersion: v1beta
 
 displayName: Generate PDF using Puppeteer and Handlebars.js - HTTP version
@@ -99,7 +99,8 @@ params:
       [here](https://www.puppeteersharp.com/api/PuppeteerSharp.PdfOptions.html).
       Can be overridden by GET parameters.
     type: string
-    required: false
+    default: "{}"
+    required: true
     immutable: false
 
   - param: NETWORK_IDLE_TIME

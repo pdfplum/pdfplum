@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+set -e
 shopt -s globstar
 
 for i in $(ls template-samples/**/*.json)

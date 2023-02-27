@@ -1,6 +1,6 @@
 {
   "name": "pdfplum",
-  "version": "0.12.0",
+  "version": "0.12.1",
   "description": "Generate PDF documents from templates stored in Firebase Storage",
   "author": "PDFPlum (hi@pdfplum.com)",
   "repository": "https://github.com/pdfplum/pdfplum",
@@ -9,13 +9,9 @@
     "format": "eslint --fix --ext .js,.ts .",
     "build": "tsc",
     "build:watch": "tsc --watch",
-    "serve": "npm run build && firebase emulators:start --only functions",
+    "clean": "rm -rf ./build/",
     "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",
-    "deploy": "firebase deploy --only functions",
-    "logs": "firebase functions:log",
-    "publish": "cd ../.. && ./scripts/publish.sh",
-    "local:emulator": "cd ../../ && firebase emulators:start -P demo-test",
     "test": "jest"
   },
   "engines": {

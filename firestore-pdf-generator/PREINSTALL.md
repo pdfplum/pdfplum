@@ -73,7 +73,7 @@ type: **select**
 
 If set, it will automatically adjust the height of the PDF so that all the contents of the webpage can fit inside one page. The generated PDF file in this case will always have only a single page. Can be overridden by GET parameters.
 
-#### `CHROMIUM_PDF_OPTIONS` (optional)
+#### `CHROMIUM_PDF_OPTIONS` (required)
 
 Chromium PDF generation options<br/>
 type: **string**
@@ -122,7 +122,7 @@ type: **string**
 
 The name of the bucket that the output PDF file will be stored in.
 
-#### `FIRESTORE_COLLECTION` (optional)
+#### `FIRESTORE_COLLECTION` (required)
 
 Firestore collection, its document creation events should be listened to<br/>
 type: **string**

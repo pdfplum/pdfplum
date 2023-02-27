@@ -3,9 +3,9 @@ name: firestore-pdf-generator
 
 displayName: Generate PDF using Puppeteer and Handlebars.js - Firestore version
 description: >-
-  Generates PDF files from HTML templates and Firestore documents using
-  Puppeteer and Handlebars.js and stores them in Firebase Storage and/or returns
-  them in response.
+  Generates PDF files from HTML templates and Firestore documents
+  using Puppeteer and Handlebars.js and stores them in Firebase Storage and/or
+  returns them in response.
 
 sourceUrl: https://github.com/pdfplum/pdfplum/tree/main/firestore-pdf-generator
 releaseNotesUrl: https://github.com/pdfplum/pdfplum/tree/main/firestore-pdf-generator/CHANGELOG.md
@@ -16,8 +16,8 @@ apis:
 
 roles:
   - role: datastore.user
-    reason: Allows the extension to listen to document creation events
-      to trigger the PDF generator function
+    reason: Allows the extension to listen to document creation events to trigger
+      the PDF generator function
 
 resources:
   - name: executePdfGeneratorFirestore
@@ -51,7 +51,7 @@ params:
       collection, and whenever a new document is created in this collection, it
       will generate a PDF based on its values.
     type: string
-    required: false
+    required: true
     immutable: false
 
 events:
@@ -61,3 +61,4 @@ events:
   - type: firebase.extensions.pdfplum.firestore-pdf-generator.v1.error
     description: Occurs when PDF generation runs into an error. The event will
       contain further details.
+version: 0.12.1

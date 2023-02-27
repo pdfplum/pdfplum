@@ -4,10 +4,7 @@ const fs = require("fs");
 const YAML = require("yaml");
 const extensions = require("./lib").extensions;
 
-const JSON_FILES = [
-  // "functions/package.json",
-  // "functions/package-lock.json",
-];
+const JSON_FILES = [];
 const YAML_FILES = ["extension.yaml"];
 
 for (const extension of extensions) {

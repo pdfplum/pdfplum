@@ -1,6 +1,6 @@
 ---
 name: _
-version: 0.12.0
+version: _
 specVersion: v1beta
 
 displayName: _
@@ -86,7 +86,8 @@ params:
       [here](https://www.puppeteersharp.com/api/PuppeteerSharp.PdfOptions.html).
       Can be overridden by GET parameters.
     type: string
-    required: false
+    default: "{}"
+    required: true
     immutable: false
 
   - param: NETWORK_IDLE_TIME

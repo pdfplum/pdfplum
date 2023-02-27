@@ -1,6 +1,6 @@
 ---
 name: firestore-pdf-generator
-version: 0.12.0
+version: 0.12.1
 specVersion: v1beta
 
 displayName: Generate PDF using Puppeteer and Handlebars.js - Firestore version
@@ -106,7 +106,8 @@ params:
       [here](https://www.puppeteersharp.com/api/PuppeteerSharp.PdfOptions.html).
       Can be overridden by GET parameters.
     type: string
-    required: false
+    default: "{}"
+    required: true
     immutable: false
 
   - param: NETWORK_IDLE_TIME
@@ -235,7 +236,7 @@ params:
       collection, and whenever a new document is created in this collection, it
       will generate a PDF based on its values.
     type: string
-    required: false
+    required: true
     immutable: false
 
 events:
