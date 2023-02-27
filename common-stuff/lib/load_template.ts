@@ -37,7 +37,6 @@ export async function loadTemplate({
       .file(`${templatePrefix}${templateId}`)
       .download();
   } catch (exception) {
-    console.log(exception, typeof exception);
     if (exception instanceof ApiError && exception.code === 404) {
       try {
         [templateBuffer] = await templateBucket

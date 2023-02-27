@@ -76,10 +76,10 @@ async function main() {
     outputFileName: `${templateName}.pdf`,
   });
   console.log(
-    `Fetching "http://127.0.0.1:5001/${PROJECT}/us-central1/ext-http-pdf-generator-executePdfGeneratorHttp?${parameters}"`
+    `Fetching "http://127.0.0.1:5001/${PROJECT}/us-central1/ext-http-pdf-generator-executePdfGenerator${parameters}"`
   );
   const response = await fetch(
-    `http://127.0.0.1:5001/${PROJECT}/us-central1/ext-http-pdf-generator-executePdfGeneratorHttp?${parameters}`
+    `http://127.0.0.1:5001/${PROJECT}/us-central1/ext-http-pdf-generator-executePdfGenerator${parameters}`
   );
   if (response.status === 200) {
     writeFileSync(

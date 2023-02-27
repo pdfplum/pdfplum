@@ -1,6 +1,6 @@
 ---
 name: http-pdf-generator
-version: 0.12.2
+version: 0.12.4
 specVersion: v1beta
 
 displayName: Generate PDF using Puppeteer and Handlebars.js - HTTP version
@@ -35,7 +35,7 @@ roles:
       Firebase Storage
 
 resources:
-  - name: executePdfGeneratorHttp
+  - name: executePdfGenerator
     type: firebaseextensions.v1beta.function
     description: >-
       Generate PDF from HTML template, triggered by a http call

@@ -15,7 +15,7 @@ process.on("unhandledRejection", (reason, p) => {
   console.error(reason, "Unhandled Rejection at Promise", p);
 });
 
-exports.executePdfGeneratorHttp = functions.https.onRequest(
+exports.executePdfGenerator = functions.https.onRequest(
   async (
     request: Request<ParamsDictionary, unknown, unknown, GetParameters>,
     response

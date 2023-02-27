@@ -1,5 +1,14 @@
 # Changelog
 
+## Version 0.12.4 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
+
+- Rename function names from `executePdfGeneratorHttp` and `executePdfGeneratorFirestore`  to `executePdfGenerator`
+- Downgrade Puppeteer to `^18` again as version 19 still has problems with Google Cloud functions.
+
+## Version 0.12.3 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
+
+- Workaround for [an issue](https://github.com/puppeteer/puppeteer/issues/9533) in Puppeteer not being able to reach the downloaded binary.
+
 ## Version 0.12.2 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
 
 - Move `module-alias` from development dependency to production dependency as it is needed in production environment.

@@ -1,5 +1,5 @@
 {
-  "version": "0.12.2",
+  "version": "0.12.4",
   "scripts": {
     "format:code": "cd pdf-generator/functions && npm run format",
     "format:config": "prettier --write \"**/*.{json,yml,yaml}\"",
@@ -10,7 +10,7 @@
     "lint:documents": "prettier --list-different \"**/*.md\"",
     "lint": "npm run lint:code && npm run lint:config && npm run lint:documents",
     "test": "cd pdf-generator/functions && npm run test",
-    "deploy": "firebase deploy --only functions",
+    "deploy": "firebase deploy --only extensions",
     "publish": "scripts/publish.sh",
     "publish:update": "npm run update && scripts/publish.sh",
     "update:extension-specific-stuff": "scripts/update-extension-specific-stuff.js",

@@ -1,6 +1,6 @@
 ---
 name: firestore-pdf-generator
-version: 0.12.2
+version: 0.12.4
 specVersion: v1beta
 
 displayName: Generate PDF using Puppeteer and Handlebars.js - Firestore version
@@ -40,7 +40,7 @@ roles:
       the PDF generator function
 
 resources:
-  - name: executePdfGeneratorFirestore
+  - name: executePdfGenerator
     type: firebaseextensions.v1beta.function
     description: >-
       Generate PDF from HTML template, triggered by a Firestore write
