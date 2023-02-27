@@ -1,6 +1,6 @@
 ---
 name: http-pdf-generator
-version: 0.12.1
+version: 0.12.2
 specVersion: v1beta
 
 displayName: Generate PDF using Puppeteer and Handlebars.js - HTTP version

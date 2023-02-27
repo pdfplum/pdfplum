@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.12.2 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
+
+- Move `module-alias` from development dependency to production dependency as it is needed in production environment.
+
 ## Version 0.12.1 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
 
 - Make `firestore-pdf-generator` extension parameter `FIRESTORE_COLLECTION` a mandatory parameter.
