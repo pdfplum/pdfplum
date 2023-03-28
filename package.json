@@ -1,5 +1,5 @@
 {
-  "version": "0.12.4",
+  "version": "0.12.5",
   "scripts": {
     "format:code": "cd pdf-generator/functions && npm run format",
     "format:config": "prettier --write \"**/*.{json,yml,yaml}\"",

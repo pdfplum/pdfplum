@@ -2,23 +2,24 @@
 const childProcess = require("child_process");
 const { promisify } = require("util");
 const { readFileSync, writeFileSync } = require("fs");
-const { initializeApp } = require("firebase/app");
-const {
-  connectStorageEmulator,
-  getStorage,
-  ref,
-  uploadBytes,
-} = require("firebase/storage");
+const admin = require("firebase-admin");
+const { getStorage } = require("firebase-admin/storage");
 const qs = require("qs");
 const yargs = require("yargs");
 const { hideBin } = require("yargs/helpers");
 const path = require("path");
 
-const PROJECT = "demo-test";
-const BUCKET = `${PROJECT}.appspot.com`;
-const USE_OFFICIAL_UPLOAD_METHOD = true;
+const PROJECT = process.env.PROJECT ?? "demo-test";
+const BUCKET = process.env.BUCKET ?? `${PROJECT}.appspot.com`;
+const USE_OFFICIAL_UPLOAD_METHOD = process.env.UPLOAD_METHOD
+  ? process.env.UPLOAD_METHOD != "fetch"
+  : true;
 
 const exec = promisify(childProcess.exec);
+
+process.env.FIREBASE_STORAGE_EMULATOR_HOST = "127.0.0.1:9199";
+
+admin.initializeApp({ projectId: PROJECT });
 
 /**
  * Call PDF generator endpoint for template path provided as positional argument.
@@ -50,15 +51,13 @@ async function main() {
   const templateContent = readFileSync(`${templatePath}.zip`);
 
   if (USE_OFFICIAL_UPLOAD_METHOD) {
-    const firebaseConfig = {
-      storageBucket: BUCKET,
-      project: PROJECT,
-    };
-    const app = initializeApp(firebaseConfig);
-    const storage = getStorage(app);
-    connectStorageEmulator(storage, "127.0.0.1", 9199);
-    const templateRef = ref(storage, `${templateName}.zip`);
-    await uploadBytes(templateRef, templateContent);
+    const storage = getStorage();
+    const bucket = storage.bucket(BUCKET);
+    const file = bucket.file(`${templateName}.zip`);
+    await file.save(templateContent, {
+      resumable: false,
+      public: "yes",
+    });
   } else {
     await fetch(
       `http://127.0.0.1:9199/v0/b/${PROJECT}.appspot.com/o?name=${templateName}`,
@@ -76,10 +75,10 @@ async function main() {
     outputFileName: `${templateName}.pdf`,
   });
   console.log(
-    `Fetching "http://127.0.0.1:5001/${PROJECT}/us-central1/ext-http-pdf-generator-executePdfGenerator${parameters}"`
+    `Fetching "http://127.0.0.1:5001/${PROJECT}/us-central1/ext-http-pdf-generator-executePdfGenerator?${parameters}"`
   );
   const response = await fetch(
-    `http://127.0.0.1:5001/${PROJECT}/us-central1/ext-http-pdf-generator-executePdfGenerator${parameters}`
+    `http://127.0.0.1:5001/${PROJECT}/us-central1/ext-http-pdf-generator-executePdfGenerator?${parameters}`
   );
   if (response.status === 200) {
     writeFileSync(
@@ -90,6 +89,7 @@ async function main() {
   } else {
     console.log(`Status: ${response.status}`);
     console.log(`Response: ${await response.text()}`);
+    throw new Error(`Failed to generate pdf for "${templateName}"`);
   }
 }
 

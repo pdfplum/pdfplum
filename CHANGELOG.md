@@ -1,8 +1,13 @@
 # Changelog
 
+## Version 0.12.5 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
+
+- Add icons
+- Fine tune yaml linter settings
+
 ## Version 0.12.4 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
 
-- Rename function names from `executePdfGeneratorHttp` and `executePdfGeneratorFirestore`  to `executePdfGenerator`
+- Rename function names from `executePdfGeneratorHttp` and `executePdfGeneratorFirestore` to `executePdfGenerator`
 - Downgrade Puppeteer to `^18` again as version 19 still has problems with Google Cloud functions.
 
 ## Version 0.12.3 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
@@ -129,82 +134,4 @@
 
 ## Version 0.7.2 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
 
-- Improve documentation ([Darren Ackers](https://github.com/dackers86) - [PR](https://github.com/pdfplum/pdfplum/pull/3))
-- Change boolean extension parameters values to yes/no instead of true/false ([Darren Ackers](https://github.com/dackers86) - [PR](https://github.com/pdfplum/pdfplum/pull/2))
-- Update regular expression of `TEMPLATE_PATH` to allow zip extensions for template paths ([Darren Ackers](https://github.com/dackers86) - [PR](https://github.com/pdfplum/pdfplum/pull/1))
-- Set actual version number in package.json (instead of `<VERSION>` placeholder) and check if it matches with CHANGELOG.md version instead of setting it in publish script. This is to help local development where a placeholder version in package.json makes initial setup inconvenient.
-- Update regular expression of `TEMPLATE_PATH` to allow nested paths.
-
-## Version 0.7.1 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
-
-- Fix for when `OUTPUT_STORAGE_BUCKET` is not set and yet the extension tries to save the PDF to Firebase Storage.
-
-## Version 0.7.0 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
-
-- Merge `TEMPLATE_STORAGE_BUCKET` and `TEMPLATE_ID` into `TEMPLATE_PATH`.
-
-## Version 0.6.1 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
-
-- Apply markdown validation on markdown files using [remark](https://github.com/remarkjs/remark).
-- Set actual version number in extension.yaml (instead of `<VERSION>` placeholder) and check if it matches with CHANGELOG.md version instead of setting it in publish script. This is to help local development where a version number is needed in extension.yaml file.
-- Fix links in markdown files
-- Provide instructions for settings storage rules.
-
-## Version 0.6.0 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
-
-- Add default value for Firebase Storage bucket names and template id in extension parameters.
-- Allow both "template-id.zip" and "template-id" (with and without ".zip" extension) values for TEMPLATE_ID parameter.
-- Fixed FUNCTION_TIMEOUT's regular expression to only allow values less than or equal 540.
-
-## Version 0.5.2 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
-
-- Add `admin.initializeApp()` before initializing event arc channel.
-- Remove `console.log`s
-
-## Version 0.5.0 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
-
-- Add events for when the PDF generation finishes, one for when it finishes successfully and another for when an error occurs.
-
-## Version 0.4.1 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
-
-- Minor cleanup
-
-## Version 0.4.0 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
-
-- Add a markdown template example so that everyone can easily copy it and put their own markdown in case they prefer Markdown over HTML/CSS.
-- Add `adjustHeightToFit` to automatically set the page height to the height of content so that everything can fit in a single page. Useful for generating single page PDF files.
-- Introduce `chromiumPdfOptions` in GET parameters to control the PDF generation. Options described [here](https://www.puppeteersharp.com/api/PuppeteerSharp.PdfOptions.html).
-- Instead of providing template values directly in GET parameters, now they should be provided as keys of `data` GET parameter.
-- `_` prefix is eliminated for all GET parameters.
-- Add detailed installation and usage instructions in `README.md`.
-
-## Version 0.3.3 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
-
-- Update documents
-
-## Version 0.3.2 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
-
-- Install Puppeteer for local test
-- Use chrome-aws-lambda instead of Puppeteer to improve performance
-
-## Version 0.3.1 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
-
-- Make most parameters mutable
-- Add `FUNCTION_TIMEOUT` parameter
-- Add `FUNCTION_MEMORY` parameter
-- Add `LOCATION` parameter
-- Add fetch polyfill to support NodeJS 16 runtime
-- Add description for parameters
-
-## Version 0.3.0 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
-
-- Provide sample templates in the repository.
-- Organize code structure.
-
-## Version 0.2.0 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
-
-- Accept Microsoft Office Template files (dotx, potx and xltx) as input.
-
-## Version 0.1.0 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
-
-- Initial release. Supports templating via Google Docs Editors documents and Microsoft Office documents and exports to PDF.
+- Improve documentation ([Darren Ackers](https://github.com/dackers86

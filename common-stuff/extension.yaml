@@ -23,7 +23,8 @@ billingRequired: true
 
 apis:
   - apiName: storage-component.googleapis.com
-    reason: Needed to use Cloud Storage to read the template files and write the PDF
+    reason:
+      Needed to use Cloud Storage to read the template files and write the PDF
       files
 
 roles:
@@ -173,7 +174,7 @@ params:
         value: australia-southeast1
     default: us-central1
     required: true
-    immutable: false
+    immutable: true
 
   - param: FUNCTION_MEMORY
     label: Cloud Function memory

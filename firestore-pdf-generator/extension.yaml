@@ -1,6 +1,6 @@
 ---
 name: firestore-pdf-generator
-version: 0.12.4
+version: 0.12.5
 specVersion: v1beta
 
 displayName: Generate PDF using Puppeteer and Handlebars.js - Firestore version
@@ -193,7 +193,7 @@ params:
         value: australia-southeast1
     default: us-central1
     required: true
-    immutable: false
+    immutable: true
 
   - param: FUNCTION_MEMORY
     label: Cloud Function memory
