@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.12.7 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
+
+- New icon
+
 ## Version 0.12.6 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
 
 - Add icons to the published extension bundle
