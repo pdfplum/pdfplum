@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.12.6 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
+
+- Add icons to the published extension bundle
+
 ## Version 0.12.5 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
 
 - Add icons
@@ -130,8 +134,4 @@
 
 - Drop 512MB option for `FUNCTION_MEMORY` parameter.
 - Add links to parameters documentation and sample invocations in `POSTINSTALL.md`.
-- Format documentation markdown files in the repository using [remark](https://github.com/remarkjs/remark).
-
-## Version 0.7.2 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
-
-- Improve documentation ([Darren Ackers](https://github.com/dackers86
+- Format documentation mark

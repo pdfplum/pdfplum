@@ -13,9 +13,9 @@ do
   rm -rf $DESTINATION_PATH
   mkdir $DESTINATION_PATH
 
-  VERSION=`grep -P "## Version.*<!--subject:$EXTENSION-->" "$CHANGELOG_FILE" | head -n 1 | sed -E "s/^## Version ([[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+).*/\1/"`
-  EXTENSION_VERSION=`grep -P "^version: \d+\.\d+\.\d+\$" $EXTENSION_DOT_YAML_FILE | sed "s/^version: //"`
-  PACKAGE_DOT_JSON_VERSION=`grep -P "^\s*\"version\": \"\d+\.\d+\.\d+\",?\$" $PACKAGE_DOT_JSON_FILE | sed "s/^[[:space:]]*\"version\": \"\([^\"]*\)\",\{0,1\}$/\1/"`
+  VERSION=`ggrep -P "## Version.*<!--subject:$EXTENSION-->" "$CHANGELOG_FILE" | head -n 1 | sed -E "s/^## Version ([[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+).*/\1/"`
+  EXTENSION_VERSION=`ggrep -P "^version: \d+\.\d+\.\d+\$" $EXTENSION_DOT_YAML_FILE | sed "s/^version: //"`
+  PACKAGE_DOT_JSON_VERSION=`ggrep -P "^\s*\"version\": \"\d+\.\d+\.\d+\",?\$" $PACKAGE_DOT_JSON_FILE | sed "s/^[[:space:]]*\"version\": \"\([^\"]*\)\",\{0,1\}$/\1/"`
 
   if [[ "$VERSION" != "$EXTENSION_VERSION" ]]
   then
@@ -42,7 +42,7 @@ do
 
   cat $CHANGELOG_FILE | tr '\n' '\r' | perl -ne "s/## (?!Version \d+\.\d+\.\d+[^\r]*<!--subject:$EXTENSION-->)(.(?!##))*\r//g; print;" | tr '\r' '\n' > "$DESTINATION_PATH/CHANGELOG.md"
 
-  for i in "$EXTENSION_PATH/functions/package.json:functions/package.json" "$EXTENSION_PATH/functions/build:functions/build" "$EXTENSION_PATH/extension.yaml:extension.yaml" "$EXTENSION_PATH/POSTINSTALL.md:POSTINSTALL.md" "$EXTENSION_PATH/PREINSTALL.md:PREINSTALL.md" "firebase.json"
+  for i in "$EXTENSION_PATH/functions/package.json:functions/package.json" "$EXTENSION_PATH/functions/build:functions/build" "$EXTENSION_PATH/extension.yaml:extension.yaml" "$EXTENSION_PATH/POSTINSTALL.md:POSTINSTALL.md" "$EXTENSION_PATH/PREINSTALL.md:PREINSTALL.md" "firebase.json" "$EXTENSION_PATH/icon.png:icon.png"
   do
     IFS=":" read -ra ENTRY <<< "$i"
     SOURCE=${ENTRY[0]}
