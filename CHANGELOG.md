@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.12.13 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
+
+- Resize icons to better fit in the icon circle
+
 ## Version 0.12.8 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
 
 - Add icons to extension.yaml files
@@ -136,8 +140,4 @@
 
 ## Version 0.7.4 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
 
-- Add `json` helper to handlebars so that data can be passed through js script in tags in template files as JSON. [reference](https://stackoverflow.com/a/10233247/1349278)
-
-## Version 0.7.3 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
-
-- Drop 512MB option for `FUNCTION_MEMORY`
+- Add `json` h
