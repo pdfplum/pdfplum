@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.12.8 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
+
+- Add icons to extension.yaml files
+
 ## Version 0.12.7 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
 
 - New icon
@@ -136,6 +140,4 @@
 
 ## Version 0.7.3 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
 
-- Drop 512MB option for `FUNCTION_MEMORY` parameter.
-- Add links to parameters documentation and sample invocations in `POSTINSTALL.md`.
-- Format documentation mark
+- Drop 512MB option for `FUNCTION_MEMORY`
