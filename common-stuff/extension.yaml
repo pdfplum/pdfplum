@@ -6,6 +6,20 @@ icon: icon.png
 
 displayName: _
 description: _
+tags:
+  [
+    pdf,
+    template,
+    firestore,
+    pdf-generator,
+    template-bundle,
+    html,
+    css,
+    javascript,
+    markdown,
+    handlebars,
+    utilities,
+  ]
 
 license: Apache-2.0
 

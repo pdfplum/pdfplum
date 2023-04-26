@@ -8,21 +8,22 @@
     "strict": true,
     "target": "es2017",
     "esModuleInterop": true,
+    "skipLibCheck": true,
     "baseUrl": ".",
     "rootDirs": [
       "./src",
-      "../../common-stuff"
+      "./lib"
     ],
     "paths": {
       "lib/*": [
-        "../../common-stuff/lib/*"
+        "./lib/*"
       ],
       "firebase-admin/*": [
         "./node_modules/firebase-admin/lib/*"
       ],
       "*": [
-        "./node_modules/*",
-        "./node_modules/@types/*"
+        "./node_modules/@types/*",
+        "./node_modules/*"
       ]
     }
   },

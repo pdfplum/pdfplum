@@ -1,14 +1,28 @@
 ---
 name: http-pdf-generator
-version: 0.12.13
+version: 0.12.14
 specVersion: v1beta
 icon: icon.png
 
 displayName: Generate PDF using Puppeteer and Handlebars.js - HTTP version
 description: >-
-  Generates PDF files from HTML templates and HTTP calls using
-  Puppeteer and Handlebars.js and stores them in Firebase Storage and/or returns
-  them in response.
+  Generates PDF files from HTML templates and HTTP calls using Puppeteer and
+  Handlebars.js and stores them in Firebase Storage and/or returns them in
+  response.
+tags:
+  [
+    pdf,
+    template,
+    firestore,
+    pdf-generator,
+    template-bundle,
+    html,
+    css,
+    javascript,
+    markdown,
+    handlebars,
+    utilities
+  ]
 
 license: Apache-2.0
 
@@ -78,10 +92,10 @@ params:
   - param: ADJUST_HEIGHT_TO_FIT
     label: Should PDFPlum automatically set the document height to fit its content?
     description: >-
-      If set, it will automatically adjust the height of the PDF so that
-      all the contents of the webpage can fit inside one page. The generated PDF
-      file in this case will always have only a single page. Can be overridden
-      by GET parameters.
+      If set, it will automatically adjust the height of the PDF so that all the
+      contents of the webpage can fit inside one page. The generated PDF file in
+      this case will always have only a single page. Can be overridden by GET
+      parameters.
     type: select
     options:
       - label: Automatically set document height to fit its contents
@@ -95,8 +109,8 @@ params:
   - param: CHROMIUM_PDF_OPTIONS
     label: Chromium PDF generation options
     description: >-
-      Options to be passed to Chromium PDF generation engine provided as
-      a JSON string. Documented
+      Options to be passed to Chromium PDF generation engine provided as a JSON
+      string. Documented
       [here](https://www.puppeteersharp.com/api/PuppeteerSharp.PdfOptions.html).
       Can be overridden by GET parameters.
     type: string
@@ -107,9 +121,9 @@ params:
   - param: NETWORK_IDLE_TIME
     label: Network idle time (in milliseconds)
     description: >-
-      Amount of time without any network activity before rendering the
-      PDF file starts. It is to make sure all external resources have been
-      loaded and a grace time has been passed.
+      Amount of time without any network activity before rendering the PDF file
+      starts. It is to make sure all external resources have been loaded and a
+      grace time has been passed.
     type: string
     validationRegex: "[1-5]?[0-9]{1,3}|6000"
     default: 0
@@ -119,9 +133,8 @@ params:
   - param: SHOULD_WAIT_FOR_IS_READY
     label: Wait for `isReady`?
     description: >-
-      Whether or not it should wait for `window.isReady` variable to be
-      set to `true` before rendering the PDF. Can be overridden by GET
-      parameters.
+      Whether or not it should wait for `window.isReady` variable to be set to
+      `true` before rendering the PDF. Can be overridden by GET parameters.
     type: select
     options:
       - label: Wait for `isReady` to be set to `true` before generating the PDF file
@@ -135,9 +148,9 @@ params:
   - param: LOCATION
     label: Cloud Functions' location
     description: >-
-      The location you want to deploy the functions created for this
-      extension. You usually want a location close to your Storage bucket. For
-      help selecting a location, refer to the [location selection
+      The location you want to deploy the functions created for this extension.
+      You usually want a location close to your Storage bucket. For help
+      selecting a location, refer to the [location selection
       guide](https://firebase.google.com/docs/functions/locations).
     type: select
     options:
@@ -192,8 +205,8 @@ params:
   - param: FUNCTION_MEMORY
     label: Cloud Function memory
     description: >-
-      Memory of the function responsible for resizing images. Choose how
-      much memory to give to the function that resizes images.
+      Memory of the function responsible for resizing images. Choose how much
+      memory to give to the function that resizes images.
     type: select
     options:
       - label: 1 GB
@@ -226,8 +239,8 @@ params:
   - param: RETURN_PDF_IN_RESPONSE
     label: Should the endpoint return the generated PDF?
     description: >-
-      Whether the generated PDF file should be returned in the response
-      of the endpoint or a JSON report should be returned instead:
+      Whether the generated PDF file should be returned in the response of the
+      endpoint or a JSON report should be returned instead:
 
 
       ```json

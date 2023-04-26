@@ -2,11 +2,13 @@
 
 set -e
 
+GIT_REVISION=$(git rev-parse --short HEAD)
+DESTINATION_PATH="./publish-package"
+CHANGELOG_FILE=CHANGELOG.md
+
 for EXTENSION in "firestore-pdf-generator" "http-pdf-generator"
 do
-  DESTINATION_PATH="./publish-package"
   EXTENSION_PATH="./$EXTENSION"
-  CHANGELOG_FILE=CHANGELOG.md
   EXTENSION_DOT_YAML_FILE="$EXTENSION_PATH/extension.yaml"
   PACKAGE_DOT_JSON_FILE="$EXTENSION_PATH/functions/package.json"
 
@@ -40,9 +42,7 @@ do
   npm run build
   cd -
 
-  cat $CHANGELOG_FILE | tr '\n' '\r' | perl -ne "s/## (?!Version \d+\.\d+\.\d+[^\r]*<!--subject:$EXTENSION-->)(.(?!##))*\r//g; print;" | tr '\r' '\n' > "$DESTINATION_PATH/CHANGELOG.md"
-
-  for i in "$EXTENSION_PATH/functions/package.json:functions/package.json" "$EXTENSION_PATH/functions/build:functions/build" "$EXTENSION_PATH/extension.yaml:extension.yaml" "$EXTENSION_PATH/POSTINSTALL.md:POSTINSTALL.md" "$EXTENSION_PATH/PREINSTALL.md:PREINSTALL.md" "firebase.json" "$EXTENSION_PATH/icon.png:icon.png"
+  for i in "$EXTENSION_PATH/functions/package.json:functions/package.json" "$EXTENSION_PATH/functions/build:functions/build" "$EXTENSION_PATH/extension.yaml:extension.yaml" "$EXTENSION_PATH/POSTINSTALL.md:POSTINSTALL.md" "$EXTENSION_PATH/PREINSTALL.md:PREINSTALL.md" "firebase.json" "$EXTENSION_PATH/icon.png:icon.png" "$EXTENSION_PATH/CHANGELOG.md:CHANGELOG.md"
   do
     IFS=":" read -ra ENTRY <<< "$i"
     SOURCE=${ENTRY[0]}
@@ -52,6 +52,9 @@ do
   done
 
   cd $DESTINATION_PATH
-  firebase ext:dev:publish $PUBLISHER_ID/$EXTENSION
+  firebase ext:dev:publish $PUBLISHER_ID/$EXTENSION \
+    --repo=https://github.com/pdfplum/pdfplum \
+    --root=$EXTENSION_PATH \
+    --ref=$GIT_REVISION
   cd -
 done

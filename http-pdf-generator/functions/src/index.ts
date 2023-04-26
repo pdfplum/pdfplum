@@ -4,8 +4,8 @@ import * as admin from "firebase-admin";
 admin.initializeApp();
 
 import * as functions from "firebase-functions";
-import { ParamsDictionary, Request } from "express-serve-static-core";
-import { GetParameters, parseParameters } from "./parse_parameters";
+import { ParamsDictionary } from "express-serve-static-core";
+import { parseParameters } from "./parse_parameters";
 import { producePdf } from "lib/produce_pdf";
 import { runAction } from "lib/utilities/action";
 import { createErrorHandler } from "lib/utilities/error_handler";
@@ -16,10 +16,7 @@ process.on("unhandledRejection", (reason, p) => {
 });
 
 exports.executePdfGenerator = functions.https.onRequest(
-  async (
-    request: Request<ParamsDictionary, unknown, unknown, GetParameters>,
-    response
-  ) => {
+  async (request: functions.Request<ParamsDictionary>, response) => {
     const errorHandler = createErrorHandler({
       response,
       context: {
