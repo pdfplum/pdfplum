@@ -37,7 +37,7 @@ params:
   - param: OUTPUT_STORAGE_BUCKET
     label: Output Firebase Storage bucket name
     description: >-
-      The name of the bucket that the output PDF file will be stored in.
+      The name of the bucket where the output PDF file will be stored.
     type: string
     example: bucket_name
     default: ${STORAGE_BUCKET}
@@ -47,9 +47,9 @@ params:
   - param: FIRESTORE_COLLECTION
     label: Firestore collection, its document creation events should be listened to
     description: >-
-      If provided, the extension will listen to creation events in this
-      collection, and whenever a new document is created in this collection, it
-      will generate a PDF based on its values.
+      If specified, the extension will monitor creation events in this
+      collection. When a new document is created in this collection, a PDF will
+      be generated based on the document's values.
     type: string
     required: true
     immutable: false
@@ -61,4 +61,4 @@ events:
   - type: firebase.extensions.pdfplum.firestore-pdf-generator.v1.error
     description: Occurs when PDF generation runs into an error. The event will
       contain further details.
-version: 0.12.14
+version: 0.12.15

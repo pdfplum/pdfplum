@@ -51,7 +51,7 @@ resources: []
 
 params:
   - param: SHOULD_MAKE_PDF_PUBLIC
-    label: Should the generated PDF in output storage bucket be public or private?
+    label: Determines if the generated PDF in the output storage bucket should be public or private.
     description: >-
       Whether the generated PDF file should be public or private.
     type: select
@@ -80,10 +80,10 @@ params:
   - param: ADJUST_HEIGHT_TO_FIT
     label: Should PDFPlum automatically set the document height to fit its content?
     description: >-
-      If set, it will automatically adjust the height of the PDF so that
-      all the contents of the webpage can fit inside one page. The generated PDF
-      file in this case will always have only a single page. Can be overridden
-      by GET parameters.
+      If enabled, the extension will automatically adjust the height of the PDF
+      so that all the contents of the webpage can fit inside one page. The
+      generated PDF file in this case will always have only a single page.
+      Can be overridden by GET parameters.
     type: select
     options:
       - label: Automatically set document height to fit its contents
@@ -97,8 +97,8 @@ params:
   - param: CHROMIUM_PDF_OPTIONS
     label: Chromium PDF generation options
     description: >-
-      Options to be passed to Chromium PDF generation engine provided as
-      a JSON string. Documented
+      Options to be passed to Chromium's PDF generation engine provided as a
+      JSON string. Documented
       [here](https://www.puppeteersharp.com/api/PuppeteerSharp.PdfOptions.html).
       Can be overridden by GET parameters.
     type: string
@@ -109,9 +109,9 @@ params:
   - param: NETWORK_IDLE_TIME
     label: Network idle time (in milliseconds)
     description: >-
-      Amount of time without any network activity before rendering the
-      PDF file starts. It is to make sure all external resources have been
-      loaded and a grace time has been passed.
+      The amount of time without any network activity before rendering the PDF
+      file starts. This ensures all external resources are loaded and allows for
+      a grace period.
     type: string
     validationRegex: "[1-5]?[0-9]{1,3}|6000"
     default: 0
@@ -121,9 +121,9 @@ params:
   - param: SHOULD_WAIT_FOR_IS_READY
     label: Wait for `isReady`?
     description: >-
-      Whether or not it should wait for `window.isReady` variable to be
-      set to `true` before rendering the PDF. Can be overridden by GET
-      parameters.
+      ndicates whether the extension should wait for the `window.isReady`
+      variable to be set to `true` before rendering the PDF. Can be overridden
+      by GET parameters.
     type: select
     options:
       - label: Wait for `isReady` to be set to `true` before generating the PDF file
@@ -194,8 +194,8 @@ params:
   - param: FUNCTION_MEMORY
     label: Cloud Function memory
     description: >-
-      Memory of the function responsible for resizing images. Choose how
-      much memory to give to the function that resizes images.
+      The memory allocated to the function responsible for creating the PDF.
+      Choose how much memory to give to the function that creates the PDF file.
     type: select
     options:
       - label: 1 GB
@@ -209,7 +209,7 @@ params:
   - param: FUNCTION_TIMEOUT
     label: Cloud Function timeout (in seconds)
     description: >-
-      The time the function has to finish its job.
+      The time the function has to complete its task.
     type: string
     validationRegex: "[0-4]?[0-9]{1,2}|5[0-3][0-9]|540"
     default: 60

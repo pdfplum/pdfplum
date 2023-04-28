@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.12.15
+
+- Revise and enhance documentation content.
+
 ## Version 0.12.14
 
 - Upgrade `publish` and `update:docs` scripts to put the generated `CHANGELOG.md` of the extensions in the repository. Previously they were just added to the published bundle.

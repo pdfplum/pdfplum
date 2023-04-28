@@ -8,6 +8,7 @@ CHANGELOG_FILE=CHANGELOG.md
 
 for EXTENSION in "firestore-pdf-generator" "http-pdf-generator"
 do
+  echo "Publishing ${EXTENSION}..."
   EXTENSION_PATH="./$EXTENSION"
   EXTENSION_DOT_YAML_FILE="$EXTENSION_PATH/extension.yaml"
   PACKAGE_DOT_JSON_FILE="$EXTENSION_PATH/functions/package.json"
