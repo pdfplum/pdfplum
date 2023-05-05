@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 0.12.16 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
+
+- Remove parameters section from `PREINSTALL.md` files.
+- Add billing section to `PREINSTALL.md` files.
+- Shorten extension names.
+
 ## Version 0.12.15 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
 
 - Revise and enhance documentation content.

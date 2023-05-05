@@ -1,7 +1,7 @@
 ---
 name: http-pdf-generator
 
-displayName: Generate PDF using Puppeteer and Handlebars.js - HTTP version
+displayName: Generate PDFs via HTTP
 description: >-
   Generates PDF files from HTML templates and HTTP calls using Puppeteer and
   Handlebars.js and stores them in Firebase Storage and/or returns them in
@@ -63,4 +63,4 @@ events:
   - type: firebase.extensions.pdfplum.http-pdf-generator.v1.error
     description: Occurs when PDF generation runs into an error. The event will
       contain further details.
-version: 0.12.15
+version: 0.12.16
