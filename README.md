@@ -22,7 +22,7 @@ Use one of these links based on your source of data to install the latest versio
 
 Documentation:
 
-- [firestore-pdf-generator](https://github.com/pdfplum/pdfplum/tree/main/firebase-pdf-generator/PREINSTALL.md)
+- [firestore-pdf-generator](https://github.com/pdfplum/pdfplum/tree/main/firestore-pdf-generator/PREINSTALL.md)
 - [http-pdf-generator](https://github.com/pdfplum/pdfplum/tree/main/http-pdf-generator/PREINSTALL.md)
 
 It is also all described in the installation page.
