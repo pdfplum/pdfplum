@@ -1,5 +1,5 @@
 {
-  "version": "0.12.16",
+  "version": "0.12.17",
   "scripts": {
     "format:code": "cd pdf-generator/functions && npm run format",
     "format:config": "prettier --write \"**/*.{json,yml,yaml}\"",
@@ -24,16 +24,16 @@
   },
   "devDependencies": {
     "@types/qs": "^6.9.7",
-    "eslint": "^8.39.0",
+    "eslint": "^8.40.0",
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-prettier": "^4.2.1",
     "minimist": "^1.2.8",
     "prettier": "^2.8.8",
-    "qs": "^6.11.1",
+    "qs": "^6.11.2",
     "yaml": "^2.2.2",
-    "yargs": "^17.7.1"
+    "yargs": "^17.7.2"
   },
   "license": "Apache-2.0"
 }

@@ -16,7 +16,7 @@ For inspiration, check out the pre-made templates and their outputs in the [temp
 
 Before installing this extension, you need to:
 
-- Create a template as described [here](#the-template).
+- Create a template as described [here](https://github.com/pdfplum/pdfplum/tree/main/http-pdf-generator/PREINSTALL.md#the-template).
 - [Set up Firebase Storage in your Firebase project.](https://firebase.google.com/docs/storage)
 - Upload the template file (the zipped directory) to a Firebase Storage bucket.
 
@@ -46,7 +46,7 @@ The template bundle is uncompressed, served, and loaded by a Chromium instance. 
 
 If a bucket name is set in the `OUTPUT_STORAGE_BUCKET` extension parameter, the generated PDF file is saved in that bucket. If `RETURN_PDF_IN_RESPONSE` is enabled, the PDF file is returned in response to the HTTP call.
 
-The PDF file is named according to the rules described [here](#outputfilename).
+The PDF file is named according to the rules described [here](https://github.com/pdfplum/pdfplum/tree/main/http-pdf-generator/PREINSTALL.md#outputfilename).
 
 ### GET parameters
 
@@ -64,23 +64,23 @@ It can include nested containers (array lists and associative arrays) as describ
 
 #### `adjustHeightToFit`
 
-Overrides the [`ADJUST_HEIGHT_TO_FIT`](#adjustheighttofit-required) extension parameter.
+Overrides the [`ADJUST_HEIGHT_TO_FIT`](https://github.com/pdfplum/pdfplum/tree/main/http-pdf-generator/PREINSTALL.md#adjustheighttofit-required) extension parameter.
 
 #### `chromiumPdfOptions`
 
-Overrides the [`CHROMIUM_PDF_OPTIONS`](#chromiumpdfoptions-optional) extension parameter.
+Overrides the [`CHROMIUM_PDF_OPTIONS`](https://github.com/pdfplum/pdfplum/tree/main/http-pdf-generator/PREINSTALL.md#chromiumpdfoptions-optional) extension parameter.
 
 #### `networkIdleTime`
 
-Overrides the [`NETWORK_IDLE_TIME`](#networkidletime-required) extension parameter.
+Overrides the [`NETWORK_IDLE_TIME`](https://github.com/pdfplum/pdfplum/tree/main/http-pdf-generator/PREINSTALL.md#networkidletime-required) extension parameter.
 
 #### `shouldWaitForIsReady`
 
-Overrides the [`SHOULD_WAIT_FOR_IS_READY`](#shouldwaitforisready-required) extension parameter.
+Overrides the [`SHOULD_WAIT_FOR_IS_READY`](https://github.com/pdfplum/pdfplum/tree/main/http-pdf-generator/PREINSTALL.md#shouldwaitforisready-required) extension parameter.
 
 #### `templatePath`
 
-Overrides the [`TEMPLATE_PATH`](#templatepath-required) extension parameter.
+Overrides the [`TEMPLATE_PATH`](https://github.com/pdfplum/pdfplum/tree/main/http-pdf-generator/PREINSTALL.md#templatepath-required) extension parameter.
 
 ## Billing
 

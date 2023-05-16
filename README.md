@@ -9,7 +9,7 @@
 # PDFPlum
 
 PDFPlum is a set of Firebase extensions to generate PDF files from a template bundle using HTML/CSS and Handlebars, triggered by different sources.
-Check out some examples of the generated PDFs [here](template-samples).
+Check out some examples of the generated PDFs [here](https://github.com/pdfplum/pdfplum/tree/main/template-samples).
 
 ## Installation
 

@@ -16,7 +16,7 @@ For inspiration, check out the pre-made templates and their outputs in the [temp
 
 Before installing this extension, you need to:
 
-- Create a template as described [here](#the-template).
+- Create a template as described [here](https://github.com/pdfplum/pdfplum/tree/main/firestore-pdf-generator/PREINSTALL.md#the-template).
 - [Set up Firebase Storage in your Firebase project.](https://firebase.google.com/docs/storage)
 - Upload the template file (the zipped directory) to a Firebase Storage bucket.
 
@@ -44,9 +44,9 @@ When a document is created in `FIRESTORE_COLLECTION`, the extension generates a 
 
 The template bundle is uncompressed, served, and loaded by a Chromium instance. Handlebars runs on all `.html`, `.txt`, and `.md` files, replacing their template placeholders with data from the GET parameter `data`. After all network resources are fully loaded, a PDF file is generated from the rendered webpage.
 
-The generated PDF file is saved in the bucket specified in the [`OUTPUT_STORAGE_BUCKET`](#outputstoragebucket-optional) extension parameter.
+The generated PDF file is saved in the bucket specified in the [`OUTPUT_STORAGE_BUCKET`](https://github.com/pdfplum/pdfplum/tree/main/firestore-pdf-generator/PREINSTALL.md#outputstoragebucket-optional) extension parameter.
 
-The PDF file is named according to the rules described [here](#outputfilename).
+The PDF file is named according to the rules described [here](https://github.com/pdfplum/pdfplum/tree/main/firestore-pdf-generator/PREINSTALL.md#outputfilename).
 
 ## Billing
 

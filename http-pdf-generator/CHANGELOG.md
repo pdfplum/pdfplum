@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 0.12.17
+
+- Update NPM packages to their latest versions.
+- Update `PREINSTALL.md` files.
+
 ## Version 0.12.16
 
 - Remove parameters section from `PREINSTALL.md` files.

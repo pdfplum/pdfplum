@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 0.12.17 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
+
+- Update NPM packages to their latest versions.
+- Update `PREINSTALL.md` files.
+- Fix typo in `wget` sample in `http-pdf-generator/POSTINSTALL.md`
+
 ## Version 0.12.16 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
 
 - Remove parameters section from `PREINSTALL.md` files.
