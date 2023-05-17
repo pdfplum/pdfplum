@@ -1,10 +1,14 @@
 # Changelog
 
+## Version 0.12.18 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
+
+- Fix the value of `main` entry in package.json. #8
+
 ## Version 0.12.17 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
 
 - Update NPM packages to their latest versions.
 - Update `PREINSTALL.md` files.
-- Fix typo in `wget` sample in `http-pdf-generator/POSTINSTALL.md`
+- Fix typo in `wget` sample in `http-pdf-generator/POSTINSTALL.md`. #7
 
 ## Version 0.12.16 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
 
