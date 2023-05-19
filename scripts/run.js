@@ -45,7 +45,7 @@ async function main() {
   const templateName = path.basename(templatePath);
   await exec(`rm -f ${templateName}.pdf`, { cwd: "template-samples" });
   await exec(`rm -f ${templateName}.zip`, { cwd: "template-samples" });
-  await exec(`zip ${templateName}.zip -r ${templateName}/*`, {
+  await exec(`cd ${templateName}; zip ../${templateName}.zip -r *`, {
     cwd: templateDirectory,
   });
   const templateContent = readFileSync(`${templatePath}.zip`);

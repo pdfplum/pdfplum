@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.12.19 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
+
+- The name of the root directory inside the ZIP file containing `index.html` is no longer needed to match with the filename of the ZIP file.
+
 ## Version 0.12.18 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
 
 - Fix the value of `main` entry in package.json. #8
@@ -131,7 +135,7 @@
 - Add `run.js` script to make testing template samples easier by running the feedback loop faster.
 - Change `true`/`false` extension variable values to `yes`/`no`.
 - Add a script to generate extension variables section of `PREINSTALL.md` document (it used to be written manually) so that it can be used in git precommit hooks.
-- Add a script to update all template samples zip files and PDF files so that it can be used in git precommit hooks.
+- Add a script to update all template samples ZIP files and PDF files so that it can be used in git precommit hooks.
 - Add GET parameters of each template sample as JSON data in a file with the same name as the template sample with `.json` extension.
 
 ## Version 0.7.11 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->

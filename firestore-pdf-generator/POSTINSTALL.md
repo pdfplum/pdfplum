@@ -4,7 +4,7 @@ You can start testing this extension right away.
 
 1. Go to your [Firebase Storage dashboard](https://console.firebase.google.com/project/${PROJECT_ID}/storage/${STORAGE_BUCKET}/files) in Firebase console.
 
-1. Download `demo.zip` from [here](https://github.com/pdfplum/pdfplum/tree/main/template-samples), rename it to `${param:TEMPLATE_PATH}` and upload it into bucket `${STORAGE_BUCKET}`.
+1. Download `demo.zip` from [here](https://github.com/pdfplum/pdfplum/tree/main/template-samples), and upload it to Firebase Storage under `${param:TEMPLATE_PATH}`.
 
 1. Go to your [Firestore dashboard](https://console.firebase.google.com/project/${PROJECT_ID}/firestore/data/~2F${param:FIRESTORE_COLLECTION}) in Firebase console.
 

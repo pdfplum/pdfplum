@@ -54,7 +54,7 @@ export function parseParameters({
 
   const parameters = {
     adjustHeightToFit:
-      extensionParameters.ADJUST_HEIGHT_TO_FIT.toLowerCase() === "yes",
+      extensionParameters.ADJUST_HEIGHT_TO_FIT?.toLowerCase() === "yes",
     chromiumPdfOptions: Object.fromEntries(
       Object.entries((parsedChromiumPdfOptions as PDFOptions) ?? {}).map(
         ([key, value]) => {
@@ -74,9 +74,11 @@ export function parseParameters({
     templateBucket,
     templatePrefix,
     templateId,
-    networkIdleTime: Number.parseInt(extensionParameters.NETWORK_IDLE_TIME),
+    networkIdleTime: Number.parseInt(
+      extensionParameters.NETWORK_IDLE_TIME || "0"
+    ),
     shouldWaitForIsReady:
-      extensionParameters.SHOULD_WAIT_FOR_IS_READY.toLowerCase() === "yes",
+      extensionParameters.SHOULD_WAIT_FOR_IS_READY?.toLowerCase() === "yes",
   };
 
   return parameters;

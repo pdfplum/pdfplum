@@ -9,7 +9,7 @@ import { getStorage } from "firebase-admin/storage";
 import { ApiError } from "@google-cloud/storage/build/src/nodejs-common";
 import "./utilities/setup_handlebars";
 
-Handlebars.registerHelper("json", function (object) {
+Handlebars.registerHelper("json", function(object) {
   const result = JSON.stringify(object);
   return new Handlebars.SafeString(result);
 });
@@ -54,19 +54,28 @@ export async function loadTemplate({
   );
 
   const zipFile = await jszip.loadAsync(templateBuffer);
-  const templateFileName = templateId.replace(/\.[^.]+$/, "");
-  if (
-    zipFile.files["index.html"] == null &&
-    zipFile.files[`${templateFileName}/index.html`] == null
-  ) {
-    throw new Error(
-      "There must be an 'index.html' file inside the zip file in its root folder."
-    );
+  let rootDirectory: string | undefined;
+  const zipFiles = Object.entries(zipFile.files).filter(
+    ([filename]) => !filename.includes("__MACOSX/")
+  );
+  if (zipFile.files["index.html"] == null) {
+    const rootDirectoryCandidates = [
+      ...new Set(zipFiles.map(([filename]) => filename.replace(/\/.*$/, ""))),
+    ];
+    if (rootDirectoryCandidates.length === 1) {
+      rootDirectory = rootDirectoryCandidates[0];
+    } else {
+      throw new Error(
+        "There must be an 'index.html' file inside the zip file in its root folder."
+      );
+    }
   }
-  const promises = Object.entries(zipFile.files).map(
+  const promises = zipFiles.map(
     async ([relativePath, file]: [string, jszip.JSZipObject]) => {
       let content: string | Buffer;
-      relativePath = relativePath.replace(RegExp(`^${templateFileName}/`), "");
+      if (rootDirectory != null) {
+        relativePath = relativePath.replace(RegExp(`^${rootDirectory}`), "");
+      }
       if (relativePath === "" || relativePath.endsWith("/")) {
         return;
       }
@@ -82,7 +91,8 @@ export async function loadTemplate({
         content = await file.async("nodebuffer");
       }
       const filePath = path.join(temporaryDirectoryPath, relativePath);
-      fs.mkdirSync(path.dirname(filePath), { recursive: true });
+      const directoryPath = path.dirname(filePath);
+      fs.mkdirSync(directoryPath, { recursive: true });
       fs.writeFileSync(filePath, content);
     }
   );

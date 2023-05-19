@@ -70,7 +70,7 @@ export function parseParameters({
   const parameters = {
     adjustHeightToFit:
       (rawParameters.adjustHeightToFit?.toLowerCase() ??
-        extensionParameters.ADJUST_HEIGHT_TO_FIT.toLowerCase()) === "yes",
+        extensionParameters.ADJUST_HEIGHT_TO_FIT?.toLowerCase()) === "yes",
     chromiumPdfOptions: Object.fromEntries(
       Object.entries(
         ({
@@ -95,7 +95,8 @@ export function parseParameters({
     templatePrefix,
     templateId,
     networkIdleTime: Number.parseInt(
-      rawParameters.networkIdleTime ?? extensionParameters.NETWORK_IDLE_TIME
+      rawParameters.networkIdleTime ??
+        (extensionParameters.NETWORK_IDLE_TIME || "0")
     ),
     shouldWaitForIsReady:
       (rawParameters.shouldWaitForIsReady?.toLowerCase() ??
