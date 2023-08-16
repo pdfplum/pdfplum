@@ -1,5 +1,12 @@
 # Changelog
 
+## Version 0.13.0 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
+
+- Read `_pdfplum_config` key of Firestore documents in firestore-pdf-generator. #10
+- List parameters provided by `_pdfplum_config` in `PARAMETERS.md`.
+- Move GET parameters and extension parameters to `PARAMETERS.md`.
+- Improve documents (fix some invalid links, etc).
+
 ## Version 0.12.19 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
 
 - The name of the root directory inside the ZIP file containing `index.html` is no longer needed to match with the filename of the ZIP file.

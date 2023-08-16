@@ -1,5 +1,5 @@
 import http from "http";
-import {getPort} from 'get-port-please';
+import { getPort } from "get-port-please";
 
 import serveStatic from "serve-static";
 
@@ -21,7 +21,7 @@ export async function serveTemplate({
     });
   });
 
-  const portNumber = await getPort({port: 3000, portRange: [3000, 5000]});
+  const portNumber = await getPort({ port: 3000, portRange: [3000, 5000] });
 
   server.listen(portNumber);
 

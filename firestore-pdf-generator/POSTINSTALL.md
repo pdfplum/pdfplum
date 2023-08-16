@@ -1,4 +1,6 @@
-# Triggering the function
+# Usage
+
+## Triggering the function
 
 You can start testing this extension right away.
 
@@ -43,11 +45,19 @@ You can start testing this extension right away.
     info.Name=(string)John Doe
     info.Birthday=(timestamp)1985/20/06
     info.Address=(string)Silicon Valley
+    _pdfplum_config=(map)
+    _pdfplum_config.templatePath=(string)${STORAGE_BUCKET}/demo.zip
+    _pdfplum_config.outputFileName=(string)demo.pdf
+    _pdfplum_config.chromiumPdfOptions=(map)
+    _pdfplum_config.chromiumPdfOptions.format=(string)a5
+    _pdfplum_config.chromiumPdfOptions.printBackground=(string)true
+    _pdfplum_config.adjustHeightToFit=(boolean)false
    ```
 
    The generated PDF file will be stored in Firebase Storage under `${param:OUTPUT_STORAGE_BUCKET}/demo.pdf`. You can check it in your [Firebase Storage dashboard](https://console.firebase.google.com/project/${PROJECT_ID}/storage/${param:OUTPUT_STORAGE_BUCKET}/files).
 
-# Documentation
+## Documentation
 
-- Extension parameters are documented [here](https://github.com/pdfplum/pdfplum/tree/main/firestore-pdf-generator/PREINSTALL.md#firebase-extension-parameters).
+- Embedded parameters are documented [here](https://github.com/pdfplum/pdfplum/tree/main/firestore-pdf-generator/PARAMETERS.md#embedded-parameters).
+- Extension parameters are documented [here](https://github.com/pdfplum/pdfplum/tree/main/firestore-pdf-generator/PARAMETERS.md#firebase-extension-parameters).
 - You can find sample invocations of the endpoint [here](https://github.com/pdfplum/pdfplum/tree/main/template-samples).

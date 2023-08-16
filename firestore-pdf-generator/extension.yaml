@@ -1,6 +1,6 @@
 ---
 name: firestore-pdf-generator
-version: 0.12.19
+version: 0.13.0
 specVersion: v1beta
 icon: icon.png
 
@@ -248,9 +248,9 @@ params:
   - param: FIRESTORE_COLLECTION
     label: Firestore collection, its document creation events should be listened to
     description: >-
-      If specified, the extension will monitor creation events in this
-      collection. When a new document is created in this collection, a PDF will
-      be generated based on the document's values.
+      The extension will monitor creation events in this collection. When a new
+      document is created in this collection, a PDF will be generated based on
+      the document's values.
     type: string
     required: true
     immutable: false

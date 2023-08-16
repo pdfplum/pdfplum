@@ -9,7 +9,7 @@ import { getStorage } from "firebase-admin/storage";
 import { ApiError } from "@google-cloud/storage/build/src/nodejs-common";
 import "./utilities/setup_handlebars";
 
-Handlebars.registerHelper("json", function(object) {
+Handlebars.registerHelper("json", function (object) {
   const result = JSON.stringify(object);
   return new Handlebars.SafeString(result);
 });

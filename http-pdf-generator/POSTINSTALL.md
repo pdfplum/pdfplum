@@ -1,10 +1,12 @@
-# Triggering the function
+# Usage
+
+## Triggering the function
 
 You can start testing this extension right away.
 
 1. Go to your [Firebase Storage dashboard](https://console.firebase.google.com/project/${PROJECT_ID}/storage/${STORAGE_BUCKET}/files) in Firebase console.
 
-1. Upload `demo.zip` from [here](https://github.com/pdfplum/pdfplum/tree/main/template-samples) into bucket `${STORAGE_BUCKET}`.
+1. Download `demo.zip` from [here](https://github.com/pdfplum/pdfplum/tree/main/template-samples), and upload it to Firebase Storage under `${param:TEMPLATE_PATH}`.
 
 1. Run this command:
 
@@ -16,7 +18,7 @@ You can start testing this extension right away.
 
    If [`OUTPUT_STORAGE_BUCKET`](https://github.com/pdfplum/pdfplum/tree/main/pdf-generator/PREINSTALL.md#outputstoragebucket-optional) extension parameter is provided, the generated PDF file will also be stored in Firebase Storage under `${param:OUTPUT_STORAGE_BUCKET}/demo.pdf`. You can check it in your [Firebase Storage dashboard](https://console.firebase.google.com/project/${PROJECT_ID}/storage/${param:OUTPUT_STORAGE_BUCKET}/files).
 
-# Documentation
+## Documentation
 
 - Get parameters are documented [here](https://github.com/pdfplum/pdfplum/tree/main/http-pdf-generator/PREINSTALL.md#get-parameters).
 - Extension parameters are documented [here](https://github.com/pdfplum/pdfplum/tree/main/http-pdf-generator/PREINSTALL.md#firebase-extension-parameters).

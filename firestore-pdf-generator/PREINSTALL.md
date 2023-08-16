@@ -1,3 +1,5 @@
+# PDFPlum
+
 Use this extension to generate PDF files with Handlebars, Puppeteer, and HTML. To use PDFPlum, follow these steps:
 
 - Create a template using HTML and Handlebars.
@@ -42,11 +44,11 @@ When a document is created in `FIRESTORE_COLLECTION`, the extension generates a 
 
 ## How it all works
 
-The template bundle is uncompressed, served, and loaded by a Chromium instance. Handlebars runs on all `.html`, `.txt`, and `.md` files, replacing their template placeholders with data from the GET parameter `data`. After all network resources are fully loaded, a PDF file is generated from the rendered webpage.
+The template bundle is uncompressed, served, and loaded by a Chromium instance. Handlebars runs on all `.html`, `.txt`, and `.md` files, replacing their template placeholders with data coming from the document [except for its `_pdfplum_config` key](https://github.com/pdfplum/pdfplum/tree/main/firestore-pdf-generator/PARAMETERS.md#embedded-parameters). After all network resources are fully loaded, a PDF file is generated from the rendered webpage.
 
-The generated PDF file is saved in the bucket specified in the [`OUTPUT_STORAGE_BUCKET`](https://github.com/pdfplum/pdfplum/tree/main/firestore-pdf-generator/PREINSTALL.md#outputstoragebucket-optional) extension parameter.
+The generated PDF file is saved in the bucket specified in the [`OUTPUT_STORAGE_BUCKET`](https://github.com/pdfplum/pdfplum/tree/main/firestore-pdf-generator/PARAMETERS.md#outputstoragebucket-optional) extension parameter.
 
-The PDF file is named according to the rules described [here](https://github.com/pdfplum/pdfplum/tree/main/firestore-pdf-generator/PREINSTALL.md#outputfilename).
+The PDF file is named according to the rules described [here](https://github.com/pdfplum/pdfplum/tree/main/firestore-pdf-generator/PARAMETERS.md#outputfilename).
 
 ## Billing
 

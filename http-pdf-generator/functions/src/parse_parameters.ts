@@ -86,8 +86,9 @@ export function parseParameters({
     ),
     data: rawParameters.data ?? {},
     headless:
-      process.env.IS_LOCAL != "true" ||
-      rawParameters.headful?.toLowerCase() !== "true",
+      process.env.IS_LOCAL == "true"
+        ? !(rawParameters.headful?.toLowerCase() === "true")
+        : true,
     outputFileName:
       rawParameters.outputFileName ??
       `${uuidv4()}-${new Date().toISOString()}.pdf`,
