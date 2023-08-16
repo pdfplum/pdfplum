@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.13.1
+
+- Listen to `document.write` instead of `document.create` so that the extension is triggered both with document creations as wells as document modifications.
+
 ## Version 0.13.0
 
 - Read `_pdfplum_config` key of Firestore documents in firestore-pdf-generator. #10

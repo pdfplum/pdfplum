@@ -49,12 +49,21 @@ You can start testing this extension right away.
     _pdfplum_config.templatePath=(string)${STORAGE_BUCKET}/demo.zip
     _pdfplum_config.outputFileName=(string)demo.pdf
     _pdfplum_config.chromiumPdfOptions=(map)
-    _pdfplum_config.chromiumPdfOptions.format=(string)a5
     _pdfplum_config.chromiumPdfOptions.printBackground=(string)true
     _pdfplum_config.adjustHeightToFit=(boolean)false
    ```
 
    The generated PDF file will be stored in Firebase Storage under `${param:OUTPUT_STORAGE_BUCKET}/demo.pdf`. You can check it in your [Firebase Storage dashboard](https://console.firebase.google.com/project/${PROJECT_ID}/storage/${param:OUTPUT_STORAGE_BUCKET}/files).
+
+   You can go ahead and add this field to the same Firestore document:
+
+   ```text
+    _pdfplum_config.chromiumPdfOptions.format=(string)a5
+   ```
+
+   or edit any value in it, the generated PDF file should get regenerated based on the new values in a few seconds. It can be useful to fix a wrong value in an invoice or similar use-cases.
+
+   If you prefer to keep the old PDF file for reference and create a new one instead of updating it in place, you can either duplicate the Firestore document with a new ID or change its [`outputFileName`](https://github.com/pdfplum/pdfplum/tree/main/http-pdf-generator/PARAMETERS.md#outputfilename) value.
 
 ## Documentation
 

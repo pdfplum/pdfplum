@@ -43,7 +43,7 @@ ${parameter.description}
   });
   const preinstallContent = preinstallTemplate.replace(
     new RegExp(
-      `^${firebaseExtensionParametersHeader}.*?(.(?=\n#{1,3} )|$(?![\r\n]))`,
+      `^${firebaseExtensionParametersHeader}.*?(.(?=\n#{1,2} )|$(?![\r\n]))`,
       "ms"
     ),
     parametersMarkdown

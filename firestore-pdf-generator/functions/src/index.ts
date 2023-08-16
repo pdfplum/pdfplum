@@ -16,13 +16,13 @@ process.on("unhandledRejection", (reason, p) => {
 
 exports.executePdfGenerator = functions.firestore
   .document(extensionParameters.FIRESTORE_COLLECTION)
-  .onCreate(
+  .onWrite(
     async (
-      snapshot: functions.firestore.QueryDocumentSnapshot,
+      change: functions.Change<functions.firestore.DocumentSnapshot>,
       context: functions.EventContext
     ) => {
-      const id = snapshot.id;
-      const rawParameters = snapshot.data() as FirestoreDocument;
+      const id = change.after.id;
+      const rawParameters = change.after.data() as FirestoreDocument;
       const errorHandler = createErrorHandler({
         context: {
           id,
