@@ -6,6 +6,19 @@
 
 </h1>
 
+<!--toc:start-->
+
+- [PDFPlum](#pdfplum)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Contribution](#contribution)
+    - [Commititng](#commititng)
+    - [Deploying](#deploying)
+    - [Publishing](#publishing)
+    - [Updating `CHANGELOG.md`](#updating-changelogmd)
+
+<!--toc:end-->
+
 # PDFPlum
 
 PDFPlum is a set of Firebase extensions to generate PDF files from a template bundle using HTML/CSS and Handlebars, triggered by different sources.
@@ -29,15 +42,23 @@ It is also all described in the installation page.
 
 ## Contribution
 
-Before creating a commit, please run these commands while Firebase emulator is running to update documents:
+### Deploying
+
+Run this command to deploy the current source code to the Firebase projects specified in `.firebaserc`.
 
 ```bash
-npm run update
-npm run lint
-npm run test
+npm run deploy
 ```
 
-If templates are not expected to be changed, you don't need Firebase emulator and you can skip regenerating sample PDF files like this:
+### Updating `CHANGELOG.md`
+
+Write a summary of changes in the `CHANGELOG.md` file in the root directory of this repository. Versions containing `<!--subject:firestore-pdf-generator-->` in front of them will be included in the `CHANGELOG.md` file of the firestore-pdf-generator plugin and the ones containing `<!--subject:http-pdf-generator-->` will be included in the `CHANGELOG.md` file of the http-pdf-generator plugin. A version can have both tags.
+
+Note that `CHANGELOG.md` files inside plugin folders is auto-generated and any modifications on these files will be lost.
+
+### Commititng
+
+Before creating a commit, please run these commands and make sure they all pass without any errors:
 
 ```bash
 PDF_PLUM_UPDATE_SKIP_SAMPLES=1 npm run update
@@ -45,20 +66,24 @@ npm run lint
 npm run test
 ```
 
-To deploy the extension you can run
+These commands will update documentations, update `CHANGELOG.md` files, sync versions based on `CHANGELOG.md`, etc.
+
+If sample PDF files are expected to be changed, you neeed to run the project in Firebase emulator and run these commands instead:
 
 ```bash
-npm run deploy
+npm run update
+npm run lint
+npm run test
 ```
 
-And to publish the project you can run
+This way the sample PDF files will be regenerated.
+
+### Publishing
+
+Run this command to publish:
 
 ```bash
-npm run publish
+PUBLISHER_ID=<your-publisher-id> npm run publish
 ```
 
-Make sure you push the commit that is identical to the going-to-be-published version, Firebase publishes from the GitHub repository, not your local copy.
-
-Also write a summary of changes in the `CHANGELOG.md` file in the root directory of this repository. Versions containing `<!--subject:firestore-pdf-generator-->` in front of them will be included in the `CHANGELOG.md` file of the firestore-pdf-generator plugin and the ones containing `<!--subject:http-pdf-generator-->` will be included in the `CHANGELOG.md` file of the http-pdf-generator plugin. A version can have both tags.
-
-Note that `CHANGELOG.md` files inside plugin folders is auto-generated and any modifications on these files will be lost.
+Make sure you have already pushed the commit that is identical to the going-to-be-published version, Firebase publishes from the GitHub repository, not your local copy.

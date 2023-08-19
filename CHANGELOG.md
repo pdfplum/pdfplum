@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 0.13.2 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
+
+- Fix URLs in the documents.
+- Update the README.md file's contribution section.
+
 ## Version 0.13.1 <!--subject:firestore-pdf-generator-->
 
 - Listen to `document.write` instead of `document.create` so that the extension is triggered both with document creations as wells as document modifications.

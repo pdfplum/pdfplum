@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 0.13.2
+
+- Fix URLs in the documents.
+- Update the README.md file's contribution section.
+
 ## Version 0.13.0
 
 - Read `_pdfplum_config` key of Firestore documents in firestore-pdf-generator. #10

@@ -63,7 +63,7 @@ You can start testing this extension right away.
 
    or edit any value in it, the generated PDF file should get regenerated based on the new values in a few seconds. It can be useful to fix a wrong value in an invoice or similar use-cases.
 
-   If you prefer to keep the old PDF file for reference and create a new one instead of updating it in place, you can either duplicate the Firestore document with a new ID or change its [`outputFileName`](https://github.com/pdfplum/pdfplum/tree/main/http-pdf-generator/PARAMETERS.md#outputfilename) value.
+   If you prefer to keep the old PDF file for reference and create a new one instead of updating it in place, you can either duplicate the Firestore document with a new ID or change its [`outputFileName`](https://github.com/pdfplum/pdfplum/tree/main/firestore-pdf-generator/PARAMETERS.md#outputfilename) value.
 
 ## Documentation
 
