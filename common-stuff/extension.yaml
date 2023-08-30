@@ -44,14 +44,17 @@ apis:
 
 roles:
   - role: storage.objectAdmin
-    reason: Allows the extension to read templates from and write pdf files to
+    reason:
+      Allows the extension to read templates from and write pdf files to
       Firebase Storage
 
 resources: []
 
 params:
   - param: SHOULD_MAKE_PDF_PUBLIC
-    label: Determines if the generated PDF in the output storage bucket should be public or private.
+    label:
+      Determines if the generated PDF in the output storage bucket should be
+      public or private.
     description: >-
       Whether the generated PDF file should be public or private.
     type: select
@@ -71,19 +74,20 @@ params:
       Firebase Storage bucket. Can be overridden by GET parameters.
     type: string
     example: some-bucket.appspot.com/basic-example
-    validationRegex: "^([0-9a-z_.-]*)(/[A-Za-z0-9_-]+)+(.zip)?$"
+    validationRegex: '^([0-9a-z_.-]*)(/[A-Za-z0-9_-]+)+(.zip)?$'
     validationErrorMessage: Please enter a valid path
     default: ${STORAGE_BUCKET}/template
     required: true
     immutable: false
 
   - param: ADJUST_HEIGHT_TO_FIT
-    label: Should PDFPlum automatically set the document height to fit its content?
+    label:
+      Should PDFPlum automatically set the document height to fit its content?
     description: >-
       If enabled, the extension will automatically adjust the height of the PDF
       so that all the contents of the webpage can fit inside one page. The
-      generated PDF file in this case will always have only a single page.
-      Can be overridden by GET parameters.
+      generated PDF file in this case will always have only a single page. Can
+      be overridden by GET parameters.
     type: select
     options:
       - label: Automatically set document height to fit its contents
@@ -102,7 +106,7 @@ params:
       [here](https://www.puppeteersharp.com/api/PuppeteerSharp.PdfOptions.html).
       Can be overridden by GET parameters.
     type: string
-    default: "{}"
+    default: '{}'
     required: true
     immutable: false
 
@@ -113,7 +117,7 @@ params:
       file starts. This ensures all external resources are loaded and allows for
       a grace period.
     type: string
-    validationRegex: "[1-5]?[0-9]{1,3}|6000"
+    validationRegex: '[1-5]?[0-9]{1,3}|6000'
     default: 0
     required: true
     immutable: false
@@ -126,93 +130,12 @@ params:
       by GET parameters.
     type: select
     options:
-      - label: Wait for `isReady` to be set to `true` before generating the PDF file
+      - label:
+          Wait for `isReady` to be set to `true` before generating the PDF file
         value: yes
       - label: Render the PDF file as soon as the webpage is completely loaded
         value: no
     default: no
-    required: true
-    immutable: false
-
-  - param: LOCATION
-    label: Cloud Functions' location
-    description: >-
-      The location you want to deploy the functions created for this
-      extension. You usually want a location close to your Storage bucket. For
-      help selecting a location, refer to the [location selection
-      guide](https://firebase.google.com/docs/functions/locations).
-    type: select
-    options:
-      - label: Iowa (us-central1)
-        value: us-central1
-      - label: South Carolina (us-east1)
-        value: us-east1
-      - label: Northern Virginia (us-east4)
-        value: us-east4
-      - label: Los Angeles (us-west2)
-        value: us-west2
-      - label: Salt Lake City (us-west3)
-        value: us-west3
-      - label: Las Vegas (us-west4)
-        value: us-west4
-      - label: Warsaw (europe-central2)
-        value: europe-central2
-      - label: Belgium (europe-west1)
-        value: europe-west1
-      - label: London (europe-west2)
-        value: europe-west2
-      - label: Frankfurt (europe-west3)
-        value: europe-west3
-      - label: Zurich (europe-west6)
-        value: europe-west6
-      - label: Taiwan (asia-east1)
-        value: asia-east1
-      - label: Hong Kong (asia-east2)
-        value: asia-east2
-      - label: Tokyo (asia-northeast1)
-        value: asia-northeast1
-      - label: Osaka (asia-northeast2)
-        value: asia-northeast2
-      - label: Seoul (asia-northeast3)
-        value: asia-northeast3
-      - label: Mumbai (asia-south1)
-        value: asia-south1
-      - label: Singapore (asia-southeast1)
-        value: asia-southeast1
-      - label: Jakarta (asia-southeast2)
-        value: asia-southeast2
-      - label: Montreal (northamerica-northeast1)
-        value: northamerica-northeast1
-      - label: Sao Paulo (southamerica-east1)
-        value: southamerica-east1
-      - label: Sydney (australia-southeast1)
-        value: australia-southeast1
-    default: us-central1
-    required: true
-    immutable: true
-
-  - param: FUNCTION_MEMORY
-    label: Cloud Function memory
-    description: >-
-      The memory allocated to the function responsible for creating the PDF.
-      Choose how much memory to give to the function that creates the PDF file.
-    type: select
-    options:
-      - label: 1 GB
-        value: 1024
-      - label: 2 GB
-        value: 2048
-    default: 1024
-    required: true
-    immutable: false
-
-  - param: FUNCTION_TIMEOUT
-    label: Cloud Function timeout (in seconds)
-    description: >-
-      The time the function has to complete its task.
-    type: string
-    validationRegex: "[0-4]?[0-9]{1,2}|5[0-3][0-9]|540"
-    default: 60
     required: true
     immutable: false
 

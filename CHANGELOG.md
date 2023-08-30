@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.14.0 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
+
+- Remove function parameters as Firebase now handles these parameters itself.
+
 ## Version 0.13.2 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
 
 - Fix URLs in the documents.

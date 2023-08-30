@@ -1,6 +1,6 @@
 {
   "name": "pdfplum",
-  "version": "0.13.2",
+  "version": "0.14.0",
   "description": "Generate PDF documents from templates stored in Firebase Storage",
   "author": "PDFPlum (hi@pdfplum.com)",
   "repository": "https://github.com/pdfplum/pdfplum",

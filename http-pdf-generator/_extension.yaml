@@ -16,10 +16,9 @@ resources:
     description: >-
       Generate PDF from HTML template, triggered by a http call
     properties:
-      location: ${param:LOCATION}
-      runtime: nodejs16
-      timeout: ${param:FUNCTION_TIMEOUT}s
-      availableMemoryMb: ${param:FUNCTION_MEMORY}
+      runtime: nodejs18
+      timeout: 60s
+      availableMemoryMB: 1024
       httpsTrigger: {}
 
 params:
@@ -63,4 +62,4 @@ events:
   - type: firebase.extensions.pdfplum.http-pdf-generator.v1.error
     description: Occurs when PDF generation runs into an error. The event will
       contain further details.
-version: 0.13.2
+version: 0.14.0

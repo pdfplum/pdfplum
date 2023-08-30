@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.14.0
+
+- Remove function parameters as Firebase now handles these parameters itself.
+
 ## Version 0.13.2
 
 - Fix URLs in the documents.

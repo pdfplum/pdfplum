@@ -78,27 +78,6 @@ type: **select**
 
 ndicates whether the extension should wait for the `window.isReady` variable to be set to `true` before rendering the PDF. Can be overridden by GET parameters.
 
-### `LOCATION` (required)
-
-Cloud Functions' location<br/>
-type: **select**
-
-The location you want to deploy the functions created for this extension. You usually want a location close to your Storage bucket. For help selecting a location, refer to the [location selection guide](https://firebase.google.com/docs/functions/locations).
-
-### `FUNCTION_MEMORY` (required)
-
-Cloud Function memory<br/>
-type: **select**
-
-The memory allocated to the function responsible for creating the PDF. Choose how much memory to give to the function that creates the PDF file.
-
-### `FUNCTION_TIMEOUT` (required)
-
-Cloud Function timeout (in seconds)<br/>
-type: **string**
-
-The time the function has to complete its task.
-
 ### `OUTPUT_STORAGE_BUCKET` (optional)
 
 Output Firebase Storage bucket name<br/>
