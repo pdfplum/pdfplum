@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.14.1 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
+
+- Fix minor issues in `POSTINSTALL.md` files #13
+
 ## Version 0.14.0 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
 
 - Remove function parameters as Firebase now handles these parameters itself.

@@ -46,10 +46,10 @@ You can start testing this extension right away.
     info.Birthday=(timestamp)1985/20/06
     info.Address=(string)Silicon Valley
     _pdfplum_config=(map)
-    _pdfplum_config.templatePath=(string)${STORAGE_BUCKET}/demo.zip
+    _pdfplum_config.templatePath=(string)${param:TEMPLATE_PATH}
     _pdfplum_config.outputFileName=(string)demo.pdf
     _pdfplum_config.chromiumPdfOptions=(map)
-    _pdfplum_config.chromiumPdfOptions.printBackground=(string)true
+    _pdfplum_config.chromiumPdfOptions.printBackground=(boolean)true
     _pdfplum_config.adjustHeightToFit=(boolean)false
    ```
 
