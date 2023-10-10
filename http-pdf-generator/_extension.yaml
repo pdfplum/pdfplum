@@ -18,7 +18,7 @@ resources:
     properties:
       runtime: nodejs18
       timeout: 60s
-      availableMemoryMB: 1024
+      availableMemoryMb: 1024
       httpsTrigger: {}
 
 params:
@@ -62,4 +62,4 @@ events:
   - type: firebase.extensions.pdfplum.http-pdf-generator.v1.error
     description: Occurs when PDF generation runs into an error. The event will
       contain further details.
-version: 0.14.1
+version: 0.14.2

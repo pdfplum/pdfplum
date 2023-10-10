@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.14.2 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
+
+- Rename `availableMemoryMB` to `availableMemoryMb` #14
+
 ## Version 0.14.1 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
 
 - Fix minor issues in `POSTINSTALL.md` files #13

@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.14.2
+
+- Rename `availableMemoryMB` to `availableMemoryMb` #14
+
 ## Version 0.14.1
 
 - Fix minor issues in `POSTINSTALL.md` files #13

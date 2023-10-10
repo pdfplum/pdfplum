@@ -1,6 +1,6 @@
 ---
 name: http-pdf-generator
-version: 0.14.1
+version: 0.14.2
 specVersion: v1beta
 icon: icon.png
 
@@ -57,7 +57,7 @@ resources:
     properties:
       runtime: nodejs18
       timeout: 60s
-      availableMemoryMB: 1024
+      availableMemoryMb: 1024
       httpsTrigger: {}
 
 params:
