@@ -17,7 +17,6 @@ export interface PdfInformation {
 }
 
 export interface Parameters {
-  outputBucketName: string | undefined;
   parameters: ParsedParameters;
 }
 
@@ -34,7 +33,6 @@ export interface ReturnValue {
  * Returns the generated PDF and its metadata.
  */
 export async function producePdf({
-  outputBucketName,
   parameters,
 }: Parameters): Promise<ReturnValue> {
   const templateFilesPath = await runAction(loadTemplate, parameters);
@@ -50,7 +48,6 @@ export async function producePdf({
 
   const publicUrl = await runAction(storePdf, {
     ...parameters,
-    outputBucketName,
     pdf,
   });
 

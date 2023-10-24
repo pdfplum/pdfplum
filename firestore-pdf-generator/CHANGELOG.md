@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 0.15.0
+
+- Add `outputStorageBucket` GET parameter for http-pdf-generator. #15
+- Add `outputStorageBucket` key in `_pdfplum_config` parameters of firestore-pdf-generator. #15
+
 ## Version 0.14.2
 
 - Rename `availableMemoryMB` to `availableMemoryMb` #14

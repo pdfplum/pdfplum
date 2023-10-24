@@ -10,6 +10,7 @@ export interface GetParameters {
   data?: ParsedQs;
   headful?: "true" | "false";
   outputFileName?: string;
+  outputStorageBucket?: string;
   templatePath?: string;
   networkIdleTime?: string;
   shouldWaitForIsReady?: "yes" | "no";
@@ -89,6 +90,9 @@ export function parseParameters({
       process.env.IS_LOCAL == "true"
         ? !(rawParameters.headful?.toLowerCase() === "true")
         : true,
+    outputBucketName:
+      rawParameters.outputStorageBucket ??
+      extensionParameters.OUTPUT_STORAGE_BUCKET,
     outputFileName:
       rawParameters.outputFileName ??
       `${uuidv4()}-${new Date().toISOString()}.pdf`,

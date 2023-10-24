@@ -6,6 +6,7 @@ export interface ParsedParameters {
   chromiumPdfOptions: PDFOptions;
   data: ParsedQs;
   headless: boolean;
+  outputBucketName: string | undefined;
   outputFileName: string;
   templateBucket: string;
   templatePrefix: string;

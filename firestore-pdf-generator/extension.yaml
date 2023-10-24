@@ -1,6 +1,6 @@
 ---
 name: firestore-pdf-generator
-version: 0.14.2
+version: 0.15.0
 specVersion: v1beta
 icon: icon.png
 
