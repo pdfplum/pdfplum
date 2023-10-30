@@ -7,8 +7,9 @@ export interface FirestoreDocument extends FirebaseFirestore.DocumentData {
     adjustHeightToFit?: boolean;
     chromiumPdfOptions?: PDFOptions;
     headful?: boolean;
-    outputFileName?: string;
     outputStorageBucket?: string;
+    outputStoragePrefix?: string;
+    outputFileName?: string;
     templatePath?: string;
     networkIdleTime?: number;
     shouldWaitForIsReady?: boolean;
@@ -84,8 +85,10 @@ export function parseParameters({
     data,
     headless:
       process.env.IS_LOCAL == "true" ? !(config?.headful === true) : true,
-    outputBucketName:
+    outputStorageBucket:
       config?.outputStorageBucket ?? extensionParameters.OUTPUT_STORAGE_BUCKET,
+    outputStoragePrefix:
+      config?.outputStoragePrefix ?? extensionParameters.OUTPUT_STORAGE_PREFIX,
     outputFileName: config?.outputFileName ?? `${id}.pdf`,
     templateBucket,
     templatePrefix,

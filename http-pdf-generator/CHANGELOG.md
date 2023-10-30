@@ -1,9 +1,15 @@
 # Changelog
 
+## Version 0.15.1
+
+- Add `outputStoragePrefix` GET parameter for http-pdf-generator. #18
+- Add `outputStoragePrefix` key in `_pdfplum_config` parameters of firestore-pdf-generator. #18
+- Add `OUTPUT_STORAGE_PREFIX` extension parameter. #18
+
 ## Version 0.15.0
 
-- Add `outputStorageBucket` GET parameter for http-pdf-generator. #15
-- Add `outputStorageBucket` key in `_pdfplum_config` parameters of firestore-pdf-generator. #15
+- Add `outputStorageBucket` GET parameter for http-pdf-generator. #18
+- Add `outputStorageBucket` key in `_pdfplum_config` parameters of firestore-pdf-generator. #18
 
 ## Version 0.14.2
 

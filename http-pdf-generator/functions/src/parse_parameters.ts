@@ -9,8 +9,9 @@ export interface GetParameters {
   chromiumPdfOptions?: PDFOptions;
   data?: ParsedQs;
   headful?: "true" | "false";
-  outputFileName?: string;
   outputStorageBucket?: string;
+  outputStoragePrefix?: string;
+  outputFileName?: string;
   templatePath?: string;
   networkIdleTime?: string;
   shouldWaitForIsReady?: "yes" | "no";
@@ -30,15 +31,15 @@ const BOOLEAN_PDF_OPTIONS = [
  * @return {ParsedParameters}
  */
 export function parseParameters({
-  rawParameters,
+  getParameters,
 }: {
-  rawParameters: GetParameters;
+  getParameters: GetParameters;
 }): ParsedParameters {
-  if (typeof rawParameters.data === "string") {
+  if (typeof getParameters.data === "string") {
     throw new Error("'data' should be an object, not a string.");
   }
 
-  if (rawParameters.data instanceof Array) {
+  if (getParameters.data instanceof Array) {
     throw new Error("'data' should be an object, not an array.");
   }
 
@@ -53,14 +54,14 @@ export function parseParameters({
   }
 
   if (
-    rawParameters.templatePath != null &&
-    typeof rawParameters.templatePath !== "string"
+    getParameters.templatePath != null &&
+    typeof getParameters.templatePath !== "string"
   ) {
     throw new Error("'templatePath' should be a string.");
   }
 
   const templatePath =
-    rawParameters.templatePath ?? extensionParameters.TEMPLATE_PATH;
+    getParameters.templatePath ?? extensionParameters.TEMPLATE_PATH;
 
   const parts = templatePath.split("/");
   const templateBucket = parts[0];
@@ -70,13 +71,14 @@ export function parseParameters({
 
   const parameters = {
     adjustHeightToFit:
-      (rawParameters.adjustHeightToFit?.toLowerCase() ??
+      (getParameters.adjustHeightToFit?.toLowerCase() ??
         extensionParameters.ADJUST_HEIGHT_TO_FIT?.toLowerCase()) === "yes",
+    // Convert strings representing boolean values to booleans
     chromiumPdfOptions: Object.fromEntries(
       Object.entries(
         ({
           ...parsedChromiumPdfOptions,
-          ...rawParameters.chromiumPdfOptions,
+          ...getParameters.chromiumPdfOptions,
         } as PDFOptions) ?? {}
       ).map(([key, value]) => {
         if (BOOLEAN_PDF_OPTIONS.includes(key)) {
@@ -85,26 +87,29 @@ export function parseParameters({
         return [key, value];
       })
     ),
-    data: rawParameters.data ?? {},
+    data: getParameters.data ?? {},
     headless:
       process.env.IS_LOCAL == "true"
-        ? !(rawParameters.headful?.toLowerCase() === "true")
+        ? !(getParameters.headful?.toLowerCase() === "true")
         : true,
-    outputBucketName:
-      rawParameters.outputStorageBucket ??
+    outputStorageBucket:
+      getParameters.outputStorageBucket ??
       extensionParameters.OUTPUT_STORAGE_BUCKET,
+    outputStoragePrefix:
+      getParameters.outputStoragePrefix ??
+      extensionParameters.OUTPUT_STORAGE_PREFIX,
     outputFileName:
-      rawParameters.outputFileName ??
+      getParameters.outputFileName ??
       `${uuidv4()}-${new Date().toISOString()}.pdf`,
     templateBucket,
     templatePrefix,
     templateId,
     networkIdleTime: Number.parseInt(
-      rawParameters.networkIdleTime ??
+      getParameters.networkIdleTime ??
         (extensionParameters.NETWORK_IDLE_TIME || "0")
     ),
     shouldWaitForIsReady:
-      (rawParameters.shouldWaitForIsReady?.toLowerCase() ??
+      (getParameters.shouldWaitForIsReady?.toLowerCase() ??
         extensionParameters.SHOULD_WAIT_FOR_IS_READY.toLowerCase()) === "yes",
   };
 

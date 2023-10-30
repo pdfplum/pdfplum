@@ -1,5 +1,5 @@
 {
-  "version": "0.15.0",
+  "version": "0.15.1",
   "scripts": {
     "format:code": "cd pdf-generator/functions && npm run format",
     "format:config": "prettier --write \"**/*.{json,yml,yaml}\"",
@@ -20,6 +20,7 @@
     "update:samples": "scripts/update-samples.sh",
     "update:versions": "scripts/update-versions.js",
     "update": "npm run update:extension-specific-stuff && npm run update:documents && npm run update:samples && npm run update:versions",
+    "sync:lib": "scripts/sync-lib.sh",
     "dev:run": "scripts/run.js --open-pdf",
     "dev:run:headful": "scripts/run.js --open-pdf --headful",
     "logs": "firebase functions:log"

@@ -1,9 +1,11 @@
 import { getStorage } from "firebase-admin/storage";
 import { extensionParameters } from "./utilities/extension_parameters";
+import path from "path";
 
 export interface Parameters {
+  outputStorageBucket: string | undefined;
+  outputStoragePrefix: string | undefined;
   outputFileName: string;
-  outputBucketName: string | undefined;
   pdf: Buffer;
 }
 
@@ -11,15 +13,18 @@ export interface Parameters {
  * Stores the PDF file in a Firebase Storage bucket.
  */
 export async function storePdf({
+  outputStorageBucket,
+  outputStoragePrefix,
   outputFileName,
-  outputBucketName,
   pdf,
 }: Parameters): Promise<string | undefined> {
   let publicUrl: string | undefined;
 
-  if (outputBucketName != null && outputBucketName != "") {
-    const outputBucket = getStorage().bucket(outputBucketName);
-    const file = outputBucket.file(outputFileName);
+  if (outputStorageBucket != null && outputStorageBucket != "") {
+    const bucket = getStorage().bucket(outputStorageBucket);
+    const file = bucket.file(
+      path.join(outputStoragePrefix ?? "", outputFileName)
+    );
 
     await file.save(pdf, {
       resumable: false,

@@ -40,7 +40,6 @@ exports.executePdfGenerator = functions.firestore
         });
 
         await runAction(producePdf, {
-          outputBucketName: extensionParameters.OUTPUT_STORAGE_BUCKET,
           parameters,
         });
       } catch (error) {

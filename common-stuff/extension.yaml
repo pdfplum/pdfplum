@@ -139,4 +139,13 @@ params:
     required: true
     immutable: false
 
+  - param: OUTPUT_STORAGE_PREFIX
+    label: Output Firebase Storage prefix
+    description: >-
+      The prefix inside the bucket where the output PDF file will be stored.
+    type: string
+    example: some/prefix/
+    required: false
+    immutable: false
+
 events: []

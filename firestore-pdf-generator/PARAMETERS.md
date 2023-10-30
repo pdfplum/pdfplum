@@ -8,6 +8,18 @@ It can include fields with `string`, `number`, `boolean`, `timestamp` and `null`
 
 The optional `_pdfplum_config` field of the Firestore document should be a `map` and is taken as the embedded config. It overrides some of the extension parameters. It can include any of these keys:
 
+### `outputStorageBucket`
+
+`string`
+
+Overrides the [`OUTPUT_STORAGE_BUCKET`](https://github.com/pdfplum/pdfplum/tree/main/firestore-pdf-generator/PARAMETERS.md#outputstoragebucket-required) extension parameter.
+
+### `outputStoragePrefix`
+
+`string`
+
+Overrides the [`OUTPUT_STORAGE_PREFIX`](https://github.com/pdfplum/pdfplum/tree/main/firestore-pdf-generator/PARAMETERS.md#outputstorageprefix-optional) extension parameter.
+
 ### `outputFileName`
 
 `string`
@@ -15,12 +27,6 @@ The optional `_pdfplum_config` field of the Firestore document should be a `map`
 Sets the name of the output PDF file to be saved in the Firebase Storage bucket and the name of the PDF file returned in the response.
 
 If not provided, it will default to the id of the created Firestore document.
-
-### `outputStorageBucket`
-
-`string`
-
-Overrides the [`OUTPUT_STORAGE_BUCKET`](https://github.com/pdfplum/pdfplum/tree/main/firestore-pdf-generator/PARAMETERS.md#outputstoragebucket-optional) extension parameter.
 
 ### `adjustHeightToFit`
 
@@ -95,6 +101,13 @@ Wait for `isReady`?<br/>
 type: **select**
 
 ndicates whether the extension should wait for the `window.isReady` variable to be set to `true` before rendering the PDF. Can be overridden by GET parameters.
+
+### `OUTPUT_STORAGE_PREFIX` (optional)
+
+Output Firebase Storage prefix<br/>
+type: **string**
+
+The prefix inside the bucket where the output PDF file will be stored.
 
 ### `OUTPUT_STORAGE_BUCKET` (required)
 

@@ -28,11 +28,10 @@ exports.executePdfGenerator = functions.https.onRequest(
       process.on("uncaughtException", errorHandler);
 
       const parameters = runAction(parseParameters, {
-        rawParameters: request.query,
+        getParameters: request.query,
       });
 
       const { pdf, functionContext } = await runAction(producePdf, {
-        outputBucketName: extensionParameters.OUTPUT_STORAGE_BUCKET,
         parameters,
       });
 

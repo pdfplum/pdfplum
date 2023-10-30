@@ -60,4 +60,4 @@ events:
   - type: firebase.extensions.pdfplum.firestore-pdf-generator.v1.error
     description: Occurs when PDF generation runs into an error. The event will
       contain further details.
-version: 0.15.0
+version: 0.15.1
