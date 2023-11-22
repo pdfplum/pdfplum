@@ -20,16 +20,34 @@ exports.executePdfGenerator = functions.https.onRequest(
     const errorHandler = createErrorHandler({
       response,
       context: {
+        method: request.method,
+        body: request.body,
         query: request.query,
       },
     });
 
+    if (request.method !== "POST") {
+      errorHandler(new Error("Only POST requests are supported."));
+      return;
+    }
+
+    if (request.headers["content-type"] !== "application/json") {
+      errorHandler(new Error("Only JSON requests are supported."));
+      return;
+    }
+
     try {
       process.on("uncaughtException", errorHandler);
 
+      // Check type of request
+      const postParameters = request.body;
+
+      // Use new version of parameters for parsing
       const parameters = runAction(parseParameters, {
-        getParameters: request.query,
+        postParameters: postParameters,
       });
+
+      functions.logger.info("Parameters", parameters);
 
       const { pdf, functionContext } = await runAction(producePdf, {
         parameters,

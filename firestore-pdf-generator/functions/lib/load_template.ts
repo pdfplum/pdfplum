@@ -1,13 +1,13 @@
 import * as fs from "fs";
 import * as os from "os";
 import * as path from "path";
-import QueryString from "qs";
 import jszip from "jszip";
 import Handlebars from "handlebars";
 import * as functions from "firebase-functions";
 import { getStorage } from "firebase-admin/storage";
 import { ApiError } from "@google-cloud/storage/build/src/nodejs-common";
 import "./utilities/setup_handlebars";
+import { TemplateParameters } from "./utilities/parameters";
 
 Handlebars.registerHelper("json", function (object) {
   const result = JSON.stringify(object);
@@ -24,7 +24,7 @@ export async function loadTemplate({
   templatePrefix,
   templateId,
 }: {
-  data: QueryString.ParsedQs | undefined;
+  data: TemplateParameters | undefined;
   templateBucket: string;
   templatePrefix: string;
   templateId: string;

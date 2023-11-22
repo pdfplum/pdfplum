@@ -1,10 +1,19 @@
 import { PDFOptions } from "puppeteer";
-import { ParsedQs } from "qs";
+
+export type TemplateParameters = {
+  [key: string]:
+    | undefined
+    | string
+    | number
+    | boolean
+    | TemplateParameters
+    | TemplateParameters[];
+};
 
 export interface ParsedParameters {
   adjustHeightToFit: boolean;
   chromiumPdfOptions: PDFOptions;
-  data: ParsedQs;
+  data: TemplateParameters;
   headless: boolean;
   outputStorageBucket: string | undefined;
   outputStoragePrefix: string | undefined;

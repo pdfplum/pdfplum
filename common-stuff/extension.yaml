@@ -71,7 +71,7 @@ params:
     label: Template path
     description: >-
       The path of the zip file containing the template files stored in a
-      Firebase Storage bucket. Can be overridden by GET parameters.
+      Firebase Storage bucket. Can be overridden.
     type: string
     example: some-bucket.appspot.com/basic-example
     validationRegex: '^([0-9a-z_.-]*)(/[A-Za-z0-9_-]+)+(.zip)?$'
@@ -87,7 +87,7 @@ params:
       If enabled, the extension will automatically adjust the height of the PDF
       so that all the contents of the webpage can fit inside one page. The
       generated PDF file in this case will always have only a single page. Can
-      be overridden by GET parameters.
+      be overridden.
     type: select
     options:
       - label: Automatically set document height to fit its contents
@@ -104,7 +104,7 @@ params:
       Options to be passed to Chromium's PDF generation engine provided as a
       JSON string. Documented
       [here](https://www.puppeteersharp.com/api/PuppeteerSharp.PdfOptions.html).
-      Can be overridden by GET parameters.
+      Can be overridden.
     type: string
     default: '{}'
     required: true
@@ -126,8 +126,7 @@ params:
     label: Wait for `isReady`?
     description: >-
       ndicates whether the extension should wait for the `window.isReady`
-      variable to be set to `true` before rendering the PDF. Can be overridden
-      by GET parameters.
+      variable to be set to `true` before rendering the PDF. Can be overridden.
     type: select
     options:
       - label:

@@ -1,6 +1,6 @@
 # Parameters
 
-## GET parameters
+## JSON payload parameters
 
 ### `outputStorageBucket`
 
@@ -56,21 +56,21 @@ Whether the generated PDF file should be public or private.
 Template path<br/>
 type: **string**
 
-The path of the zip file containing the template files stored in a Firebase Storage bucket. Can be overridden by GET parameters.
+The path of the zip file containing the template files stored in a Firebase Storage bucket. Can be overridden.
 
 ### `ADJUST_HEIGHT_TO_FIT` (required)
 
 Should PDFPlum automatically set the document height to fit its content?<br/>
 type: **select**
 
-If enabled, the extension will automatically adjust the height of the PDF so that all the contents of the webpage can fit inside one page. The generated PDF file in this case will always have only a single page. Can be overridden by GET parameters.
+If enabled, the extension will automatically adjust the height of the PDF so that all the contents of the webpage can fit inside one page. The generated PDF file in this case will always have only a single page. Can be overridden.
 
 ### `CHROMIUM_PDF_OPTIONS` (required)
 
 Chromium PDF generation options<br/>
 type: **string**
 
-Options to be passed to Chromium's PDF generation engine provided as a JSON string. Documented [here](https://www.puppeteersharp.com/api/PuppeteerSharp.PdfOptions.html). Can be overridden by GET parameters.
+Options to be passed to Chromium's PDF generation engine provided as a JSON string. Documented [here](https://www.puppeteersharp.com/api/PuppeteerSharp.PdfOptions.html). Can be overridden.
 
 ### `NETWORK_IDLE_TIME` (required)
 
@@ -84,7 +84,7 @@ The amount of time without any network activity before rendering the PDF file st
 Wait for `isReady`?<br/>
 type: **select**
 
-ndicates whether the extension should wait for the `window.isReady` variable to be set to `true` before rendering the PDF. Can be overridden by GET parameters.
+ndicates whether the extension should wait for the `window.isReady` variable to be set to `true` before rendering the PDF. Can be overridden.
 
 ### `OUTPUT_STORAGE_PREFIX` (optional)
 

@@ -39,6 +39,8 @@ exports.executePdfGenerator = functions.firestore
           id,
         });
 
+        functions.logger.info("Parameters", parameters);
+
         await runAction(producePdf, {
           parameters,
         });

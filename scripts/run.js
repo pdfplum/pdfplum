@@ -4,7 +4,6 @@ const { promisify } = require("util");
 const { readFileSync, writeFileSync } = require("fs");
 const admin = require("firebase-admin");
 const { getStorage } = require("firebase-admin/storage");
-const qs = require("qs");
 const yargs = require("yargs");
 const { hideBin } = require("yargs/helpers");
 const path = require("path");
@@ -68,17 +67,25 @@ async function main() {
     );
   }
 
-  const parameters = qs.stringify({
+  const parameters = JSON.stringify({
     ...JSON.parse(readFileSync(`${templatePath}.json`)),
     ...(headful ? { headful: true } : {}),
     templatePath: `${BUCKET}/${templateName}`,
     outputFileName: `${templateName}.pdf`,
   });
   console.log(
-    `Fetching "http://127.0.0.1:5001/${PROJECT}/us-central1/ext-http-pdf-generator-executePdfGenerator?${parameters}"`
+    `Fetching "http://127.0.0.1:5001/${PROJECT}/us-central1/ext-http-pdf-generator-executePdfGenerator"`,
+    parameters
   );
   const response = await fetch(
-    `http://127.0.0.1:5001/${PROJECT}/us-central1/ext-http-pdf-generator-executePdfGenerator?${parameters}`
+    `http://127.0.0.1:5001/${PROJECT}/us-central1/ext-http-pdf-generator-executePdfGenerator`,
+    {
+      method: "POST",
+      body: parameters,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
   );
   if (response.status === 200) {
     writeFileSync(

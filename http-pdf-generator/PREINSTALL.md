@@ -8,7 +8,7 @@ Use this extension to generate PDF files with Handlebars, Puppeteer, and HTML. T
 
 This extension exposes an HTTP endpoint, which, when called, triggers the extension.
 
-Upon triggering, the extension downloads the template, runs Handlebars on it with the data from the endpoint's GET parameters, and converts it to PDF. The generated PDF file is stored in a Firebase Storage bucket, and you can also configure the extension to return the PDF in the HTTP call response.
+Upon triggering, the extension downloads the template, runs Handlebars on it with the data provided in endpoint's JSON payload, and converts it to PDF. The generated PDF file is stored in a Firebase Storage bucket, and you can also configure the extension to return the PDF in the HTTP call response.
 
 ## Demo
 
@@ -40,11 +40,11 @@ For example, `images/flower.png` in the ZIP file will be served at `/images/flow
 
 ### The endpoint
 
-The extension exposes an endpoint that generates a PDF file based on the template file and the GET parameters provided.
+The extension exposes an endpoint that generates a PDF file based on the template file and the provided JSON payload.
 
 ## How it all works
 
-The template bundle is uncompressed, served, and loaded by a Chromium instance. Handlebars runs on all `.html`, `.txt`, and `.md` files, replacing their template placeholders with data from the GET parameter `data`. After all network resources are fully loaded, a PDF file is generated from the rendered webpage.
+The template bundle is uncompressed, served, and loaded by a Chromium instance. Handlebars runs on all `.html`, `.txt`, and `.md` files, replacing their template placeholders with data from the `data` field of the JSON payload. After all network resources are fully loaded, a PDF file is generated from the rendered webpage.
 
 If a bucket name is set in the `OUTPUT_STORAGE_BUCKET` extension parameter, the generated PDF file is saved in that bucket. If `RETURN_PDF_IN_RESPONSE` is enabled, the PDF file is returned in response to the HTTP call.
 

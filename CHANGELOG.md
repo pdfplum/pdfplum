@@ -1,5 +1,13 @@
 # Changelog
 
+## Version 0.16.0 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
+
+- Migrate from `GET` method with query string to `POST` method with JSON payload. #19
+- Only accept `POST` method.
+- Only accept `application/json` content type.
+- Add both `method` and `body` to the `errorHandler.context`.
+- Update documents.
+
 ## Version 0.15.1 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
 
 - Add `outputStoragePrefix` GET parameter for http-pdf-generator. #18

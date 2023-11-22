@@ -46,7 +46,7 @@ It is also all described in the installation page.
 
 Run this command to deploy the current source code to the Firebase projects specified in `.firebaserc`.
 
-```bash
+```sh
 npm run deploy
 ```
 
@@ -60,7 +60,7 @@ Note that `CHANGELOG.md` files inside plugin folders is auto-generated and any m
 
 Before creating a commit, please run these commands and make sure they all pass without any errors:
 
-```bash
+```sh
 PDF_PLUM_UPDATE_SKIP_SAMPLES=1 npm run update
 npm run lint
 npm run test
@@ -70,7 +70,7 @@ These commands will update documentations, update `CHANGELOG.md` files, sync ver
 
 If sample PDF files are expected to be changed, you neeed to run the project in Firebase emulator and run these commands instead:
 
-```bash
+```sh
 npm run update
 npm run lint
 npm run test
@@ -82,7 +82,7 @@ This way the sample PDF files will be regenerated.
 
 Run this command to publish:
 
-```bash
+```sh
 PUBLISHER_ID=<your-publisher-id> npm run publish
 ```
 
