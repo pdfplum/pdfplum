@@ -20,6 +20,8 @@ exports.executePdfGenerator = functions.https.onRequest(
     const errorHandler = createErrorHandler({
       response,
       context: {
+        method: request.method,
+        body: request.body,
         query: request.query,
       },
     });
@@ -27,8 +29,23 @@ exports.executePdfGenerator = functions.https.onRequest(
     try {
       process.on("uncaughtException", errorHandler);
 
+      // Check type of request
+      const requestType = request.method;
+      let getParameters: any;
+      if (requestType == 'POST') {
+        // If POST request, merge data from request query and JSON body
+        getParameters = {
+          ...request.query,
+          ...request.body,
+        };
+      } else {
+        // Otherwise (GET), just use query
+        getParameters = request.query;
+      }
+
+      // Use new version of parameters for parsing
       const parameters = runAction(parseParameters, {
-        getParameters: request.query,
+        getParameters: getParameters,
       });
 
       const { pdf, functionContext } = await runAction(producePdf, {
