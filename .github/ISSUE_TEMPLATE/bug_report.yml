@@ -1,0 +1,46 @@
+---
+name: Bug report
+description: Create a report to help us improve
+labels: [bug]
+assignees: sassanh
+body:
+  - type: markdown
+    attributes:
+      value: |
+        *Before reporting:*
+        - Confirm the problem is reproducible in the latest release
+        - Search [existing issues](https://github.com/pdfplum/pdfplum/issues?q=is%3Aissue+is%3Aopen+label%3Abug) (including [closed](https://github.com/pdfplum/pdfplum/issues?q=is%3Aissue+is%3Aclosed+label%3Abug))
+  - type: textarea
+    attributes:
+      label: 'Description'
+      description: 'A clear and concise description of what the bug is.'
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 'Steps to reproduce the behavior'
+      description:
+        'Provide a minimal template and invocation example (Firebase document
+        for Firebase version and curl request for HTTP version)'
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 'Logs'
+      description: |
+        Follow these steps to capture the logs for an invocation that causes the issue:
+
+        1. Go to Firebase Console and go to extensions and select the installed instance of the pdfplum extension by clicking on the "Manage" button on its entry: 
+          <img width="133" alt="image" src="https://github.com/pdfplum/pdfplum/assets/1270688/3d820ed5-7421-4ffe-8632-5c03154ef0f7">
+        1. Select "APIs and resources" on the left:
+
+          <img width="326" alt="image" src="https://github.com/pdfplum/pdfplum/assets/1270688/9064ef9d-b3f0-4a0d-be88-8f8080a0bcef">
+
+        1. Click on the "View logs" hyperlink:
+
+          <img width="617" alt="image" src="https://github.com/pdfplum/pdfplum/assets/1270688/2bd3e459-041c-4057-ac17-dd8caeefa378">
+
+        It should open the function logs in the Google Cloud console. Now please invoke the function by creating a document in the Firestore collection for the Firestore version or calling the endpoint for the HTTP version. It should result in some logs being generated, probably including an error. Remove any important information from the logs and send them here.
+
+    validations:
+      required: true
