@@ -46,7 +46,7 @@ export async function producePdf({
     portNumber,
   });
 
-  const publicUrl = await runAction(storePdf, {
+  const { publicUrl, location } = await runAction(storePdf, {
     ...parameters,
     pdf,
   });
@@ -54,6 +54,7 @@ export async function producePdf({
   const pdfInformation = {
     timestamp: new Date().getTime(),
     publicUrl,
+    location,
     fileSize: pdf.length,
   };
 

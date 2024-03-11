@@ -9,7 +9,6 @@ import { parseParameters } from "./parse_parameters";
 import { producePdf } from "lib/produce_pdf";
 import { runAction } from "lib/utilities/action";
 import { createErrorHandler } from "lib/utilities/error_handler";
-import { extensionParameters } from "lib/utilities/extension_parameters";
 
 process.on("unhandledRejection", (reason, p) => {
   console.error(reason, "Unhandled Rejection at Promise", p);
@@ -53,7 +52,7 @@ exports.executePdfGenerator = functions.https.onRequest(
         parameters,
       });
 
-      if (extensionParameters.RETURN_PDF_IN_RESPONSE.toLowerCase() === "yes") {
+      if (parameters.returnPdfInResponse) {
         response.setHeader(
           "content-type",
           `application/pdf; filename="${parameters.outputFileName}"`

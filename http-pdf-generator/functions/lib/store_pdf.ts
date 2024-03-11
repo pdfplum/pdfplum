@@ -17,14 +17,16 @@ export async function storePdf({
   outputStoragePrefix,
   outputFileName,
   pdf,
-}: Parameters): Promise<string | undefined> {
+}: Parameters): Promise<{
+  location: string | undefined;
+  publicUrl: string | undefined;
+}> {
   let publicUrl: string | undefined;
+  const location = path.join(outputStoragePrefix ?? "", outputFileName);
 
   if (outputStorageBucket != null && outputStorageBucket != "") {
     const bucket = getStorage().bucket(outputStorageBucket);
-    const file = bucket.file(
-      path.join(outputStoragePrefix ?? "", outputFileName)
-    );
+    const file = bucket.file(location);
 
     await file.save(pdf, {
       resumable: false,
@@ -33,7 +35,8 @@ export async function storePdf({
     });
 
     publicUrl = file.publicUrl();
+    return { location, publicUrl };
+  } else {
+    return { location: undefined, publicUrl: undefined };
   }
-
-  return publicUrl;
 }

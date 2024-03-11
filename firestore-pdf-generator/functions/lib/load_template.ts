@@ -55,12 +55,14 @@ export async function loadTemplate({
 
   const zipFile = await jszip.loadAsync(templateBuffer);
   let rootDirectory: string | undefined;
-  const zipFiles = Object.entries(zipFile.files).filter(
+  const compressedFiles = Object.entries(zipFile.files).filter(
     ([filename]) => !filename.includes("__MACOSX/")
   );
   if (zipFile.files["index.html"] == null) {
     const rootDirectoryCandidates = [
-      ...new Set(zipFiles.map(([filename]) => filename.replace(/\/.*$/, ""))),
+      ...new Set(
+        compressedFiles.map(([filename]) => filename.replace(/\/.*$/, ""))
+      ),
     ];
     if (rootDirectoryCandidates.length === 1) {
       rootDirectory = rootDirectoryCandidates[0];
@@ -70,7 +72,7 @@ export async function loadTemplate({
       );
     }
   }
-  const promises = zipFiles.map(
+  const promises = compressedFiles.map(
     async ([relativePath, file]: [string, jszip.JSZipObject]) => {
       let content: string | Buffer;
       if (rootDirectory != null) {

@@ -18,6 +18,7 @@ export interface ParsedParameters {
   outputStorageBucket: string | undefined;
   outputStoragePrefix: string | undefined;
   outputFileName: string;
+  returnPdfInResponse: boolean;
   templateBucket: string;
   templatePrefix: string;
   templateId: string;
