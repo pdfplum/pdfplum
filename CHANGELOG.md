@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.17.1 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
+
+- Fix generated event channels not matching with the plugins defined channels. #27
+
 ## Version 0.17.0 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
 
 - Convert all string booleans `"true"`/`"false"` or `"yes"`/`"no"` in JSON objects to actual booleans. #26

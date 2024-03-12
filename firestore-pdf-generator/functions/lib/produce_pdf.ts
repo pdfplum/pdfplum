@@ -4,7 +4,7 @@ import { renderPdf } from "./render_pdf";
 import { serveTemplate } from "./serve_template";
 import { storePdf } from "./store_pdf";
 import { runAction } from "./utilities/action";
-import { eventChannel, EVENT_TYPE_PREFIX } from "./utilities/event_channel";
+import { eventChannel, EVENT_TYPE_PREFIX } from "src/event_channel";
 import {
   extensionParameters,
   ExtensionParameters,
