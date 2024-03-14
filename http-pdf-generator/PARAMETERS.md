@@ -34,6 +34,10 @@ Overrides the [`CHROMIUM_PDF_OPTIONS`](https://github.com/pdfplum/pdfplum/tree/m
 
 Overrides the [`NETWORK_IDLE_TIME`](https://github.com/pdfplum/pdfplum/tree/main/http-pdf-generator/PARAMETERS.md#networkidletime-required) extension parameter.
 
+### `returnPdfInResponse`
+
+Overrides the [`RETURN_PDF_IN_RESPONSE`](https://github.com/pdfplum/pdfplum/tree/main/http-pdf-generator/PARAMETERS.md#returnpdfinresponse-required) extension parameter.
+
 ### `shouldWaitForIsReady`
 
 Overrides the [`SHOULD_WAIT_FOR_IS_READY`](https://github.com/pdfplum/pdfplum/tree/main/http-pdf-generator/PARAMETERS.md#shouldwaitforisready-required) extension parameter.

@@ -2,7 +2,7 @@
   "chromiumPdfOptions": {
     "width": 1500
   },
-  "adjustHeightToFit": "yes",
+  "adjustHeightToFit": true,
   "networkIdleTime": 1000,
   "data": {
     "name": "World"

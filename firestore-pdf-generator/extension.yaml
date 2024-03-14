@@ -1,6 +1,6 @@
 ---
 name: firestore-pdf-generator
-version: 0.16.0
+version: 0.17.1
 specVersion: v1beta
 icon: icon.png
 
@@ -181,9 +181,9 @@ params:
     immutable: false
 
 events:
-  - type: firebase.extensions.pdfplum.firestore-pdf-generator.v1.complete
+  - type: pdfplum.firestore-pdf-generator.v1.complete
     description: Occurs when PDF generation completes. The event will contain
       further details.
-  - type: firebase.extensions.pdfplum.firestore-pdf-generator.v1.error
+  - type: pdfplum.firestore-pdf-generator.v1.error
     description: Occurs when PDF generation runs into an error. The event will
       contain further details.

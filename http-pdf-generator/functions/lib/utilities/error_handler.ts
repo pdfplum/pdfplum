@@ -1,5 +1,5 @@
 import * as functions from "firebase-functions";
-import { eventChannel, EVENT_TYPE_PREFIX } from "./event_channel";
+import { eventChannel, EVENT_TYPE_PREFIX } from "src/event_channel";
 import { extensionParameters } from "./extension_parameters";
 
 export let contextStack: string[];

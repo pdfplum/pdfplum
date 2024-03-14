@@ -53,7 +53,7 @@ do
   done
 
   cd $DESTINATION_PATH
-  firebase ext:dev:publish $PUBLISHER_ID/$EXTENSION \
+  firebase ext:dev:upload $PUBLISHER_ID/$EXTENSION \
     --repo=https://github.com/pdfplum/pdfplum \
     --root=$EXTENSION_PATH \
     --ref=$GIT_REVISION

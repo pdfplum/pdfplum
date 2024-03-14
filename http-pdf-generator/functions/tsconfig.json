@@ -18,6 +18,9 @@
       "lib/*": [
         "./lib/*"
       ],
+      "src/*": [
+        "./src/*"
+      ],
       "firebase-admin/*": [
         "./node_modules/firebase-admin/lib/*"
       ],

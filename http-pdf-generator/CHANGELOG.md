@@ -1,5 +1,15 @@
 # Changelog
 
+## Version 0.17.1
+
+- Fix generated event channels not matching with the plugins defined channels. #27
+
+## Version 0.17.0
+
+- Convert all string booleans `"true"`/`"false"` or `"yes"`/`"no"` in JSON objects to actual booleans. #26
+- Add `returnPdfInResponse` POST parameter for HTTP version to override `RETURN_PDF_IN_RESPONSE` extension parameter.
+- Add stored location of the PDF file to the even payload. #23
+
 ## Version 0.16.0
 
 - Migrate from `GET` method with query string to `POST` method with JSON payload. #19

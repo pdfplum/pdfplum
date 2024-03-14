@@ -4,25 +4,18 @@ import { extensionParameters } from "lib/utilities/extension_parameters";
 import { ParsedParameters, TemplateParameters } from "lib/utilities/parameters";
 
 export interface PostParameters {
-  adjustHeightToFit?: "yes" | "no";
+  adjustHeightToFit?: boolean;
   chromiumPdfOptions?: PDFOptions;
   data?: TemplateParameters;
-  headful?: "true" | "false";
+  headful?: boolean;
   outputStorageBucket?: string;
   outputStoragePrefix?: string;
   outputFileName?: string;
+  returnPdfInResponse: boolean;
+  shouldWaitForIsReady?: boolean;
   templatePath?: string;
   networkIdleTime?: string;
-  shouldWaitForIsReady?: "yes" | "no";
 }
-
-const BOOLEAN_PDF_OPTIONS = [
-  "printBackground",
-  "displayHeaderFooter",
-  "landscape",
-  "preferCSSPageSize",
-  "omitBackground",
-];
 
 /**
  * Parses raw parameters and converts their data structure when needed.
@@ -76,26 +69,16 @@ export function parseParameters({
 
   const parameters = {
     adjustHeightToFit:
-      (postParameters.adjustHeightToFit?.toLowerCase() ??
-        extensionParameters.ADJUST_HEIGHT_TO_FIT?.toLowerCase()) === "yes",
-    // Convert strings representing boolean values to booleans
-    chromiumPdfOptions: Object.fromEntries(
-      Object.entries(
-        ({
-          ...parsedChromiumPdfOptions,
-          ...postParameters.chromiumPdfOptions,
-        } as PDFOptions) ?? {}
-      ).map(([key, value]) => {
-        if (BOOLEAN_PDF_OPTIONS.includes(key)) {
-          return [key, value.toLowerCase() === "true"];
-        }
-        return [key, value];
-      })
-    ),
+      postParameters.adjustHeightToFit ??
+      extensionParameters.ADJUST_HEIGHT_TO_FIT?.toLowerCase() === "yes",
+    chromiumPdfOptions: {
+      ...parsedChromiumPdfOptions,
+      ...postParameters.chromiumPdfOptions,
+    },
     data: postParameters.data ?? {},
     headless:
       process.env.IS_LOCAL == "true"
-        ? !(postParameters.headful?.toLowerCase() === "true")
+        ? !(postParameters.headful === true)
         : true,
     outputStorageBucket:
       postParameters.outputStorageBucket ??
@@ -106,6 +89,9 @@ export function parseParameters({
     outputFileName:
       postParameters.outputFileName ??
       `${uuidv4()}-${new Date().toISOString()}.pdf`,
+    returnPdfInResponse:
+      postParameters.returnPdfInResponse ??
+      extensionParameters.RETURN_PDF_IN_RESPONSE.toLowerCase() === "yes",
     templateBucket,
     templatePrefix,
     templateId,
@@ -114,8 +100,8 @@ export function parseParameters({
         (extensionParameters.NETWORK_IDLE_TIME || "0")
     ),
     shouldWaitForIsReady:
-      (postParameters.shouldWaitForIsReady?.toLowerCase() ??
-        extensionParameters.SHOULD_WAIT_FOR_IS_READY.toLowerCase()) === "yes",
+      postParameters.shouldWaitForIsReady ??
+      extensionParameters.SHOULD_WAIT_FOR_IS_READY.toLowerCase() === "yes",
   };
 
   return parameters;

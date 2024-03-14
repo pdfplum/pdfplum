@@ -4,7 +4,7 @@ import { renderPdf } from "./render_pdf";
 import { serveTemplate } from "./serve_template";
 import { storePdf } from "./store_pdf";
 import { runAction } from "./utilities/action";
-import { eventChannel, EVENT_TYPE_PREFIX } from "./utilities/event_channel";
+import { eventChannel, EVENT_TYPE_PREFIX } from "src/event_channel";
 import {
   extensionParameters,
   ExtensionParameters,
@@ -46,7 +46,7 @@ export async function producePdf({
     portNumber,
   });
 
-  const publicUrl = await runAction(storePdf, {
+  const { publicUrl, location } = await runAction(storePdf, {
     ...parameters,
     pdf,
   });
@@ -54,6 +54,7 @@ export async function producePdf({
   const pdfInformation = {
     timestamp: new Date().getTime(),
     publicUrl,
+    location,
     fileSize: pdf.length,
   };
 

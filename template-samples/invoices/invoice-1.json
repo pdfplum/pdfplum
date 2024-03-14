@@ -1,9 +1,9 @@
 {
   "chromiumPdfOptions": {
     "width": 1500,
-    "printBackground": "true"
+    "printBackground": true
   },
-  "adjustHeightToFit": "yes",
+  "adjustHeightToFit": true,
   "networkIdleTime": 500,
   "data": {
     "companyName": "Lorem ipsum",

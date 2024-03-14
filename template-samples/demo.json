@@ -1,9 +1,9 @@
 {
   "chromiumPdfOptions": {
     "format": "a5",
-    "printBackground": "true"
+    "printBackground": true
   },
-  "adjustHeightToFit": "no",
+  "adjustHeightToFit": false,
   "networkIdleTime": 1000,
   "data": {
     "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
@@ -31,8 +31,16 @@
       }
     ],
     "colors": {
-      "warm": ["Red", "Yellow", "Orange"],
-      "cold": ["Green", "Blue", "Gray"]
+      "warm": [
+        "Red",
+        "Yellow",
+        "Orange"
+      ],
+      "cold": [
+        "Green",
+        "Blue",
+        "Gray"
+      ]
     },
     "info": {
       "Age": "38",

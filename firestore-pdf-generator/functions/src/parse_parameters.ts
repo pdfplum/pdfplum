@@ -16,14 +16,6 @@ export interface FirestoreDocument extends FirebaseFirestore.DocumentData {
   };
 }
 
-const BOOLEAN_PDF_OPTIONS = [
-  "printBackground",
-  "displayHeaderFooter",
-  "landscape",
-  "preferCSSPageSize",
-  "omitBackground",
-];
-
 /**
  * Parses raw parameters and converts their data structure when needed.
  *
@@ -70,16 +62,7 @@ export function parseParameters({
       config?.adjustHeightToFit ??
       extensionParameters.ADJUST_HEIGHT_TO_FIT?.toLowerCase() === "yes",
     chromiumPdfOptions: {
-      ...Object.fromEntries(
-        Object.entries((parsedChromiumPdfOptions as PDFOptions) ?? {}).map(
-          ([key, value]) => {
-            if (BOOLEAN_PDF_OPTIONS.includes(key)) {
-              return [key, value.toLowerCase() === "true"];
-            }
-            return [key, value];
-          }
-        )
-      ),
+      ...parsedChromiumPdfOptions,
       ...config?.chromiumPdfOptions,
     },
     data,
@@ -93,6 +76,7 @@ export function parseParameters({
     templateBucket,
     templatePrefix,
     templateId,
+    returnPdfInResponse: false,
     networkIdleTime:
       config?.networkIdleTime ??
       Number.parseInt(extensionParameters.NETWORK_IDLE_TIME || "0"),
