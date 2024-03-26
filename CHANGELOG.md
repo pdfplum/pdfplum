@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.17.2 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
+
+- Run `file.download` after storing file in Firebase Storage bucket to get the download URL. #30
+
 ## Version 0.17.1 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
 
 - Fix generated event channels not matching with the plugins defined channels. #27

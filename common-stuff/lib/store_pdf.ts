@@ -1,4 +1,4 @@
-import { getStorage } from "firebase-admin/storage";
+import { getStorage, getDownloadURL } from "firebase-admin/storage";
 import { extensionParameters } from "./utilities/extension_parameters";
 import path from "path";
 
@@ -33,6 +33,8 @@ export async function storePdf({
       public:
         extensionParameters.SHOULD_MAKE_PDF_PUBLIC.toLowerCase() === "yes",
     });
+
+    await getDownloadURL(file);
 
     publicUrl = file.publicUrl();
     return { location, publicUrl };

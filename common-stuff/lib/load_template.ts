@@ -5,7 +5,7 @@ import jszip from "jszip";
 import Handlebars from "handlebars";
 import * as functions from "firebase-functions";
 import { getStorage } from "firebase-admin/storage";
-import { ApiError } from "@google-cloud/storage/build/src/nodejs-common";
+import { ApiError } from "@google-cloud/storage";
 import "./utilities/setup_handlebars";
 import { TemplateParameters } from "./utilities/parameters";
 
@@ -50,25 +50,25 @@ export async function loadTemplate({
     }
   }
   const temporaryDirectoryPath = fs.mkdtempSync(
-    path.join(os.tmpdir(), "pdfplum-")
+    path.join(os.tmpdir(), "pdfplum-"),
   );
 
   const zipFile = await jszip.loadAsync(templateBuffer);
   let rootDirectory: string | undefined;
   const compressedFiles = Object.entries(zipFile.files).filter(
-    ([filename]) => !filename.includes("__MACOSX/")
+    ([filename]) => !filename.includes("__MACOSX/"),
   );
   if (zipFile.files["index.html"] == null) {
     const rootDirectoryCandidates = [
       ...new Set(
-        compressedFiles.map(([filename]) => filename.replace(/\/.*$/, ""))
+        compressedFiles.map(([filename]) => filename.replace(/\/.*$/, "")),
       ),
     ];
     if (rootDirectoryCandidates.length === 1) {
       rootDirectory = rootDirectoryCandidates[0];
     } else {
       throw new Error(
-        "There must be an 'index.html' file inside the zip file in its root folder."
+        "There must be an 'index.html' file inside the zip file in its root folder.",
       );
     }
   }
@@ -96,7 +96,7 @@ export async function loadTemplate({
       const directoryPath = path.dirname(filePath);
       fs.mkdirSync(directoryPath, { recursive: true });
       fs.writeFileSync(filePath, content);
-    }
+    },
   );
 
   await Promise.all(promises);

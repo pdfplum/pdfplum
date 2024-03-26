@@ -10,9 +10,9 @@ export interface FirestoreDocument extends FirebaseFirestore.DocumentData {
     outputStorageBucket?: string;
     outputStoragePrefix?: string;
     outputFileName?: string;
+    shouldWaitForIsReady?: boolean;
     templatePath?: string;
     networkIdleTime?: number;
-    shouldWaitForIsReady?: boolean;
   };
 }
 

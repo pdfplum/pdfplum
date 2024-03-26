@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.17.2
+
+- Run `file.download` after storing file in Firebase Storage bucket to get the download URL. #30
+
 ## Version 0.17.1
 
 - Fix generated event channels not matching with the plugins defined channels. #27
