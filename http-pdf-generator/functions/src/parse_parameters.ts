@@ -1,5 +1,5 @@
 import { uuidv4 } from "@firebase/util";
-import { PDFOptions } from "puppeteer";
+import { PDFOptions } from "puppeteer-core";
 import { extensionParameters } from "lib/utilities/extension_parameters";
 import { ParsedParameters, TemplateParameters } from "lib/utilities/parameters";
 
@@ -39,7 +39,7 @@ export function parseParameters({
 
   try {
     parsedChromiumPdfOptions = JSON.parse(
-      extensionParameters.CHROMIUM_PDF_OPTIONS ?? "{}"
+      extensionParameters.CHROMIUM_PDF_OPTIONS ?? "{}",
     );
   } catch (exception) {
     throw new Error("'CHROMIUM_PDF_OPTIONS' is not a valid JSON document.");
@@ -63,7 +63,7 @@ export function parseParameters({
     templatePath,
     postParameters,
     postParameters["templatePath"],
-    typeof postParameters
+    typeof postParameters,
   );
   const templateId = parts[parts.length - 1];
 
@@ -97,7 +97,7 @@ export function parseParameters({
     templateId,
     networkIdleTime: Number.parseInt(
       postParameters.networkIdleTime ??
-        (extensionParameters.NETWORK_IDLE_TIME || "0")
+        (extensionParameters.NETWORK_IDLE_TIME || "0"),
     ),
     shouldWaitForIsReady:
       postParameters.shouldWaitForIsReady ??

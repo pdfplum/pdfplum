@@ -1,6 +1,6 @@
 ---
 name: firestore-pdf-generator
-version: 0.17.1
+version: 0.18.0
 specVersion: v1beta
 icon: icon.png
 
@@ -44,7 +44,7 @@ apis:
     reason: Needed to use Cloud Storage to read the template files and write the PDF
       files
   - apiName: firestore.googleapis.com
-    reason: Needed to use listen to Firestore document creation events
+    reason: Needed to listen to Firestore document creation events
 
 roles:
   - role: storage.objectAdmin

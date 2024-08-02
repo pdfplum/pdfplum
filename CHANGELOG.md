@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 0.18.0 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
+
+- Update dependencies, using latest version of puppeteer.
+- Fix some broken/incorrect links in docs.
+
 ## Version 0.17.1 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
 
 - Fix generated event channels not matching with the plugins defined channels. #27

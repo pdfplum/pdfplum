@@ -1,4 +1,5 @@
-import puppeteer, { PDFOptions } from "puppeteer";
+import puppeteer, { PDFOptions } from "puppeteer-core";
+import chromium from "@sparticuz/chromium";
 import * as functions from "firebase-functions";
 
 /**
@@ -20,49 +21,18 @@ export async function renderPdf({
   networkIdleTime: number;
   shouldWaitForIsReady: boolean;
 }): Promise<Buffer> {
-  const chromiumArguments = [
-    "--allow-running-insecure-content",
-    "--autoplay-policy=user-gesture-required",
-    "--disable-component-update",
-    "--disable-domain-reliability",
-    "--disable-features=AudioServiceOutOfProcess,IsolateOrigins,site-per-process",
-    "--disable-print-preview",
-    "--disable-setuid-sandbox",
-    "--disable-site-isolation-trials",
-    "--disable-speech-api",
-    "--disable-web-security",
-    "--disk-cache-size=33554432",
-    "--enable-features=SharedArrayBuffer",
-    "--hide-scrollbars",
-    "--ignore-gpu-blocklist",
-    "--in-process-gpu",
-    "--mute-audio",
-    "--no-default-browser-check",
-    "--no-pings",
-    "--no-sandbox",
-    "--no-zygote",
-    "--use-gl=swiftshader",
-    "--window-size=1920,1080",
-  ];
-
-  if (headless === true) {
-    chromiumArguments.push("--single-process");
-  } else {
-    chromiumArguments.push("--start-maximized");
-  }
+  // if (headless === true) {
+  //   chromiumArguments.push("--single-process");
+  // } else {
+  //   chromiumArguments.push("--start-maximized");
+  // }
 
   const browser = await puppeteer.launch({
-    defaultViewport: {
-      deviceScaleFactor: 1,
-      hasTouch: false,
-      height: 1080,
-      isLandscape: true,
-      isMobile: false,
-      width: 1920,
-    },
+    defaultViewport: chromium.defaultViewport,
     ignoreHTTPSErrors: true,
-    headless,
-    args: chromiumArguments,
+    headless: chromium.headless,
+    args: chromium.args,
+    executablePath: await chromium.executablePath(),
   });
   const page = await browser.newPage();
   page.setDefaultTimeout(0);
@@ -77,8 +47,8 @@ export async function renderPdf({
         stackTrace: message.stackTrace(),
         location: message.location(),
         text: message.text(),
-      }
-    )
+      },
+    ),
   );
   page.on("error", (error) => {
     functions.logger.info(
@@ -86,7 +56,7 @@ export async function renderPdf({
       {
         errorMessage: error.message,
         stack: error.stack,
-      }
+      },
     );
   });
   page.on("pageerror", (error) => {
@@ -95,13 +65,13 @@ export async function renderPdf({
       {
         errorMessage: error.message,
         stack: error.stack,
-      }
+      },
     );
   });
   page.on("requestfailed", (request): void => {
     functions.logger.info(
       `Request failed while loading template bundle in the browser (${request.url()})`,
-      { request, error: request.failure()?.errorText }
+      { request, error: request.failure()?.errorText },
     );
   });
 
@@ -124,7 +94,7 @@ export async function renderPdf({
   if (adjustHeightToFit) {
     if (chromiumPdfOptions.width != null) {
       await page.evaluate(
-        "document.documentElement.style.width = " + chromiumPdfOptions.width
+        "document.documentElement.style.width = " + chromiumPdfOptions.width,
       );
     }
 
@@ -132,7 +102,7 @@ export async function renderPdf({
 
     await page.content();
     extraOptions.height = (await page.evaluate(
-      "document.documentElement.offsetHeight"
+      "document.documentElement.offsetHeight",
     )) as number;
 
     extraOptions["pageRanges"] = "1";

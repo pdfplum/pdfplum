@@ -19,7 +19,7 @@ exports.executePdfGenerator = functions.firestore
   .onWrite(
     async (
       change: functions.Change<functions.firestore.DocumentSnapshot>,
-      context: functions.EventContext
+      context: functions.EventContext,
     ) => {
       const id = change.after.id;
       const rawParameters = change.after.data() as FirestoreDocument;
@@ -52,5 +52,5 @@ exports.executePdfGenerator = functions.firestore
       } finally {
         process.removeListener("uncaughtException", errorHandler);
       }
-    }
+    },
   );

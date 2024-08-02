@@ -36,7 +36,7 @@ function updateJsonFile(path, version) {
  */
 function updateYamlFile(path, version) {
   const parsedYaml = YAML.parseDocument(
-    fs.readFileSync(path, { encoding: "utf8" })
+    fs.readFileSync(path, { encoding: "utf8" }),
   );
   parsedYaml.set("version", version);
   fs.writeFileSync(path, parsedYaml.toString());
@@ -47,12 +47,12 @@ YAML_FILES.map((path) => updateYamlFile(path, version));
 
 for (const extension of extensions) {
   const version = new RegExp(
-    `## Version (\\d+\\.\\d+\\.\\d+).*<!--subject:${extension}-->`
+    `## Version (\\d+\\.\\d+\\.\\d+).*<!--subject:${extension}-->`,
   ).exec(changeLogContent)[1];
   EXTENSION_JSON_FILES.map((path) => `${extension}/${path}`).map((path) =>
-    updateJsonFile(path, version)
+    updateJsonFile(path, version),
   );
   EXTENSION_YAML_FILES.map((path) => `${extension}/${path}`).map((path) =>
-    updateYamlFile(path, version)
+    updateYamlFile(path, version),
   );
 }

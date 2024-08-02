@@ -1,4 +1,4 @@
-import { PDFOptions } from "puppeteer";
+import { PDFOptions } from "puppeteer-core";
 import { extensionParameters } from "lib/utilities/extension_parameters";
 import { ParsedParameters } from "lib/utilities/parameters";
 
@@ -10,9 +10,9 @@ export interface FirestoreDocument extends FirebaseFirestore.DocumentData {
     outputStorageBucket?: string;
     outputStoragePrefix?: string;
     outputFileName?: string;
+    shouldWaitForIsReady?: boolean;
     templatePath?: string;
     networkIdleTime?: number;
-    shouldWaitForIsReady?: boolean;
   };
 }
 
@@ -42,7 +42,7 @@ export function parseParameters({
 
   try {
     parsedChromiumPdfOptions = JSON.parse(
-      extensionParameters.CHROMIUM_PDF_OPTIONS ?? "{}"
+      extensionParameters.CHROMIUM_PDF_OPTIONS ?? "{}",
     );
   } catch (exception) {
     throw new Error("'CHROMIUM_PDF_OPTIONS' is not a valid JSON document.");

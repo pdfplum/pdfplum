@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.18.0
+
+- Update dependencies, using latest version of puppeteer.
+
 ## Version 0.17.1
 
 - Fix generated event channels not matching with the plugins defined channels. #27

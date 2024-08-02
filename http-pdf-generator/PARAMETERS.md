@@ -4,11 +4,11 @@
 
 ### `outputStorageBucket`
 
-Overrides the [`OUTPUT_STORAGE_BUCKET`](https://github.com/pdfplum/pdfplum/tree/main/http-pdf-generator/PARAMETERS.md#outputstoragebucket-optional) extension parameter.
+Overrides the [`OUTPUT_STORAGE_BUCKET`](https://github.com/pdfplum/pdfplum/tree/main/http-pdf-generator/PARAMETERS.md#output_storage_bucket-optional) extension parameter.
 
 ### `outputStoragePrefix`
 
-Overrides the [`OUTPUT_STORAGE_PREFIX`](https://github.com/pdfplum/pdfplum/tree/main/http-pdf-generator/PARAMETERS.md#outputstorageprefix-optional) extension parameter.
+Overrides the [`OUTPUT_STORAGE_PREFIX`](https://github.com/pdfplum/pdfplum/tree/main/http-pdf-generator/PARAMETERS.md#output_storage_prefix-optional) extension parameter.
 
 ### `outputFileName`
 
@@ -24,27 +24,27 @@ It can include nested containers (array lists and associative arrays) as describ
 
 ### `adjustHeightToFit`
 
-Overrides the [`ADJUST_HEIGHT_TO_FIT`](https://github.com/pdfplum/pdfplum/tree/main/http-pdf-generator/PARAMETERS.md#adjustheighttofit-required) extension parameter.
+Overrides the [`ADJUST_HEIGHT_TO_FIT`](https://github.com/pdfplum/pdfplum/tree/main/http-pdf-generator/PARAMETERS.md#adjust_height_to_fit-required) extension parameter.
 
 ### `chromiumPdfOptions`
 
-Overrides the [`CHROMIUM_PDF_OPTIONS`](https://github.com/pdfplum/pdfplum/tree/main/http-pdf-generator/PARAMETERS.md#chromiumpdfoptions-optional) extension parameter.
+Overrides the [`CHROMIUM_PDF_OPTIONS`](https://github.com/pdfplum/pdfplum/tree/main/http-pdf-generator/PARAMETERS.md#chromium_pdf_options-optional) extension parameter.
 
 ### `networkIdleTime`
 
-Overrides the [`NETWORK_IDLE_TIME`](https://github.com/pdfplum/pdfplum/tree/main/http-pdf-generator/PARAMETERS.md#networkidletime-required) extension parameter.
+Overrides the [`NETWORK_IDLE_TIME`](https://github.com/pdfplum/pdfplum/tree/main/http-pdf-generator/PARAMETERS.md#network_idle_time-required) extension parameter.
 
 ### `returnPdfInResponse`
 
-Overrides the [`RETURN_PDF_IN_RESPONSE`](https://github.com/pdfplum/pdfplum/tree/main/http-pdf-generator/PARAMETERS.md#returnpdfinresponse-required) extension parameter.
+Overrides the [`RETURN_PDF_IN_RESPONSE`](https://github.com/pdfplum/pdfplum/tree/main/http-pdf-generator/PARAMETERS.md#return_pdf_in_response-required) extension parameter.
 
 ### `shouldWaitForIsReady`
 
-Overrides the [`SHOULD_WAIT_FOR_IS_READY`](https://github.com/pdfplum/pdfplum/tree/main/http-pdf-generator/PARAMETERS.md#shouldwaitforisready-required) extension parameter.
+Overrides the [`SHOULD_WAIT_FOR_IS_READY`](https://github.com/pdfplum/pdfplum/tree/main/http-pdf-generator/PARAMETERS.md#should_wait_for_is_ready-required) extension parameter.
 
 ### `templatePath`
 
-Overrides the [`TEMPLATE_PATH`](https://github.com/pdfplum/pdfplum/tree/main/http-pdf-generator/PARAMETERS.md#templatepath-required) extension parameter.
+Overrides the [`TEMPLATE_PATH`](https://github.com/pdfplum/pdfplum/tree/main/http-pdf-generator/PARAMETERS.md#template_path-required) extension parameter.
 
 ## Firebase extension parameters
 

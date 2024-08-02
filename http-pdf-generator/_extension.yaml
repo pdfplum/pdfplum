@@ -62,4 +62,4 @@ events:
   - type: pdfplum.http-pdf-generator.v1.error
     description: Occurs when PDF generation runs into an error. The event will
       contain further details.
-version: 0.17.1
+version: 0.18.0

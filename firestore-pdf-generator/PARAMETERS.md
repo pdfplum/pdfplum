@@ -12,13 +12,13 @@ The optional `_pdfplum_config` field of the Firestore document should be a `map`
 
 `string`
 
-Overrides the [`OUTPUT_STORAGE_BUCKET`](https://github.com/pdfplum/pdfplum/tree/main/firestore-pdf-generator/PARAMETERS.md#outputstoragebucket-required) extension parameter.
+Overrides the [`OUTPUT_STORAGE_BUCKET`](https://github.com/pdfplum/pdfplum/tree/main/firestore-pdf-generator/PARAMETERS.md#output_storage_bucket-required) extension parameter.
 
 ### `outputStoragePrefix`
 
 `string`
 
-Overrides the [`OUTPUT_STORAGE_PREFIX`](https://github.com/pdfplum/pdfplum/tree/main/firestore-pdf-generator/PARAMETERS.md#outputstorageprefix-optional) extension parameter.
+Overrides the [`OUTPUT_STORAGE_PREFIX`](https://github.com/pdfplum/pdfplum/tree/main/firestore-pdf-generator/PARAMETERS.md#output_storage_prefix-optional) extension parameter.
 
 ### `outputFileName`
 
@@ -32,31 +32,31 @@ If not provided, it will default to the id of the created Firestore document.
 
 `boolean`
 
-Overrides the [`ADJUST_HEIGHT_TO_FIT`](https://github.com/pdfplum/pdfplum/tree/main/firestore-pdf-generator/PARAMETERS.md#adjustheighttofit-required) extension parameter.
+Overrides the [`ADJUST_HEIGHT_TO_FIT`](https://github.com/pdfplum/pdfplum/tree/main/firestore-pdf-generator/PARAMETERS.md#adjust_height_to_fit-required) extension parameter.
 
 ### `chromiumPdfOptions`
 
 `map`
 
-Overrides the [`CHROMIUM_PDF_OPTIONS`](https://github.com/pdfplum/pdfplum/tree/main/firestore-pdf-generator/PARAMETERS.md#chromiumpdfoptions-optional) extension parameter.
+Overrides the [`CHROMIUM_PDF_OPTIONS`](https://github.com/pdfplum/pdfplum/tree/main/firestore-pdf-generator/PARAMETERS.md#chromium_pdf_options-optional) extension parameter.
 
 ### `networkIdleTime`
 
 `number`
 
-Overrides the [`NETWORK_IDLE_TIME`](https://github.com/pdfplum/pdfplum/tree/main/firestore-pdf-generator/PARAMETERS.md#networkidletime-required) extension parameter.
+Overrides the [`NETWORK_IDLE_TIME`](https://github.com/pdfplum/pdfplum/tree/main/firestore-pdf-generator/PARAMETERS.md#network_idle_time-required) extension parameter.
 
 ### `shouldWaitForIsReady`
 
 `boolean`
 
-Overrides the [`SHOULD_WAIT_FOR_IS_READY`](https://github.com/pdfplum/pdfplum/tree/main/firestore-pdf-generator/PARAMETERS.md#shouldwaitforisready-required) extension parameter.
+Overrides the [`SHOULD_WAIT_FOR_IS_READY`](https://github.com/pdfplum/pdfplum/tree/main/firestore-pdf-generator/PARAMETERS.md#should_wait_for_is_ready-required) extension parameter.
 
 ### `templatePath`
 
 `string`
 
-Overrides the [`TEMPLATE_PATH`](https://github.com/pdfplum/pdfplum/tree/main/firestore-pdf-generator/PARAMETERS.md#templatepath-required) extension parameter.
+Overrides the [`TEMPLATE_PATH`](https://github.com/pdfplum/pdfplum/tree/main/firestore-pdf-generator/PARAMETERS.md#template_path-required) extension parameter.
 
 ## Firebase extension parameters
 

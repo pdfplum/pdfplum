@@ -12,7 +12,7 @@ releaseNotesUrl: https://github.com/pdfplum/pdfplum/tree/main/firestore-pdf-gene
 
 apis:
   - apiName: firestore.googleapis.com
-    reason: Needed to use listen to Firestore document creation events
+    reason: Needed to listen to Firestore document creation events
 
 roles:
   - role: datastore.user
@@ -60,4 +60,4 @@ events:
   - type: pdfplum.firestore-pdf-generator.v1.error
     description: Occurs when PDF generation runs into an error. The event will
       contain further details.
-version: 0.17.1
+version: 0.18.0
