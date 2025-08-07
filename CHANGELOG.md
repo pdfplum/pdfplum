@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 0.19.0 <!--subject:http-pdf-generator-->
+
+- Fix http-pdf-generator not accepting content types starting with `application/json` and having a suffix like `; charset=utf-8`. #48
+
 ## Version 0.18.0 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
 
 - Update dependencies, using latest version of puppeteer.

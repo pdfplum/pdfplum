@@ -30,7 +30,10 @@ exports.executePdfGenerator = functions.https.onRequest(
       return;
     }
 
-    if (request.headers["content-type"] !== "application/json") {
+    if (
+      request.headers["content-type"] == null ||
+      !request.headers["content-type"].startsWith("application/json")
+    ) {
       errorHandler(new Error("Only JSON requests are supported."));
       return;
     }
@@ -55,11 +58,11 @@ exports.executePdfGenerator = functions.https.onRequest(
       if (parameters.returnPdfInResponse) {
         response.setHeader(
           "content-type",
-          `application/pdf; filename="${parameters.outputFileName}"`
+          `application/pdf; filename="${parameters.outputFileName}"`,
         );
         response.setHeader(
           "content-disposition",
-          `inline; filename="${parameters.outputFileName}"`
+          `inline; filename="${parameters.outputFileName}"`,
         );
         response.end(pdf);
       } else {
@@ -74,5 +77,5 @@ exports.executePdfGenerator = functions.https.onRequest(
     } finally {
       process.removeListener("uncaughtException", errorHandler);
     }
-  }
+  },
 );

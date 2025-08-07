@@ -44,7 +44,7 @@ export function parseParameters({
     parsedChromiumPdfOptions = JSON.parse(
       extensionParameters.CHROMIUM_PDF_OPTIONS ?? "{}",
     );
-  } catch (exception) {
+  } catch {
     throw new Error("'CHROMIUM_PDF_OPTIONS' is not a valid JSON document.");
   }
 
