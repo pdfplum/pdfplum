@@ -44,8 +44,7 @@ apis:
 
 roles:
   - role: storage.objectAdmin
-    reason:
-      Allows the extension to read templates from and write pdf files to
+    reason: Allows the extension to read templates from and write pdf files to
       Firebase Storage
 
 resources: []
@@ -74,15 +73,14 @@ params:
       Firebase Storage bucket. Can be overridden.
     type: string
     example: some-bucket.appspot.com/basic-example
-    validationRegex: '^([0-9a-z_.-]*)(/[A-Za-z0-9_-]+)+(.zip)?$'
+    validationRegex: "^([0-9a-z_.-]*)(/[A-Za-z0-9_-]+)+(.zip)?$"
     validationErrorMessage: Please enter a valid path
     default: ${STORAGE_BUCKET}/template
     required: true
     immutable: false
 
   - param: ADJUST_HEIGHT_TO_FIT
-    label:
-      Should PDFPlum automatically set the document height to fit its content?
+    label: Should PDFPlum automatically set the document height to fit its content?
     description: >-
       If enabled, the extension will automatically adjust the height of the PDF
       so that all the contents of the webpage can fit inside one page. The
@@ -106,7 +104,7 @@ params:
       [here](https://www.puppeteersharp.com/api/PuppeteerSharp.PdfOptions.html).
       Can be overridden.
     type: string
-    default: '{}'
+    default: "{}"
     required: true
     immutable: false
 
@@ -117,7 +115,7 @@ params:
       file starts. This ensures all external resources are loaded and allows for
       a grace period.
     type: string
-    validationRegex: '[1-5]?[0-9]{1,3}|6000'
+    validationRegex: "[1-5]?[0-9]{1,3}|6000"
     default: 0
     required: true
     immutable: false
@@ -129,8 +127,7 @@ params:
       variable to be set to `true` before rendering the PDF. Can be overridden.
     type: select
     options:
-      - label:
-          Wait for `isReady` to be set to `true` before generating the PDF file
+      - label: Wait for `isReady` to be set to `true` before generating the PDF file
         value: yes
       - label: Render the PDF file as soon as the webpage is completely loaded
         value: no

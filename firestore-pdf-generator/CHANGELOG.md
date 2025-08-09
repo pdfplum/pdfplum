@@ -3,6 +3,7 @@
 ## Version 0.18.0
 
 - Update dependencies, using latest version of puppeteer.
+- Fix some broken/incorrect links in docs.
 
 ## Version 0.17.1
 

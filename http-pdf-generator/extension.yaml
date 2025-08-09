@@ -1,6 +1,6 @@
 ---
 name: http-pdf-generator
-version: 0.18.0
+version: 0.19.0
 specVersion: v1beta
 icon: icon.png
 
@@ -21,7 +21,7 @@ tags:
     javascript,
     markdown,
     handlebars,
-    utilities
+    utilities,
   ]
 
 license: Apache-2.0
@@ -41,7 +41,8 @@ billingRequired: true
 
 apis:
   - apiName: storage-component.googleapis.com
-    reason: Needed to use Cloud Storage to read the template files and write the PDF
+    reason:
+      Needed to use Cloud Storage to read the template files and write the PDF
       files
 
 roles:
@@ -62,7 +63,8 @@ resources:
 
 params:
   - param: SHOULD_MAKE_PDF_PUBLIC
-    label: Determines if the generated PDF in the output storage bucket should be
+    label:
+      Determines if the generated PDF in the output storage bucket should be
       public or private.
     description: >-
       Whether the generated PDF file should be public or private.
@@ -83,7 +85,7 @@ params:
       Firebase Storage bucket. Can be overridden.
     type: string
     example: some-bucket.appspot.com/basic-example
-    validationRegex: '^([0-9a-z_.-]*)(/[A-Za-z0-9_-]+)+(.zip)?$'
+    validationRegex: "^([0-9a-z_.-]*)(/[A-Za-z0-9_-]+)+(.zip)?$"
     validationErrorMessage: Please enter a valid path
     default: ${STORAGE_BUCKET}/template
     required: true
@@ -114,7 +116,7 @@ params:
       [here](https://www.puppeteersharp.com/api/PuppeteerSharp.PdfOptions.html).
       Can be overridden.
     type: string
-    default: '{}'
+    default: "{}"
     required: true
     immutable: false
 
@@ -125,7 +127,7 @@ params:
       file starts. This ensures all external resources are loaded and allows for
       a grace period.
     type: string
-    validationRegex: '[1-5]?[0-9]{1,3}|6000'
+    validationRegex: "[1-5]?[0-9]{1,3}|6000"
     default: 0
     required: true
     immutable: false
@@ -168,6 +170,7 @@ params:
     description: >-
       Specifies whether the generated PDF file should be returned in the
       response of the endpoint or a JSON report should be returned instead:
+
 
       ```json
 

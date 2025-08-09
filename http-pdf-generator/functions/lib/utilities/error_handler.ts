@@ -1,5 +1,5 @@
 import * as functions from "firebase-functions";
-import { eventChannel, EVENT_TYPE_PREFIX } from "src/event_channel";
+import { getEventChannel, EVENT_TYPE_PREFIX } from "src/event_channel";
 import { extensionParameters } from "./extension_parameters";
 
 export let contextStack: string[];
@@ -25,9 +25,10 @@ export function createErrorHandler({
       JSON.stringify({
         error: error.message,
         context: contextStack.join(" -> "),
-      })
+      }),
     );
 
+    const eventChannel = getEventChannel();
     if (eventChannel) {
       await eventChannel.publish({
         type: `${EVENT_TYPE_PREFIX}error`,

@@ -38,6 +38,7 @@ params:
       Specifies whether the generated PDF file should be returned in the
       response of the endpoint or a JSON report should be returned instead:
 
+
       ```json
 
       {
@@ -62,4 +63,4 @@ events:
   - type: pdfplum.http-pdf-generator.v1.error
     description: Occurs when PDF generation runs into an error. The event will
       contain further details.
-version: 0.18.0
+version: 0.19.0

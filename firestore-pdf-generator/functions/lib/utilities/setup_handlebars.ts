@@ -1,5 +1,5 @@
 // @ts-expect-error handlebars-helpers is not typed
-import * as helpers from "handlebars-helpers";
+import helpers from "handlebars-helpers";
 
 helpers.array();
 helpers.collection();

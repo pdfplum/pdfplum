@@ -19,18 +19,18 @@ for (const extension of extensions) {
 
     fs.writeFileSync(
       outputPath,
-      JSON.stringify({ ...document, ...entryDocument }, null, 2) + "\n"
+      JSON.stringify({ ...document, ...entryDocument }, null, 2) + "\n",
     );
   }
   for (const entry of YAML_FILES) {
     const templatePath = `common-stuff/${entry}`;
     const document = YAML.parseDocument(
-      fs.readFileSync(templatePath, { encoding: "utf8" })
+      fs.readFileSync(templatePath, { encoding: "utf8" }),
     );
 
     const entryPath = `${extension}/_${entry}`;
     const entryDocument = YAML.parseDocument(
-      fs.readFileSync(entryPath, { encoding: "utf8" })
+      fs.readFileSync(entryPath, { encoding: "utf8" }),
     );
 
     for (const entry of entryDocument.contents.items) {
@@ -46,6 +46,7 @@ for (const extension of extensions) {
 
     const outputPath = `${extension}/${entry}`;
 
+    console.log("Writing", outputPath);
     fs.writeFileSync(outputPath, document.toString());
   }
 }

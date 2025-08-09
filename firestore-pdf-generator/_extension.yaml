@@ -16,7 +16,8 @@ apis:
 
 roles:
   - role: datastore.user
-    reason: Allows the extension to listen to document creation events to trigger
+    reason:
+      Allows the extension to listen to document creation events to trigger
       the PDF generator function
 
 resources:

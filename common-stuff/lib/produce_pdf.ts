@@ -4,7 +4,7 @@ import { renderPdf } from "./render_pdf";
 import { serveTemplate } from "./serve_template";
 import { storePdf } from "./store_pdf";
 import { runAction } from "./utilities/action";
-import { eventChannel, EVENT_TYPE_PREFIX } from "src/event_channel";
+import { getEventChannel, EVENT_TYPE_PREFIX } from "src/event_channel";
 import {
   extensionParameters,
   ExtensionParameters,
@@ -64,6 +64,7 @@ export async function producePdf({
     extensionParameters,
   };
 
+  const eventChannel = getEventChannel();
   if (eventChannel) {
     await eventChannel.publish({
       type: `${EVENT_TYPE_PREFIX}complete`,

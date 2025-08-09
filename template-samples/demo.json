@@ -31,16 +31,8 @@
       }
     ],
     "colors": {
-      "warm": [
-        "Red",
-        "Yellow",
-        "Orange"
-      ],
-      "cold": [
-        "Green",
-        "Blue",
-        "Gray"
-      ]
+      "warm": ["Red", "Yellow", "Orange"],
+      "cold": ["Green", "Blue", "Gray"]
     },
     "info": {
       "Age": "38",

@@ -110,6 +110,7 @@ Should the endpoint return the generated PDF?<br/>
 type: **select**
 
 Specifies whether the generated PDF file should be returned in the response of the endpoint or a JSON report should be returned instead:
+
 ```json
 {
   "done": "successful"
