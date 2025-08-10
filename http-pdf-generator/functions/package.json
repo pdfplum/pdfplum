@@ -19,7 +19,7 @@
   },
   "main": "build/src/index.js",
   "dependencies": {
-    "@sparticuz/chromium": "126.0",
+    "@sparticuz/chromium": "138.0.2",
     "@types/jest": "^29.5.12",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
@@ -49,9 +49,8 @@
     "lib": "build/lib",
     "src": "build/src"
   },
-  "private": true,
   "devDependencies": {
-    "@types/node": "^24.2.1",
     "puppeteer": "^24.16.0"
-  }
+  },
+  "license": "Apache-2.0"
 }

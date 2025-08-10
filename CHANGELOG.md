@@ -1,7 +1,8 @@
 # Changelog
 
-## Version 0.19.0 <!--subject:http-pdf-generator-->
+## Version 0.19.0 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->
 
+- Add example values provided in `extension.yaml` files to `PARAMETERS.md` files.
 - Fix http-pdf-generator not accepting content types starting with `application/json` and having a suffix like `; charset=utf-8`. #48
 
 ## Version 0.18.0 <!--subject:firestore-pdf-generator--><!--subject:http-pdf-generator-->

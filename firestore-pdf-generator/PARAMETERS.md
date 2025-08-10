@@ -14,11 +14,15 @@ The optional `_pdfplum_config` field of the Firestore document should be a `map`
 
 Overrides the [`OUTPUT_STORAGE_BUCKET`](https://github.com/pdfplum/pdfplum/tree/main/firestore-pdf-generator/PARAMETERS.md#output_storage_bucket-required) extension parameter.
 
+Example: `some-bucket.appspot.com`
+
 ### `outputStoragePrefix`
 
 `string`
 
 Overrides the [`OUTPUT_STORAGE_PREFIX`](https://github.com/pdfplum/pdfplum/tree/main/firestore-pdf-generator/PARAMETERS.md#output_storage_prefix-optional) extension parameter.
+
+Example: `invoices`
 
 ### `outputFileName`
 
@@ -74,6 +78,8 @@ type: **string**
 
 The path of the zip file containing the template files stored in a Firebase Storage bucket. Can be overridden.
 
+Example: `some-bucket.appspot.com/basic-example`
+
 ### `ADJUST_HEIGHT_TO_FIT` (required)
 
 Should PDFPlum automatically set the document height to fit its content?<br/>
@@ -109,12 +115,16 @@ type: **string**
 
 The prefix inside the bucket where the output PDF file will be stored.
 
+Example: `some/prefix/`
+
 ### `OUTPUT_STORAGE_BUCKET` (required)
 
 Output Firebase Storage bucket name<br/>
 type: **string**
 
 The name of the bucket where the output PDF file will be stored.
+
+Example: `bucket_name`
 
 ### `FIRESTORE_COLLECTION` (required)
 

@@ -10,18 +10,18 @@ for (const extension of extensions) {
     .replace(
       new RegExp(
         `## (?!Version \\d+\\.\\d+\\.\\d+[^\n]*<!--subject:${extension}-->)((.|\n)(?!##))*\n`,
-        "gm"
+        "gm",
       ),
-      ""
+      "",
     )
     .replace(
       /(## Version \d+\.\d+\.\d+)\s*<!--subject[^\n]*-->(\n((.|\n)(?!##))*\n)/g,
-      (_, header, content) => header.trim() + content
+      (_, header, content) => header.trim() + content,
     );
   fs.writeFileSync(`${extension}/CHANGELOG.md`, changelog);
 
   const extensionFileContent = YAML.parse(
-    fs.readFileSync(`${extension}/extension.yaml`, { encoding: "utf8" })
+    fs.readFileSync(`${extension}/extension.yaml`, { encoding: "utf8" }),
   );
 
   const firebaseExtensionParametersHeader =
@@ -34,7 +34,7 @@ for (const extension of extensions) {
 ${parameter.label}<br/>
 type: **${parameter.type}**
 
-${parameter.description}
+${parameter.description}${parameter.example ? `\n\nExample: \`${parameter.example}\`` : ""}
 `;
   }
 
@@ -44,9 +44,9 @@ ${parameter.description}
   const preinstallContent = preinstallTemplate.replace(
     new RegExp(
       `^${firebaseExtensionParametersHeader}.*?(.(?=\n#{1,2} )|$(?![\r\n]))`,
-      "ms"
+      "ms",
     ),
-    parametersMarkdown
+    parametersMarkdown,
   );
   fs.writeFileSync(`${extension}/PARAMETERS.md`, preinstallContent);
 }

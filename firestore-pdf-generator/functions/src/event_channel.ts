@@ -2,16 +2,14 @@ import { getEventarc, Channel } from "firebase-admin/eventarc";
 
 export const EVENT_TYPE_PREFIX = "pdfplum.firestore-pdf-generator.v1.";
 
-let eventChannel: Channel | null;
+const allowedEventTypes = process.env.ALLOWED_EVENT_TYPES?.split(",");
 
-export const getEventChannel = () => {
-  if (eventChannel === undefined) {
-    eventChannel = process.env.EVENTARC_CHANNEL
-      ? getEventarc().channel(process.env.EVENTARC_CHANNEL, {
-          allowedEventTypes: process.env.EXT_SELECTED_EVENTS,
-        })
-      : null;
-  }
+let channel: Channel | null = null;
 
-  return eventChannel;
-};
+if (process.env.EVENTARC_CHANNEL) {
+  channel = getEventarc().channel(process.env.EVENTARC_CHANNEL, {
+    allowedEventTypes: allowedEventTypes,
+  });
+}
+
+export const eventChannel: Channel | null = channel;

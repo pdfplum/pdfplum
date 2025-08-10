@@ -1,5 +1,4 @@
-import puppeteer, { PDFOptions } from "puppeteer-core";
-import chromium from "@sparticuz/chromium";
+import puppeteerCore, { PDFOptions, Browser } from "puppeteer-core";
 import * as functions from "firebase-functions";
 
 /**
@@ -27,13 +26,20 @@ export async function renderPdf({
   //   chromiumArguments.push("--start-maximized");
   // }
 
-  const browser = await puppeteer.launch({
-    defaultViewport: chromium.defaultViewport,
-    ignoreHTTPSErrors: true,
-    headless: chromium.headless,
-    args: chromium.args,
-    executablePath: await chromium.executablePath(),
-  });
+  let browser: Browser;
+  if (process.env.FUNCTIONS_EMULATOR === "true") {
+    const puppeteer = await import("puppeteer");
+    browser = await puppeteerCore.launch({
+      executablePath: puppeteer.executablePath(),
+    });
+  } else {
+    const chromium = (await import("@sparticuz/chromium")).default;
+    browser = await puppeteerCore.launch({
+      ignoreHTTPSErrors: true,
+      args: chromium.args,
+      executablePath: await chromium.executablePath(),
+    });
+  }
   const page = await browser.newPage();
   page.setDefaultTimeout(0);
   page.setDefaultNavigationTimeout(0);
