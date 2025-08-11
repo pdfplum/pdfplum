@@ -56,7 +56,7 @@ resources:
     description: >-
       Generate PDF from HTML template, triggered by a http call
     properties:
-      runtime: nodejs18
+      runtime: nodejs20
       timeout: 60s
       availableMemoryMb: 1024
       httpsTrigger: {}

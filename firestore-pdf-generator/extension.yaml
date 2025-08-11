@@ -62,12 +62,12 @@ resources:
     description: >-
       Generate PDF from HTML template, triggered by a Firestore write
     properties:
-      runtime: nodejs18
+      runtime: nodejs20
       timeout: 60s
       availableMemoryMb: 1024
       eventTrigger:
         eventType: providers/cloud.firestore/eventTypes/document.write
-        resource: projects/${param:PROJECT_ID}/databases/(default)/documents/${param:FIRESTORE_COLLECTION}/{id}
+        resource: projects/${param:PROJECT_ID}/databases/${param:FIRESTORE_DATABASE}/documents/${param:FIRESTORE_COLLECTION}/{id}
 
 params:
   - param: SHOULD_MAKE_PDF_PUBLIC
@@ -173,12 +173,20 @@ params:
     required: true
     immutable: false
 
-  - param: FIRESTORE_COLLECTION
-    label: Firestore collection, its document creation events should be listened to
+  - param: FIRESTORE_DATABASE
+    label: Firestore database, its document write events should be listened to
     description: >-
-      The extension will monitor creation events in this collection. When a new
-      document is created in this collection, a PDF will be generated based on
-      the document's values.
+      The extension will monitor write events in the specified collection of
+      this database.
+    type: string
+    required: true
+    immutable: false
+
+  - param: FIRESTORE_COLLECTION
+    label: Firestore collection, its document write events should be listened to
+    description: >-
+      The extension will monitor write events in this collection of the
+      specified database.
     type: string
     required: true
     immutable: false

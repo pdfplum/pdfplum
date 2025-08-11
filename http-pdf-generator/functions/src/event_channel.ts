@@ -13,4 +13,3 @@ if (process.env.EVENTARC_CHANNEL) {
 }
 
 export const eventChannel: Channel | null = channel;
-

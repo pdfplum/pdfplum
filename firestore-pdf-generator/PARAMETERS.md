@@ -126,9 +126,16 @@ The name of the bucket where the output PDF file will be stored.
 
 Example: `bucket_name`
 
-### `FIRESTORE_COLLECTION` (required)
+### `FIRESTORE_DATABASE` (required)
 
-Firestore collection, its document creation events should be listened to<br/>
+Firestore database, its document write events should be listened to<br/>
 type: **string**
 
-The extension will monitor creation events in this collection. When a new document is created in this collection, a PDF will be generated based on the document's values.
+The extension will monitor write events in the specified collection of this database.
+
+### `FIRESTORE_COLLECTION` (required)
+
+Firestore collection, its document write events should be listened to<br/>
+type: **string**
+
+The extension will monitor write events in this collection of the specified database.

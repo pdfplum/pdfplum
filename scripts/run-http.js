@@ -63,7 +63,7 @@ async function main() {
       {
         method: "POST",
         body: templateContent,
-      }
+      },
     );
   }
 
@@ -71,11 +71,11 @@ async function main() {
     ...JSON.parse(readFileSync(`${templatePath}.json`)),
     ...(headful ? { headful: true } : {}),
     templatePath: `${BUCKET}/${templateName}`,
-    outputFileName: `${templateName}.pdf`,
+    outputFileName: `${templateName}-http.pdf`,
   });
   console.log(
     `Fetching "http://127.0.0.1:5001/${PROJECT}/us-central1/ext-http-pdf-generator-executePdfGenerator"`,
-    parameters
+    parameters,
   );
   const response = await fetch(
     `http://127.0.0.1:5001/${PROJECT}/us-central1/ext-http-pdf-generator-executePdfGenerator`,
@@ -85,13 +85,11 @@ async function main() {
       headers: {
         "Content-Type": "application/json",
       },
-    }
+    },
   );
   if (response.status === 200) {
-    writeFileSync(
-      `${templateDirectory}/${templateName}.pdf`,
-      Buffer.from(await response.arrayBuffer())
-    );
+    const filePath = path.join(templateDirectory, `${templateName}.pdf`);
+    writeFileSync(filePath, Buffer.from(await response.arrayBuffer()));
     if (openPdf) await exec(`open ${templateDirectory}/${templateName}.pdf`);
   } else {
     console.log(`Status: ${response.status}`);

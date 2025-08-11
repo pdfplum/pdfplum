@@ -40,7 +40,7 @@ For example, `images/flower.png` in the ZIP file will be served at `/images/flow
 
 ### Firestore
 
-When a document is created in `FIRESTORE_COLLECTION`, the extension generates a PDF based on the template file and the content of the created document.
+When a document is created in `FIRESTORE_COLLECTION` of `FIRESTORE_DATABASE`, the extension generates a PDF based on the template file and the content of the created document.
 
 ## How it all works
 

@@ -4,6 +4,8 @@
 
 - Add example values provided in `extension.yaml` files to `PARAMETERS.md` files.
 - Fix http-pdf-generator not accepting content types starting with `application/json` and having a suffix like `; charset=utf-8`. #48
+- Migrate to Google Cloud Firestore triggers 2nd generation.
+- Support listening to non-default Firestore databases. #36
 
 ## Version 0.18.0
 

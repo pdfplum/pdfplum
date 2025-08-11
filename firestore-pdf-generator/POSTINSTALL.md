@@ -8,7 +8,7 @@ You can start testing this extension right away.
 
 1. Download `demo.zip` from [here](https://github.com/pdfplum/pdfplum/tree/main/template-samples), and upload it to Firebase Storage under `${param:TEMPLATE_PATH}`.
 
-1. Go to your [Firestore dashboard](https://console.firebase.google.com/project/${PROJECT_ID}/firestore/data/~2F${param:FIRESTORE_COLLECTION}) in Firebase console.
+1. Go to your [Firestore dashboard](https://console.firebase.google.com/project/${PROJECT_ID}/firestore/databases/data/~2F${param:FIRESTORE_COLLECTION}) in Firebase console. If you are not using the default Firestore database, it will be located [here](https://console.firebase.google.com/project/${PROJECT_ID}/firestore/databases/${param:FIRESTORE_DATABASE}/data/~2F${param:FIRESTORE_COLLECTION}) instead.
 
 1. Create a document with these values (type of each field is written in parenthesis in front of it, so `text=(string)...` means type of text is `string`):
 
