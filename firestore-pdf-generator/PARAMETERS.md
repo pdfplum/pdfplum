@@ -16,11 +16,15 @@ Overrides the [`OUTPUT_STORAGE_BUCKET`](https://github.com/pdfplum/pdfplum/tree/
 
 Example: `some-bucket.appspot.com`
 
+Example: `exampleapp.appspot.com`
+
 ### `outputStoragePrefix`
 
 `string`
 
 Overrides the [`OUTPUT_STORAGE_PREFIX`](https://github.com/pdfplum/pdfplum/tree/main/firestore-pdf-generator/PARAMETERS.md#output_storage_prefix-optional) extension parameter.
+
+Example: `invoices`
 
 Example: `invoices`
 
@@ -61,6 +65,8 @@ Overrides the [`SHOULD_WAIT_FOR_IS_READY`](https://github.com/pdfplum/pdfplum/tr
 `string`
 
 Overrides the [`TEMPLATE_PATH`](https://github.com/pdfplum/pdfplum/tree/main/firestore-pdf-generator/PARAMETERS.md#template_path-required) extension parameter.
+
+Example: `exampleapp.appspot.com/templates/my_custom_template`
 
 ## Firebase extension parameters
 
